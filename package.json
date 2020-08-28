@@ -5,23 +5,34 @@
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
-    "build": "next build"
+    "build": "next build",
+    "eslint": "eslint src --ext ts,tsx",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "devDependencies": {
+    "@babel/core": "^7.11.4",
+    "@ellreka/configs": "^1.0.0",
     "@fullhuman/postcss-purgecss": "^2.1.0",
+    "@storybook/addon-actions": "^6.0.20",
+    "@storybook/addon-essentials": "^6.0.20",
+    "@storybook/addon-links": "^6.0.20",
+    "@storybook/react": "^6.0.20",
+    "@types/eslint": "^6.8.1",
     "@types/node": "^13.9.8",
     "@types/react": "^16.9.31",
     "@types/react-syntax-highlighter": "^11.0.4",
-    "contentful": "^7.14.0",
-    "dotenv": "^8.2.0",
+    "babel-loader": "^8.1.0",
     "next": "^9.3.4",
-    "now": "^17.1.1",
     "postcss-preset-env": "^6.7.0",
+    "prettier": "^2.0.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-is": "^16.13.1",
     "react-markdown": "^4.3.1",
     "react-syntax-highlighter": "^12.2.1",
     "tailwindcss": "^1.2.0",
     "typescript": "^3.8.3"
-  }
+  },
+  "dependencies": {}
 }

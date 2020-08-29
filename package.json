@@ -11,8 +11,7 @@
     "build-storybook": "build-storybook"
   },
   "devDependencies": {
-    "@babel/core": "^7.11.4",
-    "@ellreka/configs": "^1.0.0",
+    "@ellreka/configs": "^1.0.3",
     "@fullhuman/postcss-purgecss": "^2.1.0",
     "@storybook/addon-actions": "^6.0.20",
     "@storybook/addon-essentials": "^6.0.20",
@@ -28,11 +27,9 @@
     "prettier": "^2.0.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-is": "^16.13.1",
     "react-markdown": "^4.3.1",
     "react-syntax-highlighter": "^12.2.1",
     "tailwindcss": "^1.2.0",
     "typescript": "^3.8.3"
-  },
-  "dependencies": {}
+  }
 }

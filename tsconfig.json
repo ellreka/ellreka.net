@@ -9,6 +9,6 @@
     "isolatedModules": true,
     "jsx": "preserve"
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "decls.d.ts"],
   "exclude": ["node_modules"]
 }

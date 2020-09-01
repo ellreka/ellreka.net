@@ -1,12 +1,12 @@
 import React from 'react'
 import Link from 'next/link'
-import '../../styles/index.css'
 
 export const Header = (): React.ReactElement => (
   <header className="w-full h-12 bg-white flex justify-between items-end">
-    <h1 className="text-lg ml-4">
+    <h1 className="text-lg">
+      <img src="icon.png" alt="" className="w-6 h-6 inline-block" />
       <Link href="/">
-        <a>ellreka.net</a>
+        <a className="ml-2">ellreka.net</a>
       </Link>
     </h1>
     <ul className="flex text-gray-600 italic">

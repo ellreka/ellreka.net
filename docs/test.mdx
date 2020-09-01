@@ -1,0 +1,97 @@
+export const meta = {
+  date: '2019-12-09',
+  title: 'Next.js + MDX でブログを書いています',
+  url: '/blog/2019/12/09',
+  description: '2019-12-09 の日記'
+}
+
+## はじめに
+
+Dvorak 配列を使い始めてから約１年が経過したので、その感想とそれまでにしたことなどをまとめてみました。
+
+## Dvorak 配列
+
+![2560px-KB_United_States_Dvorak.svg.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/240345/00da8402-f93d-d660-515e-069c5e2936bc.png)
+
+> 「打鍵の誤りを低減して、入力速度を向上させ、入力従事者の疲労を軽減する」ことを目的に、英文でアルファベットの出現頻度と相関性を分析し、英文入力に特化して設計された。
+> 　　　　　　　　　　　　　　　　　　　　　　[Wikipedia](https://ja.wikipedia.org/wiki/Dvorak%E9%85%8D%E5%88%97)より引用
+
+## 環境
+
+macOS Mojave
+Karabiner-Elements 12.8.0
+google 日本語入力
+
+## したこと
+
+- **修飾キー押下時は QWERTY 配列に**
+  コピーペーストなどのショートカットは以前と同じように使いたかったので Alt,Command,Control を押してる間は QWERTY 配列になるようにしました。
+
+- **google 日本語入力の RomajiTable を変更**
+  ローマ字入力のことは考えられていないのでデフォルトのままだと若干打ちづらいです。
+  そのため か行を C でも打てるように、きゃを cya、ちゃを cha で打てるように変更しました。
+
+- **キーの配置を変更**
+  個人的に F キーが使用頻度に比べて打ちづらい位置にあったので Z キーと交換しました。
+
+- **Dvorak 配列と QWERTY 配列をショートカットキーで切り替えられるように**
+  Karabiner-Elements の Profiles に Dvorak 配列と QWERTY 配列を設定しています。
+  Karabiner-Elements から CLI が提供されているので、こちらを用いて Profiles を切り替えることができます。  
+  **手順**
+  下記ファイルを`~/.config/karabiner/assets/complex_modifications/`以下に置き Karabiner-Elements の設定画面で Cmplex modifications->Rules->Add rule から`profilesを切り替える`を各 Profiles ごとに選択すると設定できると思います。
+  こちらは一例ですので変更して下さい。
+
+```json
+{
+  "title": "profilesを切り替える",
+  "rules": [
+    {
+      "description": "profilesを切り替える",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "l",
+            "modifiers": {
+              "mandatory": ["command"],
+              "optional": ["any"]
+            }
+          },
+          "to": [
+            {
+              "shell_command": "[ $('/Library/Application Support/org.pqrs/Karabiner-Elements/bin/karabiner_cli' --show-current-profile-name) = 'dvorak' ] && '/Library/Application Support/org.pqrs/Karabiner-Elements/bin/karabiner_cli' --select-profile 'qwerty' || '/Library/Application Support/org.pqrs/Karabiner-Elements/bin/karabiner_cli' --select-profile 'dvorak'"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+- **自作キーボードを作った**  
+  ErgoDash を作成しました。  
+  Karabiner-Elements などの外部ツールを使わず、どの PC でも同じキーマップが使えるというのはとても良いですね。  
+  別のキーボードやキースイッチも試してみたいです。
+
+## 良かったこと
+
+- **タイピングが楽**  
+  一番のメリットはやはりコレだと思います。  
+  ホームポジションからほぼ動かないので、打鍵が非常に楽です。  
+  また左右交互に打つため、片方に負担が集中しません。  
+  タイピング中の煩わしさやストレスも感じなくなりました。
+
+## 悪かったこと
+
+- **自分の pc を他人が使えない**
+  pc を人に貸す際、わざわざ配列を切り替えなくてはなりません。
+  前述したようにショートカットキーで QWERTY 配列に戻してから貸すようにしています。
+
+- **QWERTY 配列が使えなくなる**
+  自分以外の pc を使う際に、タイピング速度がかなり遅くなります。
+  一時期両方使うようにしていたのですが、どっちも中途半端に打てなくなったので辞めました。
+
+## 今後したいこと
+
+SHIFT+数字の記号が打ちづらいので、symbol キーを設定して symbol+英字で入力できるようにしたいです。

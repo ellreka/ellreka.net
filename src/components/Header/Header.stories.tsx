@@ -1,5 +1,6 @@
 import React from 'react'
-import { Header } from './Header'
+import { Header } from '.'
+import '../../styles/index.css'
 
 export default { title: 'Header' }
 

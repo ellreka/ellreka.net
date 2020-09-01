@@ -1503,7 +1503,7 @@
     "@types/yargs" "^15.0.0"
     chalk "^4.0.0"
 
-"@mdx-js/loader@^1.5.1":
+"@mdx-js/loader@^1.5.1", "@mdx-js/loader@^1.6.16":
   version "1.6.16"
   resolved "https://registry.yarnpkg.com/@mdx-js/loader/-/loader-1.6.16.tgz#5a9c3b0ab41885cd2df85bcf360644ca63e44e88"
   integrity sha512-jYIAav17lXmEvweO6bzbsqY9mRTm49UeXXSZPAB81uCX8j91Pgi50Z0NnEN777yQEgGm2Z5PMtnJdxGFQIAjJQ==
@@ -1554,6 +1554,11 @@
   dependencies:
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
+
+"@next/mdx@^9.5.2":
+  version "9.5.2"
+  resolved "https://registry.yarnpkg.com/@next/mdx/-/mdx-9.5.2.tgz#71d28fa3a43270a681a75eabaef8486811e378d0"
+  integrity sha512-KJLi1cNrrX0q++e0VIWRDmwnMA2NdG5CKp09YZY1tDn+7wC6Xs4bEScoXIiFThfB4uXSrzrvHUEijDKCoMTabA==
 
 "@next/react-dev-overlay@9.5.2":
   version "9.5.2"

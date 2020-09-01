@@ -1,10 +1,11 @@
 import React from 'react'
+import Layout from '../components/Layout'
 
-const Home = (): React.ReactElement => {
+const Home: React.FC = () => {
   return (
-    <div>
-      <h1 className="text-red-800">ellreka</h1>
-    </div>
+    <Layout>
+      <h1 className="text-red-800 text-2xl">ellreka</h1>
+    </Layout>
   )
 }
 

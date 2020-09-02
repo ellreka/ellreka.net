@@ -11,7 +11,7 @@ type Props = {
 }
 
 export const Sidebar: React.FC<Props> = ({ list }) => (
-  <nav className="sticky top-0">
+  <nav className="sticky top-10 bg-gray-200">
     <ul>
       {list.map((item, idx) => (
         <li className="text-gray-800" key={idx}>

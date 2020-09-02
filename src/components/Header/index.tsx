@@ -2,7 +2,7 @@ import React from 'react'
 import Link from 'next/link'
 
 export const Header = (): React.ReactElement => (
-  <header className="w-full h-12 bg-white flex justify-between items-end max-w-6xl mx-auto">
+  <header className="w-full h-12 bg-white flex justify-between items-end px-32">
     <h1 className="text-lg">
       <img src="/icon.png" alt="" className="w-6 h-6 inline-block" />
       <Link href="/">
@@ -11,8 +11,8 @@ export const Header = (): React.ReactElement => (
     </h1>
     <ul className="flex text-gray-600 italic">
       <li className="mr-4 hover:text-blue-500">
-        <Link href="/about">
-          <a>about</a>
+        <Link href="/profile">
+          <a>profile</a>
         </Link>
       </li>
       <li className="mr-4 hover:text-blue-500">

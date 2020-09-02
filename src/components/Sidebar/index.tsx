@@ -11,17 +11,17 @@ type Props = {
 }
 
 export const Sidebar: React.FC<Props> = ({ list }) => (
-  <div className="bg-white">
+  <nav className="sticky top-0">
     <ul>
-      {list.map((item) => (
-        <li className="text-gray-800">
+      {list.map((item, idx) => (
+        <li className="text-gray-800" key={idx}>
           <Link href={`#${item.title}`}>
             <a className="hover:text-blue-500">{item.title}</a>
           </Link>
           {item.children && (
             <ul className="ml-6">
-              {item.children.map((child) => (
-                <li className="">
+              {item.children.map((child, idx) => (
+                <li className="" key={idx}>
                   <Link href={`#${child.title}`}>
                     <a className="hover:text-blue-500">- {child.title}</a>
                   </Link>
@@ -32,5 +32,5 @@ export const Sidebar: React.FC<Props> = ({ list }) => (
         </li>
       ))}
     </ul>
-  </div>
+  </nav>
 )

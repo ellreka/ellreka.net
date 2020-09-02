@@ -2,9 +2,9 @@ import React from 'react'
 import Link from 'next/link'
 
 export const Header = (): React.ReactElement => (
-  <header className="w-full h-12 bg-white flex justify-between items-end">
+  <header className="w-full h-12 bg-white flex justify-between items-end max-w-6xl mx-auto">
     <h1 className="text-lg">
-      <img src="icon.png" alt="" className="w-6 h-6 inline-block" />
+      <img src="/icon.png" alt="" className="w-6 h-6 inline-block" />
       <Link href="/">
         <a className="ml-2">ellreka.net</a>
       </Link>

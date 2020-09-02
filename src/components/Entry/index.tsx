@@ -4,7 +4,13 @@ import Head from 'next/head'
 import clsx from 'clsx'
 
 type Props = {
-  meta: any
+  meta: {
+    id: string
+    title: string
+    description: string
+    date: string
+    tags: string[]
+  }
 }
 
 export const EntryLayout: React.FC<Props> = ({ meta, children }) => {

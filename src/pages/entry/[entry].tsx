@@ -1,22 +1,52 @@
 import React from 'react'
+import { GetStaticProps } from 'next'
 import Layout from '../../components/Layout'
 import { Sidebar } from '../../components/Sidebar'
 import { EntryLayout } from '../../components/Entry'
-import MDXContent, { meta } from '../../../docs/test.mdx'
 import { MDXProvider } from '@mdx-js/react'
+import fs from 'fs'
+import path from 'path'
 
 type Props = {
-  meta: any
+  slug: string
 }
 
-const Post: React.FC<Props> = () => {
-  const [toc, setToc] = React.useState('uuu')
+const root = process.cwd()
+
+export function getStaticPaths() {
+  const docs = path.join(root, 'docs')
+  const allDirents = fs.readdirSync(docs, { withFileTypes: true })
+  const paths = allDirents
+    .filter((dirent) => dirent.isFile())
+    .map(({ name }) => `/entry/${name.split('.')[0]}`)
+  return {
+    paths,
+    fallback: false
+  }
+}
+
+export const getStaticProps: GetStaticProps = async (props) => {
+  const slug = props.params?.entry
+  return {
+    props: {
+      slug
+    }
+  }
+}
+
+const Post: React.FC<Props> = (props) => {
+  const {
+    default: MDXContent,
+    frontMatter
+  } = require(`../../../docs/${props.slug}.mdx`)
+  const { meta, headings } = frontMatter
 
   const components = {
     h2: (props: any) => {
       return (
         <h2
           className="text-xl mt-12 mb-4 font-medium border-l-4 border-solid border-blue-300 pl-2"
+          id={props.children}
           {...props}
         />
       )
@@ -43,7 +73,7 @@ const Post: React.FC<Props> = () => {
     strong: (props: any) => <strong className="font-bold" {...props} />,
     inlineCode: (props: any) => (
       <code
-        className="bg-gray-200 border border-solid border-gray-500 rounded-sm px-1"
+        className="bg-gray-200 border border-solid border-gray-500 rounded-sm px-1 break-all"
         {...props}
       />
     ),
@@ -59,38 +89,18 @@ const Post: React.FC<Props> = () => {
   return (
     <Layout>
       <div
-        className="mt-24 grid grid-flow-col grid-cols-6 gap-4 mx-auto"
-        style={{ width: 'calc(100% - 120px)' }}>
-        <div className="col-span-5">
+        className="mt-24 flex justify-around mx-auto px-8 lg:px-24"
+        // style={{ width: 'calc(100% - 120px)' }}
+      >
+        <div className="w-full lg:w-4/5">
           <EntryLayout meta={meta}>
             <MDXProvider components={components}>
               <MDXContent />
             </MDXProvider>
           </EntryLayout>
         </div>
-        <div className="col-span-1 h-full">
-          <Sidebar
-            list={[
-              {
-                title: 'Heading2',
-                children: [
-                  {
-                    title: 'Heading3'
-                  },
-                  {
-                    title: 'Heading3'
-                  },
-                  {
-                    title: 'Heading3'
-                  }
-                ]
-              },
-              {
-                title: 'Heading2',
-                children: []
-              }
-            ]}
-          />
+        <div className="min-w-56 hidden lg:block">
+          <Sidebar headings={headings} />
         </div>
       </div>
     </Layout>

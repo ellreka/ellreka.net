@@ -5,6 +5,9 @@ module.exports = {
     extend: {
       inset: {
         10: '10px'
+      },
+      minWidth: {
+        56: '14rem'
       }
     }
   }

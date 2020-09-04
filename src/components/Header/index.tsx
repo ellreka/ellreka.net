@@ -2,14 +2,14 @@ import React from 'react'
 import Link from 'next/link'
 
 export const Header = (): React.ReactElement => (
-  <header className="w-full h-12 bg-white flex justify-between items-end px-32">
+  <header className="w-full h-12 bg-white flex justify-between items-end">
     <h1 className="text-lg">
       <img src="/icon.png" alt="" className="w-6 h-6 inline-block" />
       <Link href="/">
         <a className="ml-2">ellreka.net</a>
       </Link>
     </h1>
-    <ul className="flex text-gray-600 italic">
+    <ul className="flex text-gray-600 italic sm">
       <li className="mr-4 hover:text-blue-500">
         <Link href="/profile">
           <a>profile</a>

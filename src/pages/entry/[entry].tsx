@@ -88,10 +88,7 @@ const Post: React.FC<Props> = (props) => {
   }
   return (
     <Layout>
-      <div
-        className="mt-24 flex justify-around mx-auto px-8 lg:px-24"
-        // style={{ width: 'calc(100% - 120px)' }}
-      >
+      <div className="mt-24 flex justify-around mx-auto px-8 lg:px-24">
         <div className="w-full lg:w-4/5">
           <EntryLayout meta={meta}>
             <MDXProvider components={components}>

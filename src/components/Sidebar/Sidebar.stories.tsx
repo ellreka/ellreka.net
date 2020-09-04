@@ -6,24 +6,18 @@ export default { title: 'Sidebar' }
 export const component = () => {
   const list = [
     {
-      title: 'Heading2',
-      children: [
-        {
-          title: 'Heading3'
-        },
-        {
-          title: 'Heading3'
-        },
-        {
-          title: 'Heading3'
-        }
-      ]
+      level: 2,
+      title: 'Heading2'
     },
     {
-      title: 'Heading2',
-      children: []
+      level: 3,
+      title: 'Heading3'
+    },
+    {
+      level: 2,
+      title: 'Heading2'
     }
   ]
 
-  return <Sidebar list={list} />
+  return <Sidebar headings={list} />
 }

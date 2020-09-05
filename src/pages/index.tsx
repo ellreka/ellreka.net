@@ -46,8 +46,8 @@ const Home: React.FC<Props> = ({ entries }) => {
                 </a>
               </Link>
               <div className="flex justify-between mt-3">
-                <div className="flex">
-                  <p>Tags: </p>
+                <div className="flex items-end">
+                  <p className="text-xs md:text-sm">Tags: </p>
                   <ul>
                     {entry.frontMatter.tags.map((tag) => (
                       <li
@@ -60,7 +60,7 @@ const Home: React.FC<Props> = ({ entries }) => {
                     ))}
                   </ul>
                 </div>
-                <p className="text-sm md:text-base text-gray-600">
+                <p className="text-xs md:text-sm text-gray-600">
                   {entry.frontMatter.date}
                 </p>
               </div>

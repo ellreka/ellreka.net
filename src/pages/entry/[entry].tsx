@@ -42,7 +42,7 @@ const Post: React.FC<Props> = (props) => {
 
   return (
     <Layout>
-      <div className="mt-24 flex justify-between mx-auto px-8 lg:px-12">
+      <div className="mt-24 flex justify-between mx-auto">
         <div className="w-full lg:w-4/5">
           <EntryLayout meta={{ ...meta, id: props.slug }}>
             <MDXContent />

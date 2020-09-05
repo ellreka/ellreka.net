@@ -1,5 +1,7 @@
 import React from 'react'
 import Layout from '../components/Layout'
+import { Title } from '../components/Title'
+import { MetaType } from '../types'
 import Link from 'next/link'
 import fs from 'fs'
 import path from 'path'
@@ -10,13 +12,7 @@ const root = process.cwd()
 type Props = {
   entries: Array<{
     slug: string
-    frontMatter: {
-      id: string
-      title: string
-      description: string
-      date: string
-      tags: string[]
-    }
+    frontMatter: MetaType
   }>
 }
 
@@ -36,15 +32,15 @@ const Home: React.FC<Props> = ({ entries }) => {
   return (
     <Layout>
       <div className="mx-auto max-w-2xl">
-        <h1 className="text-gray-700 text-2xl">Entries</h1>
-        <div className="mt-12">
+        <Title>Entries</Title>
+        <div className="mt-4">
           {entries.map((entry) => (
             <div
               key={entry.slug}
               className="mb-8 pt-8 border-t-4 border-dotted border-blue-300">
               <Link href="/entry/[entry]" as={`/entry/${entry.slug}`}>
                 <a>
-                  <h2 className="text-blue-400 hover:text-blue-600 text-lg">
+                  <h2 className="text-blue-400 hover:text-blue-600 text-sm md:text-lg">
                     {entry.frontMatter.title}
                   </h2>
                 </a>
@@ -56,7 +52,7 @@ const Home: React.FC<Props> = ({ entries }) => {
                     {entry.frontMatter.tags.map((tag) => (
                       <li
                         key={tag}
-                        className="inline-block bg-gray-700 px-2 text-white rounded-full ml-3 text-sm">
+                        className="inline-block bg-gray-700 px-2 text-white rounded-full ml-1 md:text-sm text-xs">
                         <Link href={`/tag/${tag}`}>
                           <a>{tag}</a>
                         </Link>
@@ -64,7 +60,7 @@ const Home: React.FC<Props> = ({ entries }) => {
                     ))}
                   </ul>
                 </div>
-                <p className="text-base text-gray-600">
+                <p className="text-sm md:text-base text-gray-600">
                   {entry.frontMatter.date}
                 </p>
               </div>

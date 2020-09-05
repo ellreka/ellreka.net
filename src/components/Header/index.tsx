@@ -9,22 +9,24 @@ export const Header = (): React.ReactElement => (
         <a className="ml-2">ellreka.net</a>
       </Link>
     </h1>
-    <ul className="flex text-gray-600 italic sm">
-      <li className="mr-4 hover:text-blue-500">
-        <Link href="/profile">
-          <a>profile</a>
-        </Link>
-      </li>
-      <li className="mr-4 hover:text-blue-500">
-        <Link href="/list">
-          <a>list</a>
-        </Link>
-      </li>
-      <li className="mr-4 hover:text-blue-500">
-        <Link href="/tags">
-          <a>tags</a>
-        </Link>
-      </li>
-    </ul>
+    <div className="hidden md:block">
+      <ul className="flex text-gray-600 italic">
+        <li className="mr-4 hover:text-blue-500">
+          <Link href="/profile">
+            <a>profile</a>
+          </Link>
+        </li>
+        <li className="mr-4 hover:text-blue-500">
+          <Link href="/">
+            <a>entries</a>
+          </Link>
+        </li>
+        <li className="mr-4 hover:text-blue-500">
+          <Link href="/tags">
+            <a>tags</a>
+          </Link>
+        </li>
+      </ul>
+    </div>
   </header>
 )

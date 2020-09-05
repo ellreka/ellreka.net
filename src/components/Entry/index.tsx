@@ -1,39 +1,107 @@
 import React from 'react'
-import Head from 'next/head'
+import { Meta } from '../Meta'
+import { MetaType } from '../../types'
+import { MDXProvider } from '@mdx-js/react'
 // import { useWindowScroll } from 'react-use'
 import clsx from 'clsx'
 
 type Props = {
-  meta: {
-    id: string
-    title: string
-    description: string
-    date: string
-    tags: string[]
-  }
+  meta: MetaType
+}
+
+const components = {
+  h2: (props: any) => {
+    return (
+      <h2
+        className="text-xl mt-12 mb-4 font-medium border-l-4 border-solid border-blue-300 pl-2"
+        id={props.children}
+        {...props}
+      />
+    )
+  },
+  h3: (props: any) => {
+    return (
+      <h3
+        className="text-lg mt-4 mb-4 font-medium"
+        id={props.children}
+        {...props}
+      />
+    )
+  },
+  p: (props: any) => <p className="text-sm leading-8 mt-4" {...props} />,
+  img: (props: any) => <img className="w-1/2" {...props} />,
+  a: (props: any) => <a className="text-blue-500" {...props} />,
+  ul: (props: any) => <ul className="list" {...props} />,
+  li: (props: any) => (
+    <li className="relative mb-2" {...props}>
+      <span className="mr-2">-</span>
+      {props.children}
+    </li>
+  ),
+  strong: (props: any) => <strong className="font-bold" {...props} />,
+  inlineCode: (props: any) => (
+    <code
+      className="bg-gray-200 border border-solid border-gray-500 rounded-sm px-1 break-all"
+      {...props}
+    />
+  ),
+  blockquote: (props: any) => (
+    <>
+      <blockquote
+        className="relative bg-gray-200 whitespace-pre-wrap text-gray-600 py-2 px-3 h-full border-l-4 border-solid border-gray-600"
+        {...props}
+      />
+    </>
+  )
 }
 
 export const EntryLayout: React.FC<Props> = ({ meta, children }) => {
   // const { y } = useWindowScroll()
   const y = 100
   return (
-    <>
-      <div className="relative">
-        <Head>
-          <title>{meta.title} | ellreka.net</title>
-          <meta name="description" content={meta.description} />
-          <link
-            href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/themes/prism-tomorrow.min.css"
-            rel="stylesheet"
-          />
-        </Head>
+    <div className="relative">
+      <Meta meta={meta}>
+        <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/themes/prism-tomorrow.min.css"
+          rel="stylesheet"
+        />
+      </Meta>
+      <div
+        className={clsx(
+          'bg-white border-b-4 border-dotted border-blue-300 pb-12'
+        )}>
+        <h1 className="text-2xl">{meta.title}</h1>
+        <div className={clsx('mt-4 flex items-center')}>
+          <p className="text-base text-gray-600">created at: {meta.date}</p>
+          <a
+            href={`https://github.com/ellreka/ellreka.net/commits/master/docs/${meta.id}.mdx`}
+            target="_blank"
+            className="text-base text-blue-500 ml-4">
+            history
+          </a>
+        </div>
+        <div className={clsx('flex items-center mt-4')}>
+          <p>Tags:</p>
+          <ul>
+            {meta.tags.map((tag, idx) => (
+              <li
+                key={idx}
+                className="inline-block bg-gray-700 px-2 text-white rounded-full ml-3">
+                <a href="#">{tag}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div className="w-full">
         <div
           className={clsx(
-            'bg-white border-b-4 border-dotted border-blue-300 pb-12'
+            ' bg-white border-b-4 border-dotted border-blue-300 flex justify-between items-center transform transition-transform duration-300 ease-in',
+            y < 320 ? 'fixed top-0 -translate-y-full' : 'sticky translate-y-0'
           )}>
-          <h1 className="text-3xl">{meta.title}</h1>
-          <div className={clsx('mt-4 flex items-center')}>
-            <p className="text-base text-gray-600">created at: {meta.date}</p>
+          <h1 className="text-2xl">{meta.title}</h1>
+          <div className="flex">
+            <p className="text-base text-gray-600">updated at: {meta.date}</p>
             <a
               href="#"
               target="_blank"
@@ -41,7 +109,7 @@ export const EntryLayout: React.FC<Props> = ({ meta, children }) => {
               history
             </a>
           </div>
-          <div className={clsx('flex items-center mt-4')}>
+          <div className="flex items-center">
             <p>Tags:</p>
             <ul>
               {meta.tags.map((tag, idx) => (
@@ -54,38 +122,10 @@ export const EntryLayout: React.FC<Props> = ({ meta, children }) => {
             </ul>
           </div>
         </div>
-        <div className="w-full">
-          <div
-            className={clsx(
-              ' bg-white border-b-4 border-dotted border-blue-300 flex justify-between items-center transform transition-transform duration-300 ease-in',
-              y < 320 ? 'fixed top-0 -translate-y-full' : 'sticky translate-y-0'
-            )}>
-            <h1 className="text-3xl">{meta.title}</h1>
-            <div className="flex">
-              <p className="text-base text-gray-600">updated at: {meta.date}</p>
-              <a
-                href="#"
-                target="_blank"
-                className="text-base text-blue-500 ml-4">
-                history
-              </a>
-            </div>
-            <div className="flex items-center">
-              <p>Tags:</p>
-              <ul>
-                {meta.tags.map((tag, idx) => (
-                  <li
-                    key={idx}
-                    className="inline-block bg-gray-700 px-2 text-white rounded-full ml-3">
-                    <a href="#">{tag}</a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div className="mt-32">{children}</div>
       </div>
-    </>
+      <div className="mt-32">
+        <MDXProvider components={components}>{children}</MDXProvider>
+      </div>
+    </div>
   )
 }

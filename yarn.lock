@@ -1276,9 +1276,10 @@
   resolved "https://registry.yarnpkg.com/@csstools/convert-colors/-/convert-colors-1.4.0.tgz#ad495dc41b12e75d588c6db8b9834f08fa131eb7"
   integrity sha512-5a6wqoJV/xEdbRNKVo6I4hO3VjyDq//8q2f9I6PBAvMesJHFauXDorcNCsr9RzvsZnaWi5NYCcfyqP1QeFHFbw==
 
-"@ellreka/configs@https://github.com/ellreka/configs":
-  version "1.0.2"
-  resolved "https://github.com/ellreka/configs#f9ab99a4883363e7c891aefbf8ff5014365707ba"
+"@ellreka/configs@^1.0.4":
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/@ellreka/configs/-/configs-1.0.4.tgz#8a74fcae0525ead2ede7198a72cad0082b70cec5"
+  integrity sha512-pulSEgsKkoAKxry/UsSpMDIMC+5Om0ydQ+eULl14cYkpUVKpfD/Tuzt6peFVbn33kfSEeERLBqJX4zL/b0eVzA==
   dependencies:
     "@typescript-eslint/eslint-plugin" "3"
     eslint-config-standard-with-typescript "^18.0.2"
@@ -10892,6 +10893,41 @@ symbol.prototype.description@^1.0.0:
   dependencies:
     es-abstract "^1.17.0-next.1"
     has-symbols "^1.0.1"
+
+tailwindcss-dark-mode@^1.1.6:
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/tailwindcss-dark-mode/-/tailwindcss-dark-mode-1.1.6.tgz#b9a7980e7a3a5f10050857232f3f6c6c6c605724"
+  integrity sha512-3+pd3DqMr0ukOfhz5FTtvrZXCph1QreTMV64HDAjSOuJC1jgnpx+JosoQK6cYACFgwNcSpaSJY0tuQRiiF8Ffg==
+  dependencies:
+    tailwindcss "^1.6.2"
+
+tailwindcss@^1.6.2:
+  version "1.8.5"
+  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-1.8.5.tgz#3b4624530b5fd71688fd04d16d8bd8c8d56834de"
+  integrity sha512-W4kLvs0iADgn83AOtI35pi24OGgxCfKls9H8qfdwbDTyO2ec7zBPgfEqu2mzaMdE3MWhtbCpyeCDY5rjmCHjTw==
+  dependencies:
+    "@fullhuman/postcss-purgecss" "^2.1.2"
+    autoprefixer "^9.4.5"
+    browserslist "^4.12.0"
+    bytes "^3.0.0"
+    chalk "^3.0.0 || ^4.0.0"
+    color "^3.1.2"
+    detective "^5.2.0"
+    fs-extra "^8.0.0"
+    html-tags "^3.1.0"
+    lodash "^4.17.20"
+    node-emoji "^1.8.1"
+    normalize.css "^8.0.1"
+    object-hash "^2.0.3"
+    postcss "^7.0.11"
+    postcss-functions "^3.0.0"
+    postcss-js "^2.0.0"
+    postcss-nested "^4.1.1"
+    postcss-selector-parser "^6.0.0"
+    postcss-value-parser "^4.1.0"
+    pretty-hrtime "^1.0.3"
+    reduce-css-calc "^2.1.6"
+    resolve "^1.14.2"
 
 tailwindcss@^1.8.2:
   version "1.8.2"

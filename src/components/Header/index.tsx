@@ -2,11 +2,16 @@ import React from 'react'
 import Link from 'next/link'
 import clsx from 'clsx'
 
-export const Header: React.FC = () => {
-  const [open, setOpen] = React.useState(false)
-  const openOnClick = () => {
-    setOpen(!open)
+type Props = {
+  isDark: boolean
+  toggleTheme: (arg: boolean) => void
+}
+
+export const Header: React.FC<Props> = ({ isDark, toggleTheme }) => {
+  const handleChangeTheme = () => {
+    toggleTheme(!isDark)
   }
+
   const ListItems = () => (
     <>
       <li className="mr-4 hover:text-blue-500">
@@ -22,17 +27,32 @@ export const Header: React.FC = () => {
     </>
   )
   return (
-    <header className="w-full h-12 bg-white flex justify-between items-end">
+    <header className="w-full h-12 flex justify-between items-end">
       <h1 className="text-lg">
         <img src="/icon.png" alt="" className="w-6 h-6 inline-block" />
         <Link href="/">
-          <a className="ml-2">ellreka.net</a>
+          <a className="ml-2 text-black dark:text-white">ellreka.net</a>
         </Link>
       </h1>
-      <div className="block">
+      <div className="flex">
         <ul className="flex text-gray-600 italic">
           <ListItems />
         </ul>
+        <label className="cursor-pointer transition duration-500 ease-in-out block w-12 h-6 bg-white dark:bg-gray-800 border-gray-800 dark:border-white relative border border-solid rounded-full">
+          <span
+            role="presentation"
+            className={clsx(
+              'block w-6 h-full rounded-full transition ease-in-out duration-300 transform',
+              isDark ? 'bg-white translate-x-full' : 'bg-gray-800 translate-x-0'
+            )}
+          />
+          <input
+            type="checkbox"
+            className="hidden"
+            onChange={handleChangeTheme}
+            checked={isDark}
+          />
+        </label>
       </div>
     </header>
   )

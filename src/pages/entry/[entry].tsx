@@ -17,7 +17,7 @@ export function getStaticPaths() {
   const allDirents = fs.readdirSync(docs, { withFileTypes: true })
   const paths = allDirents
     .filter((dirent) => dirent.isFile())
-    .map(({ name }) => `/entry/${name.split('.')[0]}`)
+    .map(({ name }) => `/entry/${name.replace(/\.mdx/, '')}`)
   return {
     paths,
     fallback: false

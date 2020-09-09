@@ -13,7 +13,7 @@ const components = {
   h2: (props: any) => {
     return (
       <h2
-        className="text-xl mt-12 mb-4 font-medium border-l-4 border-solid border-blue-300 pl-2"
+        className="text-xl mt-12 mb-4 font-medium border-l-4 border-solid border-blue-300 pl-2 text-black dark:text-white"
         id={props.children}
         {...props}
       />
@@ -22,33 +22,33 @@ const components = {
   h3: (props: any) => {
     return (
       <h3
-        className="text-lg mt-4 mb-4 font-medium"
+        className="text-lg mt-4 mb-4 font-medium text-black dark:text-white"
         id={props.children}
         {...props}
       />
     )
   },
-  p: (props: any) => <p className="text-sm leading-8 mt-4" {...props} />,
-  img: (props: any) => <img className="w-1/2" {...props} />,
+  p: (props: any) => <p className="text-sm leading-8 my-4 text-black dark:text-white" {...props} />,
+  img: (props: any) => <img className="w-auto h-auto" {...props} />,
   a: (props: any) => <a className="text-blue-500" {...props} />,
-  ul: (props: any) => <ul className="list" {...props} />,
+  ul: (props: any) => <ul className="list text-black dark:text-white" {...props} />,
   li: (props: any) => (
-    <li className="relative mb-2" {...props}>
-      <span className="mr-2">-</span>
+    <li className="relative mb-2 text-black dark:text-white" {...props}>
+      <span className="mr-2 text-black dark:text-white">-</span>
       {props.children}
     </li>
   ),
-  strong: (props: any) => <strong className="font-bold" {...props} />,
+  strong: (props: any) => <strong className="font-bold text-black dark:text-white" {...props} />,
   inlineCode: (props: any) => (
     <code
-      className="bg-gray-200 border border-solid border-gray-500 rounded-sm px-1 break-all"
+      className="bg-gray-200 dark:bg-gray-800 text-black dark:text-orange-500 border border-solid border-gray-500 dark:border-gray-900 rounded-sm px-2 py-1 mx-1 break-all"
       {...props}
     />
   ),
   blockquote: (props: any) => (
     <>
       <blockquote
-        className="relative bg-gray-200 whitespace-pre-wrap text-gray-600 py-2 px-3 h-full border-l-4 border-solid border-gray-600"
+        className="relative bg-gray-200 dark:bg-gray-700 whitespace-pre-wrap text-gray-600 dark:text-gray-400 py-2 px-3 h-full border-l-4 border-solid border-gray-600"
         {...props}
       />
     </>
@@ -68,11 +68,13 @@ export const EntryLayout: React.FC<Props> = ({ meta, children }) => {
       </Meta>
       <div
         className={clsx(
-          'bg-white border-b-4 border-dotted border-blue-300 pb-12'
+          'bg-white dark:bg-gray-800 border-b-4 border-dotted border-blue-300 pb-12'
         )}>
-        <h1 className="text-2xl">{meta.title}</h1>
+        <h1 className="text-2xl dark:text-white">{meta.title}</h1>
         <div className={clsx('mt-4 flex items-center')}>
-          <p className="text-base text-gray-600">created at: {meta.date}</p>
+          <p className="text-base text-gray-600 dark:text-gray-300">
+            created at: {meta.date}
+          </p>
           <a
             href={`https://github.com/ellreka/ellreka.net/commits/master/docs/${meta.id}.mdx`}
             target="_blank"
@@ -81,12 +83,12 @@ export const EntryLayout: React.FC<Props> = ({ meta, children }) => {
           </a>
         </div>
         <div className={clsx('flex items-center mt-4')}>
-          <p>Tags:</p>
+          <p className="text-black dark:text-white">Tags:</p>
           <ul>
             {meta.tags.map((tag, idx) => (
               <li
                 key={idx}
-                className="inline-block bg-gray-700 px-2 text-white rounded-full ml-3">
+                className="inline-block bg-gray-700 px-2 text-white rounded-full ml-3 font-medium">
                 <a href="#">{tag}</a>
               </li>
             ))}

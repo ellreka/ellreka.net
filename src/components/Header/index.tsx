@@ -14,12 +14,12 @@ export const Header: React.FC<Props> = ({ isDark, toggleTheme }) => {
 
   const ListItems = () => (
     <>
-      <li className="mr-4 hover:text-blue-500">
+      <li className="mr-4 hover:text-blue-500 dark-hover:text-blue-700">
         <Link href="/profile">
           <a>profile</a>
         </Link>
       </li>
-      <li className="mr-4 hover:text-blue-500">
+      <li className="mr-4 hover:text-blue-500 dark-hover:text-blue-700">
         <Link href="/tags">
           <a>tags</a>
         </Link>
@@ -35,7 +35,7 @@ export const Header: React.FC<Props> = ({ isDark, toggleTheme }) => {
         </Link>
       </h1>
       <div className="flex">
-        <ul className="flex text-gray-600 italic">
+        <ul className="flex text-gray-600 dark:text-gray-400 italic">
           <ListItems />
         </ul>
         <label className="cursor-pointer transition duration-500 ease-in-out block w-12 h-6 bg-white dark:bg-gray-800 border-gray-800 dark:border-white relative border border-solid rounded-full">

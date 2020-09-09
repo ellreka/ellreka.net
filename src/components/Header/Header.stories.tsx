@@ -4,4 +4,8 @@ import '../../styles/index.css'
 
 export default { title: 'Header' }
 
-export const component = () => <Header />
+const [isDark, setIsDark] = React.useState<boolean>(true)
+
+export const component = () => (
+  <Header isDark={isDark} toggleTheme={(arg) => setIsDark(arg)} />
+)

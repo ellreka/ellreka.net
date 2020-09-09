@@ -2,6 +2,7 @@ import React from 'react'
 import Layout from '../components/Layout'
 import { Title } from '../components/Title'
 import { List } from '../components/List'
+import { Meta } from '../components/Meta'
 import { MetaType } from '../types'
 import fs from 'fs'
 import path from 'path'
@@ -14,6 +15,10 @@ type Props = {
     slug: string
     frontMatter: MetaType
   }>
+}
+
+const meta = {
+  title: 'ブログ一覧'
 }
 
 export const getStaticProps = async () => {
@@ -32,6 +37,7 @@ export const getStaticProps = async () => {
 const Home: React.FC<Props> = ({ entries }) => {
   return (
     <Layout>
+      <Meta meta={meta} />
       <div className="mx-auto max-w-2xl">
         <Title>Entries</Title>
         <List entries={entries} />

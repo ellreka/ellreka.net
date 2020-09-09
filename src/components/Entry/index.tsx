@@ -28,17 +28,26 @@ const components = {
       />
     )
   },
-  p: (props: any) => <p className="text-sm leading-8 my-4 text-black dark:text-white" {...props} />,
+  p: (props: any) => (
+    <p
+      className="text-sm leading-8 my-4 text-black dark:text-white"
+      {...props}
+    />
+  ),
   img: (props: any) => <img className="w-auto h-auto" {...props} />,
   a: (props: any) => <a className="text-blue-500" {...props} />,
-  ul: (props: any) => <ul className="list text-black dark:text-white" {...props} />,
+  ul: (props: any) => (
+    <ul className="list text-black dark:text-white" {...props} />
+  ),
   li: (props: any) => (
     <li className="relative mb-2 text-black dark:text-white" {...props}>
       <span className="mr-2 text-black dark:text-white">-</span>
       {props.children}
     </li>
   ),
-  strong: (props: any) => <strong className="font-bold text-black dark:text-white" {...props} />,
+  strong: (props: any) => (
+    <strong className="font-bold text-black dark:text-white" {...props} />
+  ),
   inlineCode: (props: any) => (
     <code
       className="bg-gray-200 dark:bg-gray-800 text-black dark:text-orange-500 border border-solid border-gray-500 dark:border-gray-900 rounded-sm px-2 py-1 mx-1 break-all"
@@ -66,10 +75,7 @@ export const EntryLayout: React.FC<Props> = ({ meta, children }) => {
           rel="stylesheet"
         />
       </Meta>
-      <div
-        className={clsx(
-          'border-b-4 border-dotted border-blue-300 pb-12'
-        )}>
+      <div className={clsx('border-b-4 border-dotted border-blue-300 pb-12')}>
         <h1 className="text-xl dark:text-white">{meta.title}</h1>
         <div className={clsx('mt-4 flex items-center')}>
           <p className="text-base text-gray-600 dark:text-gray-300">
@@ -95,7 +101,7 @@ export const EntryLayout: React.FC<Props> = ({ meta, children }) => {
           </ul>
         </div>
       </div>
-      <div className="w-full">
+      {/* <div className="w-full">
         <div
           className={clsx(
             ' bg-white border-b-4 border-dotted border-blue-300 flex justify-between items-center transform transition-transform duration-300 ease-in',
@@ -124,7 +130,7 @@ export const EntryLayout: React.FC<Props> = ({ meta, children }) => {
             </ul>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="mt-12">
         <MDXProvider components={components}>{children}</MDXProvider>
       </div>

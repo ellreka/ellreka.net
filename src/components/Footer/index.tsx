@@ -1,7 +1,7 @@
 import React from 'react'
 
 export const Footer = (): React.ReactElement => (
-  <footer className="text-center mt-32">
+  <footer className="text-center h-12 mt-32">
     <div className="flex justify-between w-12 mx-auto">
       <a
         href="https://github.com/ellreka"

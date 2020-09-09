@@ -23,9 +23,9 @@ export const List: React.FC<Props> = ({ entries }) => {
               </h2>
             </a>
           </Link>
-          <div className="flex justify-between mt-3">
+          <div className="flex justify-between items-end mt-3">
             <div className="flex items-end">
-              <p className="text-xs md:text-sm">Tags: </p>
+              <p className="text-xs md:text-sm text-black dark:text-white">Tags: </p>
               <ul>
                 {entry.frontMatter.tags.map((tag) => (
                   <li
@@ -38,7 +38,7 @@ export const List: React.FC<Props> = ({ entries }) => {
                 ))}
               </ul>
             </div>
-            <p className="text-xs md:text-sm text-gray-600">
+            <p className="text-xs md:text-sm text-gray-600 dark:text-gray-400">
               {entry.frontMatter.date}
             </p>
           </div>

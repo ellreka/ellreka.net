@@ -68,9 +68,9 @@ export const EntryLayout: React.FC<Props> = ({ meta, children }) => {
       </Meta>
       <div
         className={clsx(
-          'bg-white dark:bg-gray-800 border-b-4 border-dotted border-blue-300 pb-12'
+          'border-b-4 border-dotted border-blue-300 pb-12'
         )}>
-        <h1 className="text-2xl dark:text-white">{meta.title}</h1>
+        <h1 className="text-xl dark:text-white">{meta.title}</h1>
         <div className={clsx('mt-4 flex items-center')}>
           <p className="text-base text-gray-600 dark:text-gray-300">
             created at: {meta.date}
@@ -125,7 +125,7 @@ export const EntryLayout: React.FC<Props> = ({ meta, children }) => {
           </div>
         </div>
       </div>
-      <div className="mt-32">
+      <div className="mt-12">
         <MDXProvider components={components}>{children}</MDXProvider>
       </div>
     </div>

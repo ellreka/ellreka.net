@@ -41,11 +41,25 @@ export const Header: React.FC<Props> = ({ isDark, toggleTheme }) => {
         <label className="cursor-pointer transition duration-500 ease-in-out block w-12 h-6 bg-white dark:bg-gray-800 border-gray-800 dark:border-white relative border border-solid rounded-full">
           <span
             role="presentation"
+            className={clsx('w-6 absolute top-0 left-0 ml-1 text-yellow-400', {
+              hidden: !isDark
+            })}>
+            <i className="fas fa-moon" />
+          </span>
+          <span
+            role="presentation"
             className={clsx(
               'block w-6 h-full rounded-full transition ease-in-out duration-300 transform',
               isDark ? 'bg-white translate-x-full' : 'bg-gray-800 translate-x-0'
             )}
           />
+          <span
+            role="presentation"
+            className={clsx('w-6 absolute top-0 right-0 -mr-1 text-orange-400', {
+              hidden: isDark
+            })}>
+            <i className="fas fa-sun" />
+          </span>
           <input
             type="checkbox"
             className="hidden"

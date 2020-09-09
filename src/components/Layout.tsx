@@ -12,7 +12,7 @@ const Layout: React.FC = ({ children }) => {
       })}>
       <div className="px-4 bg-white dark:bg-gray-800">
         <Header isDark={isDark} toggleTheme={(arg) => setIsDark(arg)} />
-        <main className="mt-12">{children}</main>
+        <main className="min-h-screen mt-12">{children}</main>
         <Footer />
       </div>
     </div>

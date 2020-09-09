@@ -6,7 +6,7 @@ type Props = {
 
 export const Title: React.FC<Props> = ({ children }) => {
   return (
-    <h1 className="text-gray-700 text-xl text-center">
+    <h1 className="text-gray-700 dark:text-gray-300 text-xl text-center">
       <span className="mr-1">-</span>
       {children}
       <span className="ml-1">-</span>

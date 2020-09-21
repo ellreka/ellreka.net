@@ -15,6 +15,11 @@ export const Header = ({ isDark, toggleTheme }: Props): React.ReactElement => {
   const ListItems = (): JSX.Element => (
     <>
       <li className="mr-4 hover:text-blue-500 dark-hover:text-blue-700">
+        <Link href="/">
+          <a>entries</a>
+        </Link>
+      </li>
+      <li className="mr-4 hover:text-blue-500 dark-hover:text-blue-700">
         <Link href="/profile">
           <a>profile</a>
         </Link>
@@ -29,9 +34,15 @@ export const Header = ({ isDark, toggleTheme }: Props): React.ReactElement => {
   return (
     <header className="w-full h-12 flex justify-between items-end">
       <h1 className="text-lg">
-        <img src="/icon.png" alt="" className="w-6 h-6 inline-block" />
         <Link href="/">
-          <a className="ml-2 text-black dark:text-white">ellreka.net</a>
+          <a>
+            <img
+              src="/icon.png"
+              alt=""
+              className="w-6 h-6 inline-block bg-yellow-400 rounded-full"
+            />
+          </a>
+          {/* <a className="ml-2 text-black dark:text-white">ellreka.net</a> */}
         </Link>
       </h1>
       <div className="flex">

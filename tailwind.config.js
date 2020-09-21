@@ -4,6 +4,9 @@ module.exports = {
   plugins: [require('tailwindcss-dark-mode')()],
   theme: {
     extend: {
+      backgroundColor: {
+        ellreka: '#EEDE9D'
+      },
       inset: {
         10: '10px'
       },

@@ -39,7 +39,7 @@ export const Header = ({ isDark, toggleTheme }: Props): React.ReactElement => {
             <img
               src="/icon.png"
               alt=""
-              className="w-6 h-6 inline-block bg-yellow-400 rounded-full"
+              className="w-6 h-6 inline-block bg-ellreka rounded-full"
             />
           </a>
           {/* <a className="ml-2 text-black dark:text-white">ellreka.net</a> */}

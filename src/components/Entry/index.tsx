@@ -98,7 +98,7 @@ export const EntryLayout = ({ meta, children }: Props): React.ReactElement => {
               <li
                 key={idx}
                 className="inline-block bg-gray-700 px-2 text-white rounded-full ml-3">
-                <a href="#">{tag}</a>
+                <a href={`/tag/${tag}`}>{tag}</a>
               </li>
             ))}
           </ul>

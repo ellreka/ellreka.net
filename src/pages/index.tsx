@@ -1,16 +1,17 @@
+import fs from 'fs'
+import matter from 'gray-matter'
+import path from 'path'
 import React from 'react'
+
 import Layout from '../components/Layout'
-import { Title } from '../components/Title'
 import { List } from '../components/List'
 import { Meta } from '../components/Meta'
+import { Title } from '../components/Title'
 import { MetaType } from '../types'
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
 
 const root = process.cwd()
 
-type Props = {
+interface Props {
   entries: Array<{
     slug: string
     frontMatter: MetaType
@@ -21,7 +22,7 @@ const meta = {
   title: 'ブログ一覧'
 }
 
-export const getStaticProps = async () => {
+export const getStaticProps = async (): Promise<{ props: {} }> => {
   const docs = path.join(root, 'docs')
   const entries = fs.readdirSync(docs).map((p) => {
     const content = fs.readFileSync(path.join(docs, p), 'utf8')
@@ -34,7 +35,7 @@ export const getStaticProps = async () => {
   return { props: { entries } }
 }
 
-const Home: React.FC<Props> = ({ entries }) => {
+const Home = ({ entries }: Props): React.ReactElement => {
   return (
     <Layout>
       <Meta meta={meta} />

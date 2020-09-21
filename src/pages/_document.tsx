@@ -1,21 +1,24 @@
 import Document, {
-  Html,
+  DocumentContext,
+  DocumentInitialProps,
   Head,
+  Html,
   Main,
-  NextScript,
-  DocumentContext
+  NextScript
 } from 'next/document'
+import React from 'react'
 
 class MyDocument extends Document {
-  static async getInitialProps(ctx: DocumentContext) {
+  static async getInitialProps(
+    ctx: DocumentContext
+  ): Promise<DocumentInitialProps> {
     const initialProps = await Document.getInitialProps(ctx)
-
     return initialProps
   }
 
-  render() {
+  render(): any {
     return (
-      <Html lang="ja">
+      <Html lang="ja" style={{ scrollBehavior: 'smooth' }}>
         <Head />
         <body>
           <Main />

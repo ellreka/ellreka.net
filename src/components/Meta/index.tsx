@@ -1,19 +1,19 @@
-import React from 'react'
 import Head from 'next/head'
-// import { MetaType } from '../../types/'
+import React from 'react'
 
-type Props = {
+interface Props {
   meta: {
     title: string
     description?: string
   }
+  children?: React.ReactNode
 }
 
-export const Meta: React.FC<Props> = ({ meta, children }) => {
+export const Meta: React.FC<Props> = ({ meta, children }: Props) => {
   return (
     <Head>
       <title>{meta.title} | ellreka.net</title>
-      {meta.description && (
+      {meta.description !== null && (
         <meta name="description" content={meta.description} />
       )}
       {children}

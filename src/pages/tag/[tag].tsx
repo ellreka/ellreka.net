@@ -1,15 +1,16 @@
+// import fs from 'fs'
+// import matter from 'gray-matter'
+// import path from 'path'
 import React from 'react'
+
 import Layout from '../../components/Layout'
-import { Title } from '../../components/Title'
-import { List } from '../../components/List'
+// import { List } from '../../components/List'
+// import { Title } from '../../components/Title'
 import { MetaType } from '../../types'
-import fs from 'fs'
-import path from 'path'
-import matter from 'gray-matter'
 
 // const root = process.cwd()
 
-type Props = {
+interface Props {
   entries: Array<{
     slug: string
     frontMatter: MetaType

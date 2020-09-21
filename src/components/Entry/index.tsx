@@ -1,12 +1,14 @@
-import React from 'react'
-import { Meta } from '../Meta'
-import { MetaType } from '../../types'
 import { MDXProvider } from '@mdx-js/react'
 // import { useWindowScroll } from 'react-use'
 import clsx from 'clsx'
+import React from 'react'
 
-type Props = {
+import { MetaType } from '../../types'
+import { Meta } from '../Meta'
+
+interface Props {
   meta: MetaType
+  children: React.ReactNode
 }
 
 const components = {
@@ -64,9 +66,9 @@ const components = {
   )
 }
 
-export const EntryLayout: React.FC<Props> = ({ meta, children }) => {
+export const EntryLayout = ({ meta, children }: Props): React.ReactElement => {
   // const { y } = useWindowScroll()
-  const y = 100
+  // const y = 100
   return (
     <div className="relative">
       <Meta meta={meta}>
@@ -84,6 +86,7 @@ export const EntryLayout: React.FC<Props> = ({ meta, children }) => {
           <a
             href={`https://github.com/ellreka/ellreka.net/commits/master/docs/${meta.id}.mdx`}
             target="_blank"
+            rel="noreferrer"
             className="text-base text-blue-500 ml-4">
             history
           </a>
@@ -94,7 +97,7 @@ export const EntryLayout: React.FC<Props> = ({ meta, children }) => {
             {meta.tags.map((tag, idx) => (
               <li
                 key={idx}
-                className="inline-block bg-gray-700 px-2 text-white rounded-full ml-3 font-medium">
+                className="inline-block bg-gray-700 px-2 text-white rounded-full ml-3">
                 <a href="#">{tag}</a>
               </li>
             ))}

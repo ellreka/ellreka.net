@@ -1,7 +1,6 @@
 import React from 'react'
-import Link from 'next/link'
 
-type Props = {
+interface Props {
   headings: Array<{
     level: number
     title: string
@@ -15,7 +14,7 @@ type List = Array<{
   }>
 }>
 
-export const Sidebar: React.FC<Props> = ({ headings }) => {
+export const Sidebar = ({ headings }: Props): React.ReactElement => {
   const list: List = []
   let cnt = 0
   headings.forEach((heading) => {
@@ -40,7 +39,7 @@ export const Sidebar: React.FC<Props> = ({ headings }) => {
             <a className="hover:text-blue-500" href={`#${item.title}`}>
               {item.title}
             </a>
-            {item.children && (
+            {item.children !== null && (
               <ul className="ml-6">
                 {item.children.map((child, idx) => (
                   <li className="mt-3" key={idx}>

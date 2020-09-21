@@ -1,18 +1,18 @@
-import React from 'react'
-import Link from 'next/link'
 import clsx from 'clsx'
+import Link from 'next/link'
+import React from 'react'
 
-type Props = {
+interface Props {
   isDark: boolean
   toggleTheme: (arg: boolean) => void
 }
 
-export const Header: React.FC<Props> = ({ isDark, toggleTheme }) => {
-  const handleChangeTheme = () => {
+export const Header = ({ isDark, toggleTheme }: Props): React.ReactElement => {
+  const handleChangeTheme = (): void => {
     toggleTheme(!isDark)
   }
 
-  const ListItems = () => (
+  const ListItems = (): JSX.Element => (
     <>
       <li className="mr-4 hover:text-blue-500 dark-hover:text-blue-700">
         <Link href="/profile">
@@ -35,7 +35,7 @@ export const Header: React.FC<Props> = ({ isDark, toggleTheme }) => {
         </Link>
       </h1>
       <div className="flex">
-        <ul className="flex text-gray-600 dark:text-gray-400 italic">
+        <ul className="flex text-gray-600 dark:text-gray-400">
           <ListItems />
         </ul>
         <label className="cursor-pointer transition duration-500 ease-in-out block w-12 h-6 bg-white dark:bg-gray-800 border-gray-800 dark:border-white relative border border-solid rounded-full">
@@ -55,9 +55,12 @@ export const Header: React.FC<Props> = ({ isDark, toggleTheme }) => {
           />
           <span
             role="presentation"
-            className={clsx('w-6 absolute top-0 right-0 -mr-1 text-orange-400', {
-              hidden: isDark
-            })}>
+            className={clsx(
+              'w-6 absolute top-0 right-0 -mr-1 text-orange-400',
+              {
+                hidden: isDark
+              }
+            )}>
             <i className="fas fa-sun" />
           </span>
           <input

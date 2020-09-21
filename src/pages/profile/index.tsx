@@ -1,11 +1,10 @@
 import React from 'react'
+
 import Layout from '../../components/Layout'
-import { Title } from '../../components/Title'
 import { Meta } from '../../components/Meta'
+import { Title } from '../../components/Title'
 
-type Props = {}
-
-const Profile: React.FC<Props> = () => {
+const Profile: React.FC = () => {
   const meta = {
     title: 'プロフィール'
   }

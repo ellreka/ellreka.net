@@ -30,13 +30,9 @@ export function getStaticPaths(): { paths: string[]; fallback: boolean } {
 
 export const getStaticProps: GetStaticProps = async (props) => {
   const slug = props.params?.entry as string
-  // const { frontMatter } = await import(`../../../docs/test.mdx`)
-  // console.log(frontMatter)
   return {
     props: {
       slug
-      // MDXContent,
-      // frontMatter
     }
   }
 }
@@ -47,8 +43,6 @@ const Post = ({ slug }: Props): React.ReactElement => {
     frontMatter
   } = require(`../../../docs/${slug}.mdx`)
   const { meta, headings } = frontMatter
-  console.log(meta, headings)
-
   return (
     <Layout>
       <div className="mt-24 flex justify-between mx-auto">

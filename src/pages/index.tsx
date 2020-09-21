@@ -31,7 +31,6 @@ export const getStaticProps = async (): Promise<{ props: {} }> => {
       frontMatter: matter(content).data
     }
   })
-  console.log(entries)
   return { props: { entries } }
 }
 

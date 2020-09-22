@@ -4,15 +4,15 @@ import Layout from '../../components/Layout'
 import { Meta } from '../../components/Meta'
 import { Title } from '../../components/Title'
 
-const Profile: React.FC = () => {
+const About: React.FC = () => {
   const meta = {
-    title: 'Profile'
+    title: 'About'
   }
   return (
     <Layout>
       <Meta meta={meta} />
       <div className="mx-auto max-w-2xl">
-        <Title>Profile</Title>
+        <Title>About</Title>
         <div className="mt-10">
           <h2 className="dark:text-white text-lg font-bold mt-10">About</h2>
           <p className="dark:text-white">something</p>
@@ -63,4 +63,4 @@ const Profile: React.FC = () => {
   )
 }
 
-export default Profile
+export default About

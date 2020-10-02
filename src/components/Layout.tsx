@@ -10,8 +10,8 @@ interface Props {
 }
 
 const Layout = ({ children }: Props): React.ReactElement => {
-  const [value, setValue] = useLocalStorage('isDark', false)
-  const [isDark, setIsDark] = React.useState<boolean>(false)
+  const [value, setValue] = useLocalStorage('isDark', true)
+  const [isDark, setIsDark] = React.useState<boolean>(true)
   const onChangeTheme = (arg: boolean): void => {
     setIsDark(arg)
     setValue(arg)

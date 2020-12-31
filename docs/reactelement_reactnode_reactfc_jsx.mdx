@@ -1,0 +1,72 @@
+---
+  date: '2020-10-03'
+  title: 'ReactElementとReactNodeとReact.FCとJSX.Elementの違いがあやふや'
+  tags: ['React', 'TypeScript']
+---
+
+
+## React.FC
+
+```tsx
+const Component: React.FC<Props> = ({ text }) => <h1>{text}</h1>
+```
+
+`React.FunctionComponent` の省略バージョン
+
+`React.FC<Props>` のようにpropsの型をジェネリックで指定できる
+
+返り値は `ReactElement<any, any> | null`
+
+`children` は最初から `children?: ReactNode` で定義されているので省略可
+
+でもオプショナルだしReactNodeは範囲が広すぎるので明示したほうが良さそう
+
+## ReactNode
+
+```tsx
+const Component = ({ text }: Props): React.ReactNode => <h1>{text}</h1>
+```
+
+`ReactChild | ReactFragment | ReactPortal | boolean | null | undefined`
+
+色々な型を網羅している。受け入れ範囲が広い。
+
+### ReactChild
+
+`ReactElement | ReactText`
+
+### ReactText
+
+`string | number`
+
+### ReactFragment
+
+`{} | ReactNodeArray`
+
+### ReactNodeArray
+
+`Array<ReactNode>`
+
+`[1, 2, 'foo', 'bar']` みたいな配列が返る可能性もある。
+
+### ReactPortal
+
+`ReactElement { key: string | number | null; children: ReactNode }`
+
+## ReactElement
+
+```tsx
+const Component = ({ text }): React.ReactElement => <h1>{text}</h1>
+```
+
+## まとめ
+`React.FC`使っとけば良さそう
+
+
+
+
+## 参考
+
+参考というか本家の型
+
+https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/react/index.d.ts

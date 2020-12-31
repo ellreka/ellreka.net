@@ -1,0 +1,50 @@
+---
+  date: '2020-11-29'
+  title: 'カルーセルをReactで実装したときのメモ'
+  tags: ['react', 'memo']
+---
+
+## カルーセルの仕様
+まずカルーセルの基本的な仕様を上げてみます。
+- 
+
+## 想定する使用方法
+次に完成したカルーセルの使用例です。
+
+```javascript
+import { Carousel } from 'carousel'
+
+return (
+  <Carousel>
+    <div>0</div>
+    <div>1</div>
+    <div>2</div>
+  </Carousel>
+  <Carousel.Indicator>
+    {({ active, length }) => (
+      Array(length).map((v) => (
+        <div key={v} className={active === v && "isActive"}>{v}</div>
+      ))
+    )}
+  </Carousel.Indicator>
+  <Carousel.PrevButton>
+    {({ active }) => (
+      <span>prev button</span>
+    )}
+  </Carousel.PrevButton>
+    <Carousel.NextButton>
+    {({ active }) => (
+      <span>next button</span>
+    )}
+  </Carousel.NextButton>
+)
+```
+
+## 実装
+まずカルーセルの機能を提供するhook(`useCarousel`)を作成します。
+`useCarousel`が返すのは以下です。
+- active
+- offset
+- onNext
+- onPrev
+- 

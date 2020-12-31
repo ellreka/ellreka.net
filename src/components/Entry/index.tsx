@@ -66,7 +66,7 @@ const components = {
   )
 }
 
-export const EntryLayout = ({ meta, children }: Props): React.ReactElement => {
+export function EntryLayout({ meta, children }: Props): React.ReactElement {
   // const { y } = useWindowScroll()
   // const y = 100
   return (

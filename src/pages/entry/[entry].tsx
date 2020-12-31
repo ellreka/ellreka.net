@@ -10,8 +10,6 @@ import { Sidebar } from '../../components/Sidebar'
 
 interface Props {
   slug: string
-  // MDXContent: any
-  // frontMatter: any
 }
 
 const root = process.cwd()

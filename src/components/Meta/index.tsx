@@ -9,7 +9,7 @@ interface Props {
   children?: React.ReactNode
 }
 
-export const Meta: React.FC<Props> = ({ meta, children }: Props) => {
+export function Meta({ meta, children }: Props): React.ReactElement {
   return (
     <Head>
       <title>{meta.title} | ellreka.net</title>

@@ -10,12 +10,21 @@ interface Props {
 }
 
 export function Meta({ meta, children }: Props): React.ReactElement {
+  const title = `${meta.title} | ellreka.net`
   return (
     <Head>
-      <title>{meta.title} | ellreka.net</title>
-      {meta.description !== null && (
-        <meta name="description" content={meta.description} />
-      )}
+      <title>{title}</title>
+      <meta name="description" content={meta.description ?? ''} />
+      <meta property="og:description" content={meta.description ?? ''} />
+      <meta property="og:title" content={title} />
+      <meta property="og:url" content="https://ellreka.net" />
+      <meta property="og:type" content="blog" />
+      {/* <meta property="og:image" content={image} /> */}
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:creator" content="@ellreka" />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={meta.description ?? ''} />
+      {/* <meta name="twitter:image" content={image} /> */}
       {children}
     </Head>
   )

@@ -16,7 +16,7 @@ class MyDocument extends Document {
     return initialProps
   }
 
-  render(): any {
+  render(): React.ReactElement {
     return (
       <Html lang="ja" style={{ scrollBehavior: 'smooth' }}>
         <Head />

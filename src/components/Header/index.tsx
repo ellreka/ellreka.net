@@ -7,7 +7,7 @@ interface Props {
   toggleTheme: (arg: boolean) => void
 }
 
-export const Header = ({ isDark, toggleTheme }: Props): React.ReactElement => {
+export function Header({ isDark, toggleTheme }: Props): React.ReactElement {
   const handleChangeTheme = (): void => {
     toggleTheme(!isDark)
   }

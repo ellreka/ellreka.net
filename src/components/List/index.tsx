@@ -25,7 +25,7 @@ export const List = ({ entries }: Props): React.ReactElement => {
           <div className="flex justify-between items-end mt-3">
             <div className="flex items-end">
               <p className="text-xs md:text-sm text-black dark:text-white">
-                Tags:{' '}
+                Tags:
               </p>
               <ul>
                 {entry.frontMatter.tags.map((tag) => (

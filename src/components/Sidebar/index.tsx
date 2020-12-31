@@ -14,7 +14,7 @@ type List = Array<{
   }>
 }>
 
-export const Sidebar = ({ headings }: Props): React.ReactElement => {
+export function Sidebar({ headings }: Props): React.ReactElement {
   const list: List = []
   let cnt = 0
   headings.forEach((heading) => {

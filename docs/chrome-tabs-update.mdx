@@ -1,0 +1,20 @@
+---
+  date: '2021-03-02'
+  title: 'Chrome拡張で特定のタブをアクティブにする方法'
+  tags: ['chrome-extension', 'tips']
+---
+
+
+## 方法
+少しハマったので。
+
+アクティブにしたいタブのIDを指定して`update`するだけ。
+
+```tsx
+chrome.tabs.update(id, {
+  active: true
+})
+```
+
+## 公式ドキュメント
+https://developer.chrome.com/docs/extensions/reference/tabs/#method-update

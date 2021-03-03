@@ -22,15 +22,23 @@ const meta = {
   title: 'ブログ一覧'
 }
 
-export const getStaticProps = async (): Promise<{ props: {} }> => {
+export const getStaticProps = async (): Promise<{ props: Props }> => {
   const docs = path.join(root, 'docs')
-  const entries = fs.readdirSync(docs).map((p) => {
-    const content = fs.readFileSync(path.join(docs, p), 'utf8')
-    return {
-      slug: p.replace(/\.mdx/, ''),
-      frontMatter: matter(content).data
-    }
-  })
+  const entries = fs
+    .readdirSync(docs)
+    .map((p) => {
+      const content = fs.readFileSync(path.join(docs, p), 'utf8')
+      return {
+        slug: p.replace(/\.mdx/, ''),
+        frontMatter: matter(content).data as MetaType
+      }
+    })
+    .sort(
+      (a, b) =>
+        new Date(b.frontMatter.date).getTime() -
+        new Date(a.frontMatter.date).getTime()
+    )
+
   return { props: { entries } }
 }
 

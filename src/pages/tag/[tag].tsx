@@ -45,12 +45,17 @@ export const getStaticProps: GetStaticProps = async (props) => {
       const content = fs.readFileSync(path.join(docs, p), 'utf8')
       return {
         slug: p.replace(/\.mdx/, ''),
-        frontMatter: matter(content).data
+        frontMatter: matter(content).data as MetaType
       }
     })
     .filter((entry) => {
       return entry.frontMatter.tags.includes(tag)
     })
+    .sort(
+      (a, b) =>
+        new Date(b.frontMatter.date).getTime() -
+        new Date(a.frontMatter.date).getTime()
+    )
   return { props: { tag, entries } }
 }
 

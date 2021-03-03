@@ -4,7 +4,6 @@
   tags: ['React', 'TypeScript']
 ---
 
-
 ## React.FC
 
 ```tsx
@@ -13,13 +12,13 @@ const Component: React.FC<Props> = ({ text }) => <h1>{text}</h1>
 
 `React.FunctionComponent` の省略バージョン
 
-`React.FC<Props>` のようにpropsの型をジェネリックで指定できる
+`React.FC<Props>` のように props の型をジェネリックで指定できる
 
 返り値は `ReactElement<any, any> | null`
 
 `children` は最初から `children?: ReactNode` で定義されているので省略可
 
-でもオプショナルだしReactNodeは範囲が広すぎるので明示したほうが良さそう
+でもオプショナルだし ReactNode は範囲が広すぎるので明示したほうが良さそう
 
 ## ReactNode
 
@@ -60,8 +59,8 @@ const Component = ({ text }): React.ReactElement => <h1>{text}</h1>
 ```
 
 ## まとめ
-`React.ReactElement`使っとけば良さそう
 
+`React.ReactElement`使っとけば良さそう
 
 ## 参考
 

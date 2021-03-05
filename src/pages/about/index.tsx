@@ -16,28 +16,36 @@ const About: React.FC = () => {
         <Title>About</Title>
         <div className="mt-10">
           <h2 className="dark:text-white text-lg font-bold mt-10">About</h2>
-          <div>
-            <table className="th:text-red-100">
-              <thead>
-                <tr>
-                  <th>aaa</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>uuu</td>
-                </tr>
-              </tbody>
-            </table>
+          <div className="dark:text-white mt-5 border border-white p-1 space-y-1">
+            <dl className="flex">
+              <dt className="w-20">Name</dt>
+              <dd>Shun Tanigome</dd>
+            </dl>
+            <dl className="flex">
+              <dt className="w-20">Gender</dt>
+              <dd>Man</dd>
+            </dl>
+            <dl className="flex">
+              <dt className="w-20">Birthday</dt>
+              <dd>2000/10/17</dd>
+            </dl>
+            <dl className="flex">
+              <dt className="w-20">Age</dt>
+              <dd>20</dd>
+            </dl>
+          </div>
+          <div className="dark:text-white mt-10">
+            <p>フロントエンドが好きです。</p>
           </div>
           <h2 className="dark:text-white text-lg font-bold mt-10">Hobby</h2>
           <p className="dark:text-white">
-            Programming, Watching a live streaming, Playing games
+            プログラミング、ゲーム、生配信を見ること、深夜に目的なく散歩すること
           </p>
-          <h2 className="dark:text-white text-lg font-bold mt-10">Favorite</h2>
-          <p className="dark:text-white">Dvorak, </p>
-          {/* <h2 className="dark:text-white text-lg font-bold mt-10">Skill</h2>
-          <p className="dark:text-white">JavaScript, TypeScript, React,</p> */}
+          <h2 className="dark:text-white text-lg font-bold mt-10">Skills</h2>
+          <div className="dark:text-white space-y-2">
+            <p>⭐ JavaScript, TypeScript, React, HTML5, CSS3</p>
+            <p>💜 Next.js, TailwindCSS, StoryBook...</p>
+          </div>
           <h2 className="dark:text-white text-lg font-bold mt-10">Accounts</h2>
           <ul className="dark:text-white">
             <li>
@@ -50,7 +58,7 @@ const About: React.FC = () => {
                 https://github.com/ellreka
               </a>
             </li>
-            {/* <li>
+            <li>
               <span>Twitter / </span>
               <a
                 href="https://github.com/ellreka"
@@ -59,7 +67,7 @@ const About: React.FC = () => {
                 className="text-blue-600">
                 https://twitter.com/ellreka
               </a>
-            </li> */}
+            </li>
             <li>
               <span>Mail / </span>
               <a

@@ -14,12 +14,12 @@ export function Header({ isDark, toggleTheme }: Props): React.ReactElement {
 
   const ListItems = (): JSX.Element => (
     <>
-      <li className="mr-4 hover:text-blue-500 dark-hover:text-blue-700 hidden sm:block">
+      <li className="mr-4 hover:text-blue-500 dark:hover:text-blue-700 hidden sm:block">
         <Link href="/">
           <a>Entries</a>
         </Link>
       </li>
-      <li className="mr-4 hover:text-blue-500 dark-hover:text-blue-700">
+      <li className="mr-4 hover:text-blue-500 dark:hover:text-blue-700">
         <Link href="/about">
           <a>About</a>
         </Link>

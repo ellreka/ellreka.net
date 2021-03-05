@@ -10,24 +10,17 @@ interface Props {
 }
 
 function Layout({ children }: Props): React.ReactElement {
-  const [value, setValue] = useLocalStorage('isDark', true)
-  const [isDark, setIsDark] = React.useState<boolean>(true)
+  const [isDark, setIsDark] = useLocalStorage('isDark', true)
   const onChangeTheme = (arg: boolean): void => {
     setIsDark(arg)
-    setValue(arg)
   }
-  React.useEffect(() => {
-    if (value !== undefined) {
-      setIsDark(value)
-    }
-  }, [value])
   return (
     <div
       className={clsx({
-        'mode-dark': isDark
+        dark: isDark
       })}>
       <div className="px-4 bg-white dark:bg-gray-800">
-        <Header isDark={isDark} toggleTheme={onChangeTheme} />
+        <Header isDark={isDark ?? true} toggleTheme={onChangeTheme} />
         <main className="min-h-screen mt-12">{children}</main>
         <Footer />
       </div>

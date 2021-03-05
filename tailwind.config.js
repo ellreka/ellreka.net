@@ -1,9 +1,15 @@
+const colors = require('tailwindcss/colors')
+
 module.exports = {
   ...require('@ellreka/configs/tailwind.config'),
   purge: ['./src/**/*.{js,jsx,ts,tsx}'],
-  plugins: [require('tailwindcss-dark-mode')()],
+  plugins: [require('@ellreka/tailwindcss-table')],
+  darkMode: 'class',
   theme: {
     extend: {
+      colors: {
+        orange: colors.orange
+      },
       backgroundColor: {
         ellreka: '#EEDE9D'
       },
@@ -16,27 +22,10 @@ module.exports = {
     }
   },
   variants: {
-    backgroundColor: [
-      'hover',
-      'dark',
-      'dark-hover',
-      'dark-group-hover',
-      'dark-even',
-      'dark-odd'
-    ],
-    borderColor: [
-      'hover',
-      'dark',
-      'dark-disabled',
-      'dark-focus',
-      'dark-focus-within'
-    ],
-    textColor: [
-      'hover',
-      'dark',
-      'dark-hover',
-      'dark-active',
-      'dark-placeholder'
-    ]
+    extend: {
+      backgroundColor: ['dark'],
+      borderColor: ['dark'],
+      textColor: ['dark', 'th', 'td']
+    }
   }
 }

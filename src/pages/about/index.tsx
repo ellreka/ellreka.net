@@ -16,7 +16,20 @@ const About: React.FC = () => {
         <Title>About</Title>
         <div className="mt-10">
           <h2 className="dark:text-white text-lg font-bold mt-10">About</h2>
-          <p className="dark:text-white">something</p>
+          <div>
+            <table className="th:text-red-100">
+              <thead>
+                <tr>
+                  <th>aaa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>uuu</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
           <h2 className="dark:text-white text-lg font-bold mt-10">Hobby</h2>
           <p className="dark:text-white">
             Programming, Watching a live streaming, Playing games

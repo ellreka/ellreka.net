@@ -14,17 +14,16 @@ export function Meta({ meta, children }: Props): React.ReactElement {
   return (
     <Head>
       <title>{title}</title>
-      <meta name="description" content={meta.description ?? ''} />
+      <meta name="description" content={meta.description ?? 'ellreka.net'} />
       <meta property="og:description" content={meta.description ?? ''} />
       <meta property="og:title" content={title} />
       <meta property="og:url" content="https://ellreka.net" />
       <meta property="og:type" content="blog" />
-      {/* <meta property="og:image" content={image} /> */}
+      <meta property="og:image" content="/favicon.ico" />
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:creator" content="@ellreka" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={meta.description ?? ''} />
-      {/* <meta name="twitter:image" content={image} /> */}
       {children}
     </Head>
   )

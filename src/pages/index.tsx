@@ -19,7 +19,8 @@ interface Props {
 }
 
 const meta = {
-  title: 'ブログ一覧'
+  title: 'ブログ一覧',
+  description: 'ブログ一覧'
 }
 
 export const getStaticProps = async (): Promise<{ props: Props }> => {

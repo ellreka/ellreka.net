@@ -6,7 +6,8 @@ import { Title } from '../../components/Title'
 
 const About: React.FC = () => {
   const meta = {
-    title: 'About'
+    title: 'About',
+    description: '自己紹介'
   }
   return (
     <Layout>

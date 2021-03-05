@@ -61,7 +61,8 @@ export const getStaticProps: GetStaticProps = async (props) => {
 
 const Tag = ({ tag, entries }: Props): React.ReactElement => {
   const meta = {
-    title: `${tag}一覧`
+    title: `${tag}一覧`,
+    description: `${tag}一覧`
   }
   return (
     <Layout>

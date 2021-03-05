@@ -1,6 +1,8 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 import React from 'react'
+import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 interface Props {
   isDark: boolean
@@ -53,7 +55,7 @@ export function Header({ isDark, toggleTheme }: Props): React.ReactElement {
                   hidden: !isDark
                 }
               )}>
-              <i className="fas fa-moon" />
+              <FontAwesomeIcon icon={faMoon} />
             </span>
             <span
               role="presentation"
@@ -72,7 +74,7 @@ export function Header({ isDark, toggleTheme }: Props): React.ReactElement {
                   hidden: isDark
                 }
               )}>
-              <i className="fas fa-sun" />
+              <FontAwesomeIcon className="" icon={faSun} />
             </span>
             <input
               type="checkbox"

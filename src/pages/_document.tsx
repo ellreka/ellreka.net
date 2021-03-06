@@ -19,7 +19,12 @@ class MyDocument extends Document {
   render(): React.ReactElement {
     return (
       <Html lang="ja" style={{ scrollBehavior: 'smooth' }}>
-        <Head />
+        <Head>
+          <link
+            rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@400;700&display=swap"
+          />
+        </Head>
         <body>
           <Main />
           <NextScript />

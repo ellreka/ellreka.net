@@ -16,7 +16,7 @@ export const List = ({ entries }: Props): React.ReactElement => {
       {entries.map((entry) => (
         <div key={entry.slug} className="mb-8 pt-8">
           <Link href="/entry/[entry]" as={`/entry/${entry.slug}`}>
-            <a>
+            <a className="inline-block">
               <h2 className="text-blue-400 hover:text-blue-600 text-sm md:text-lg">
                 {entry.frontMatter.title}
               </h2>

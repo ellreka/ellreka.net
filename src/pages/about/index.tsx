@@ -16,7 +16,25 @@ const About: React.FC = () => {
         <Title>About</Title>
         <div className="mt-10">
           <h2 className="dark:text-white text-lg font-bold mt-10">About</h2>
-          <div className="dark:text-white mt-5 border border-white p-1 space-y-1">
+          <p className="dark:text-white">
+            主にプログラミングに関する日頃学んだことを雑に書いています。
+          </p>
+          <p className="dark:text-white">
+            このサイトは Next.js + MDX を SSG しています。
+          </p>
+          <p className="dark:text-white">
+            ソースコードは
+            <a
+              href="https://github.com/ellreka/ellreka.net"
+              target="_blank"
+              rel="noreferrer"
+              className="text-blue-600">
+              こちら
+            </a>
+            です。
+          </p>
+          <h2 className="dark:text-white text-lg font-bold mt-10">Profile</h2>
+          <div className="dark:text-white border dark:border-white border-black p-1 space-y-1">
             <dl className="flex">
               <dt className="w-20">Name</dt>
               <dd>Shun Tanigome</dd>

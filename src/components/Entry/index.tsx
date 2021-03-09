@@ -37,7 +37,7 @@ const components = {
     />
   ),
   img: (props: any) => <img className="w-auto h-auto" {...props} />,
-  a: (props: any) => <a className="text-blue-500" {...props} />,
+  a: (props: any) => <a className="text-blue-500 break-all" {...props} />,
   ul: (props: any) => (
     <ul className="list text-black dark:text-white" {...props} />
   ),

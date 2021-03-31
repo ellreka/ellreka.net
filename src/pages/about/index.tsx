@@ -34,7 +34,7 @@ const About: React.FC = () => {
             です。
           </p>
           <h2 className="dark:text-white text-lg font-bold mt-10">Profile</h2>
-          <div className="dark:text-white mt-10">
+          <div className="dark:text-white">
             <p>フロントエンドが好きです。</p>
           </div>
           <h2 className="dark:text-white text-lg font-bold mt-10">Hobby</h2>

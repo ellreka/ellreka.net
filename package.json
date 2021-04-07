@@ -11,7 +11,7 @@
     "build-storybook": "build-storybook"
   },
   "devDependencies": {
-    "@ellreka/configs": "1.1.1",
+    "@ellreka/configs": "^1.1.11",
     "@ellreka/tailwindcss-table": "^1.0.0",
     "@fortawesome/fontawesome-free": "5.14.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.34",
@@ -31,7 +31,7 @@
     "@types/eslint": "7.2.2",
     "@types/mdx-js__react": "1.5.2",
     "@types/node": "14.6.4",
-    "@types/react": "16.9.49",
+    "@types/react": "^17.0.3",
     "@types/react-syntax-highlighter": "11.0.5",
     "autoprefixer": "^10.2.5",
     "babel-loader": "8.1.0",
@@ -41,8 +41,8 @@
     "next": "10.0.4",
     "postcss": "^8.2.8",
     "prettier": "2.1.1",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-markdown": "4.3.1",
     "react-syntax-highlighter": "13.5.3",
     "react-use": "15.3.4",
@@ -50,5 +50,7 @@
     "tailwindcss": "^2.0.3",
     "typescript": "4.0.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "@types/react-dom": "^17.0.3"
+  }
 }

@@ -1,14 +1,6 @@
 {
   "extends": "@ellreka/configs/tsconfig",
   "compilerOptions": {
-    "allowJs": true,
-    "skipLibCheck": true,
-    "noEmit": true,
-    "module": "esnext",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "jsx": "preserve"
   },
   "include": ["src/**/*", "decls.d.ts"],
-  "exclude": ["node_modules"]
 }

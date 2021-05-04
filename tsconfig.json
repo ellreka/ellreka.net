@@ -1,6 +1,16 @@
 {
   "extends": "@ellreka/configs/tsconfig",
   "compilerOptions": {
+    "skipLibCheck": true,
+    "noEmit": true,
+    "module": "esnext",
+    "jsx": "preserve"
   },
-  "include": ["src/**/*", "decls.d.ts"],
+  "include": [
+    "src/**/*",
+    "decls.d.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

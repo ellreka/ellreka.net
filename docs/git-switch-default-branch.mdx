@@ -1,0 +1,23 @@
+---
+  date: '2021-05-06'
+  title: 'gitのデフォルトブランチがmasterでもmainでも切り替える'
+  tags: ['Git', 'tips']
+---
+
+## Background
+
+GitHub のデフォルトブランチ名が `main` になってから `master` と `main` が混在して切り替えが面倒になったので。
+
+https://github.blog/changelog/2020-10-01-the-default-branch-for-newly-created-repositories-is-now-main/
+
+## command
+
+```bash
+git switch (git remote show origin | grep 'HEAD branch' | awk '{print $NF}')
+```
+
+もっと良い方法がありそうだけど見つけられなかった。
+
+## references
+
+https://qiita.com/ymm1x/items/b22bddc9fbc192ae1a70

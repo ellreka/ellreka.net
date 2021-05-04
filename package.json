@@ -22,7 +22,7 @@
     "@mapbox/rehype-prism": "0.5.0",
     "@mdx-js/loader": "1.6.16",
     "@mdx-js/react": "1.6.16",
-    "@next/mdx": "9.5.3",
+    "@next/mdx": "10.2.0",
     "@storybook/addon-actions": "6.0.21",
     "@storybook/addon-essentials": "6.0.21",
     "@storybook/addon-links": "6.0.21",

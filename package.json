@@ -8,7 +8,9 @@
     "build": "next build",
     "eslint": "eslint src --ext ts,tsx",
     "storybook": "start-storybook -p 6006 -s ./public",
-    "build-storybook": "build-storybook"
+    "build-storybook": "build-storybook",
+    "ci:vrt": "reg-suit run",
+    "ci:storycap": "storycap --serverTimeout 60000 --captureTimeout 10000 --serverCmd 'yarn storybook' http://localhost:6006"
   },
   "devDependencies": {
     "@ellreka/configs": "1.1.12",
@@ -47,6 +49,10 @@
     "react-markdown": "6.0.2",
     "react-syntax-highlighter": "15.4.3",
     "react-use": "17.2.4",
+    "reg-keygen-git-hash-plugin": "^0.10.15",
+    "reg-notify-github-plugin": "^0.10.15",
+    "reg-suit": "^0.10.15",
+    "storycap": "^3.0.4",
     "stringify-object": "3.3.0",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat",
     "typescript": "4.2.4"

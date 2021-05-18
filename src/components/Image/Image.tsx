@@ -24,7 +24,7 @@ export function Image({
         alt={alt}
         width={width}
         height={height}
-        className={clsx('cursor-pointer w-full h-auto md:w-1/2', className)}
+        className={clsx('w-full h-auto cursor-pointer md:w-1/2', className)}
         style={style}
       />
     </a>

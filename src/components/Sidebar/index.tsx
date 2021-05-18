@@ -32,10 +32,10 @@ export function Sidebar({ headings }: Props): React.ReactElement {
     }
   })
   return (
-    <nav className="sticky top-10 bg-gray-200 p-3">
+    <nav className="sticky top-10 p-3 bg-gray-200">
       <ul>
         {list.map((item, idx) => (
-          <li className="text-gray-800 text-sm mt-3" key={idx}>
+          <li className="mt-3 text-gray-800 text-sm" key={idx}>
             <a className="hover:text-blue-500" href={`#${item.title}`}>
               {item.title}
             </a>

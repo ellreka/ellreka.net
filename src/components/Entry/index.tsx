@@ -1,4 +1,4 @@
-import { MDXProvider } from '@mdx-js/react'
+import { MDXProvider, MDXProviderComponentsProp } from '@mdx-js/react'
 // import { useWindowScroll } from 'react-use'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -12,33 +12,41 @@ interface Props {
   children: React.ReactNode
 }
 
-const components = {
-  h2: (props: any) => {
+const components: MDXProviderComponentsProp = {
+  h2: (props) => {
     return (
       <h2
-        className="text-xl mt-12 mb-4 font-medium border-l-4 border-solid border-blue-300 pl-2 text-black dark:text-white"
+        className="mb-4 mt-12 pl-2 text-black dark:text-white text-xl font-medium border-l-4 border-solid border-blue-300"
         id={props.children}
-        {...props}
-      />
+        {...props}>
+        {props.children}
+      </h2>
     )
   },
   h3: (props: any) => {
     return (
       <h3
-        className="text-lg mt-4 mb-4 font-medium text-black dark:text-white"
+        className="mb-4 mt-4 text-black dark:text-white text-lg font-medium"
         id={props.children}
-        {...props}
-      />
+        {...props}>
+        {props.children}
+      </h3>
     )
   },
   p: (props: any) => (
     <p
-      className="text-sm leading-8 my-4 text-black dark:text-white"
+      className="my-4 text-black dark:text-white text-sm leading-8"
       {...props}
     />
   ),
-  img: (props: any) => <img className="w-auto h-auto" {...props} />,
-  a: (props: any) => <a className="text-blue-500 break-all" {...props} />,
+  img: (props: any) => (
+    <img className="w-auto h-auto" alt={props.alt} {...props} />
+  ),
+  a: (props: any) => (
+    <a className="text-blue-500 break-all" href={props.href} {...props}>
+      {props.children}
+    </a>
+  ),
   ul: (props: any) => (
     <ul className="list text-black dark:text-white" {...props} />
   ),
@@ -49,18 +57,18 @@ const components = {
     </li>
   ),
   strong: (props: any) => (
-    <strong className="font-bold text-black dark:text-white" {...props} />
+    <strong className="text-black dark:text-white font-bold" {...props} />
   ),
   inlineCode: (props: any) => (
     <code
-      className="bg-gray-200 dark:bg-gray-800 text-black dark:text-orange-500 border border-solid border-gray-500 dark:border-gray-900 rounded-sm px-2 py-1 mx-1 break-all"
+      className="mx-1 px-2 py-1 text-black dark:text-orange-500 break-all bg-gray-200 dark:bg-gray-800 border border-solid border-gray-500 dark:border-gray-900 rounded-sm"
       {...props}
     />
   ),
   blockquote: (props: any) => (
     <>
       <blockquote
-        className="relative bg-gray-200 dark:bg-gray-700 whitespace-pre-wrap text-gray-600 dark:text-gray-400 py-2 px-3 h-full border-l-4 border-solid border-gray-600"
+        className="relative px-3 py-2 h-full dark:text-gray-400 text-gray-600 whitespace-pre-wrap bg-gray-200 dark:bg-gray-700 border-l-4 border-solid border-gray-600"
         {...props}
       />
     </>
@@ -78,17 +86,17 @@ export function EntryLayout({ meta, children }: Props): React.ReactElement {
           rel="stylesheet"
         />
       </Meta>
-      <div className={clsx('border-b-4 border-dotted border-blue-300 pb-12')}>
-        <h1 className="text-xl dark:text-white">{meta.title}</h1>
-        <div className={clsx('mt-4 flex items-center')}>
-          <p className="text-base text-gray-600 dark:text-gray-300">
+      <div className={clsx('pb-12 border-b-4 border-dotted border-blue-300')}>
+        <h1 className="dark:text-white text-xl">{meta.title}</h1>
+        <div className={clsx('flex items-center mt-4')}>
+          <p className="dark:text-gray-300 text-gray-600 text-base">
             created at: {meta.date}
           </p>
           <a
             href={`https://github.com/ellreka/ellreka.net/commits/master/docs/${meta.id}.mdx`}
             target="_blank"
             rel="noreferrer"
-            className="text-base text-blue-500 ml-4">
+            className="ml-4 text-blue-500 text-base">
             history
           </a>
         </div>
@@ -98,7 +106,7 @@ export function EntryLayout({ meta, children }: Props): React.ReactElement {
             {meta.tags.map((tag, idx) => (
               <li
                 key={idx}
-                className="inline-block bg-gray-700 px-2 text-white rounded-full ml-3">
+                className="inline-block ml-3 px-2 text-white bg-gray-700 rounded-full">
                 <Link href={`/tag/${tag}`}>
                   <a>{tag}</a>
                 </Link>

@@ -1,13 +1,15 @@
-import '../../styles/index.css'
-
 import React from 'react'
 
 import { Header } from '.'
+import { Story } from '@storybook/react/types-6-0'
 
 export default { title: 'Header' }
 
-const [isDark, setIsDark] = React.useState<boolean>(true)
+export const header: Story<React.ComponentProps<typeof Header>> = (props) => {
+  return <Header {...props} />
+}
 
-export const component = () => (
-  <Header isDark={isDark} toggleTheme={(arg) => setIsDark(arg)} />
-)
+header.args = {
+  isDark: true,
+  toggleTheme: () => {}
+}

@@ -26,9 +26,9 @@ function Layout({ children }: Props): React.ReactElement {
       className={clsx({
         dark: isDark
       })}>
-      <div className="px-4 bg-white dark:bg-gray-800">
+      <div className="px-4 dark:bg-gray-800 bg-white">
         <Header isDark={isDark} toggleTheme={onChangeTheme} />
-        <main className="min-h-screen mt-12">{children}</main>
+        <main className="mt-12 min-h-screen">{children}</main>
         <Footer />
       </div>
     </div>

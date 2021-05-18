@@ -18,9 +18,9 @@ export function ProgressBar({ loading }: Props): ReactElement {
   return (
     <>
       {loading && (
-        <div className="w-screen h-1 fixed top-0 left-0">
+        <div className="fixed left-0 top-0 w-screen h-1">
           <span
-            className="bg-blue-400 h-full absolute top-0 left-0 transition-all"
+            className="absolute left-0 top-0 h-full bg-blue-400 transition-all"
             style={{
               width: `${percentage}%`
             }}

@@ -5,6 +5,7 @@ module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}'],
   plugins: [require('@ellreka/tailwindcss-table')],
   darkMode: 'class',
+  mode: process.env.NODE_ENV ? 'jit' : undefined,
   theme: {
     extend: {
       colors: {

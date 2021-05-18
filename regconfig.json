@@ -5,6 +5,9 @@
     "thresholdRate": 0.05
   },
   "plugins": {
-    "reg-keygen-git-hash-plugin": {}
+    "reg-keygen-git-hash-plugin": {},
+    "reg-notify-github-plugin": {
+      "clientId": "$REG_NOTICE_CLIENT_ID"
+    }
   }
 }

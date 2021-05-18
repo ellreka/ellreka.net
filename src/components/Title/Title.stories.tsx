@@ -11,5 +11,5 @@ export const title: Story<React.ComponentProps<typeof Title>> = (props) => {
 }
 
 title.args = {
-  children: 'タイトルあああああああ'
+  children: 'タイトルあああああああsu.hacuseachu.sauhc.asuchetnsauh'
 }

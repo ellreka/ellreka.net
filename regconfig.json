@@ -1,13 +1,10 @@
 {
   "core": {
-    "workingDir": "__screenshots__",
-    "actualDir": ".reg",
+    "workingDir": ".reg",
+    "actualDir": "__screenshots__",
     "thresholdRate": 0.05
   },
   "plugins": {
-    "reg-keygen-git-hash-plugin": {},
-    "reg-notify-github-plugin": {
-      "clientId": "$REG_NOTICE_CLIENT_ID"
-    }
+    "reg-keygen-git-hash-plugin": {}
   }
 }

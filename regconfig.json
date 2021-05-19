@@ -8,6 +8,9 @@
     "reg-keygen-git-hash-plugin": {},
     "reg-notify-github-plugin": {
       "clientId": "$REG_NOTICE_CLIENT_ID"
+    },
+    "reg-publish-s3-plugin": {
+      "bucketName": "ellreka.net-vrt"
     }
   }
 }

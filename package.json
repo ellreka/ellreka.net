@@ -51,6 +51,7 @@
     "react-use": "17.2.4",
     "reg-keygen-git-hash-plugin": "^0.10.15",
     "reg-notify-github-plugin": "^0.10.15",
+    "reg-publish-s3-plugin": "^0.10.15",
     "reg-suit": "^0.10.15",
     "storycap": "^3.0.4",
     "stringify-object": "3.3.0",

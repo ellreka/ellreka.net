@@ -1,0 +1,24 @@
+---
+  date: '2021-06-08'
+  title: 'VSCode Neovimでvscodeのコメントアウト機能を使う方法'
+  tags: ['vscode', 'neovim']
+---
+
+## 方法
+
+`init.vim`に以下を追記する。
+
+```vim
+if exists('g:vscode')
+  xmap gc  <Plug>VSCodeCommentary
+  nmap gc  <Plug>VSCodeCommentary
+  omap gc  <Plug>VSCodeCommentary
+  nmap gcc <Plug>VSCodeCommentaryLine
+endif
+```
+
+これで`react`とかで js 部分と jsx 部分でコメントアウトの種類を自動で切り替えてくれる。
+
+## 参考
+
+https://github.com/asvetliakov/vscode-neovim#vim-commentary

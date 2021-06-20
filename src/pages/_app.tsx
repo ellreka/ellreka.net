@@ -10,13 +10,22 @@ function MyApp({ Component, pageProps }: AppProps): React.ReactElement {
   const [loading, setLoading] = React.useState(false)
 
   React.useEffect(() => {
+    const handleRouteChange = (url: string): void => {
+      gtag('event', 'page_view', {
+        url
+      })
+    }
     router.events.on('routeChangeStart', (url: string) => {
       setLoading(true)
     })
     router.events.on('routeChangeComplete', (url: string) => {
+      handleRouteChange(url)
       setLoading(false)
     })
-  }, [router.pathname])
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange)
+    }
+  }, [router.events])
 
   return (
     <>

@@ -42,7 +42,7 @@
     "clsx": "1.1.1",
     "eslint": "7.26.0",
     "gray-matter": "4.0.3",
-    "next": "10.2.0",
+    "next": "11.1.0",
     "postcss": "^7",
     "prettier": "2.3.0",
     "react": "^17.0.2",

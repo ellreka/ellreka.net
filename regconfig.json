@@ -1,8 +1,9 @@
 {
   "core": {
-    "workingDir": ".reg",
     "actualDir": "__screenshots__",
-    "thresholdRate": 0.05
+    "workingDir": ".reg",
+    "thresholdRate": 0.05,
+    "ximgdiff": true
   },
   "plugins": {
     "reg-keygen-git-hash-plugin": {},

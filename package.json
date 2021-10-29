@@ -56,7 +56,7 @@
     "reg-suit": "^0.10.15",
     "storycap": "^3.0.4",
     "stringify-object": "3.3.0",
-    "tailwindcss": "2.1.2",
+    "tailwindcss": "2.2.19",
     "typescript": "4.2.4"
   }
 }

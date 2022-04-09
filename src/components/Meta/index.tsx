@@ -24,6 +24,10 @@ export function Meta({ meta, children }: Props): React.ReactElement {
       <meta name="twitter:creator" content="@ellreka" />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={meta.description ?? ''} />
+      <script
+        async
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1975152831536952"
+        crossOrigin="anonymous"></script>
       {children}
     </Head>
   )

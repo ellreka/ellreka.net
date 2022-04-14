@@ -3,6 +3,7 @@ import fs from 'fs'
 import { GetStaticProps } from 'next'
 import path from 'path'
 import React from 'react'
+import { Adsense } from '../../components/Adsense'
 
 import { EntryLayout } from '../../components/Entry'
 import Layout from '../../components/Layout'
@@ -53,6 +54,7 @@ const Post = ({ slug }: Props): React.ReactElement => {
           <Sidebar headings={headings} />
         </div>
       </div>
+      <Adsense />
     </Layout>
   )
 }

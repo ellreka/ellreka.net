@@ -49,7 +49,7 @@ const Home = ({ entries }: Props): React.ReactElement => {
     <Layout>
       <Meta meta={meta} />
       <div className="mx-auto max-w-2xl">
-        <Adsense />
+        {/* <Adsense /> */}
         <Title>Entries</Title>
         <List entries={entries} />
       </div>

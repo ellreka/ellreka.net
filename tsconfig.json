@@ -4,7 +4,8 @@
     "skipLibCheck": true,
     "noEmit": true,
     "module": "esnext",
-    "jsx": "preserve"
+    "jsx": "preserve",
+    "incremental": true
   },
   "include": [
     "src/**/*",

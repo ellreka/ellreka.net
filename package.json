@@ -34,7 +34,7 @@
     "@types/gtag.js": "^0.0.5",
     "@types/mdx-js__react": "1.5.3",
     "@types/node": "15.3.0",
-    "@types/react": "^17.0.5",
+    "@types/react": "^18.0.5",
     "@types/react-dom": "^17.0.5",
     "@types/react-syntax-highlighter": "13.5.0",
     "autoprefixer": "^9",
@@ -42,11 +42,12 @@
     "clsx": "1.1.1",
     "eslint": "7.26.0",
     "gray-matter": "4.0.3",
-    "next": "10.2.0",
+    "microcms-js-sdk": "^2.0.0",
+    "next": "^12.1.5",
     "postcss": "^7",
     "prettier": "2.3.0",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
     "react-markdown": "6.0.2",
     "react-syntax-highlighter": "15.4.3",
     "react-use": "17.2.4",
@@ -56,7 +57,7 @@
     "reg-suit": "^0.10.15",
     "storycap": "^3.0.4",
     "stringify-object": "3.3.0",
-    "tailwindcss": "2.1.2",
-    "typescript": "4.2.4"
+    "tailwindcss": "^3.0.24",
+    "typescript": "^4.6.3"
   }
 }

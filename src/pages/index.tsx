@@ -2,7 +2,6 @@ import fs from 'fs'
 import matter from 'gray-matter'
 import path from 'path'
 import React from 'react'
-import { Adsense } from '../components/Adsense'
 
 import Layout from '../components/Layout'
 import { List } from '../components/List'
@@ -49,7 +48,6 @@ const Home = ({ entries }: Props): React.ReactElement => {
     <Layout>
       <Meta meta={meta} />
       <div className="mx-auto max-w-2xl">
-        {/* <Adsense /> */}
         <Title>Entries</Title>
         <List entries={entries} />
       </div>

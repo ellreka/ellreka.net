@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --port 4444",
     "build": "next build",
     "eslint": "eslint src --ext ts,tsx",
     "storybook": "start-storybook -p 6006 -s ./public",
@@ -13,7 +13,7 @@
     "ci:storycap": "storycap --serverTimeout 60000 --captureTimeout 10000 --serverCmd 'yarn storybook' http://localhost:6006"
   },
   "devDependencies": {
-    "@ellreka/configs": "1.1.12",
+    "@ellreka/configs": "^1.1.13",
     "@ellreka/tailwindcss-table": "^1.0.0",
     "@fortawesome/fontawesome-free": "5.15.3",
     "@fortawesome/fontawesome-svg-core": "^1.2.35",

@@ -1,0 +1,28 @@
+{
+  "items": [
+    {
+      "date": "2019-12-12",
+      "type": "post",
+      "title": "Dvorak配列を１年間使用してみて",
+      "url": "https://qiita.com/ellreka/items/d065f3f41a8a6bc1d77c"
+    },
+    {
+      "date": "2021-02-25",
+      "type": "release",
+      "title": "copy-selected-tabs-url",
+      "url": "https://chrome.google.com/webstore/detail/copy-selected-tabs-url/cllpjhdcnppedhjbohppjocbcahkifij?hl=ja&authuser=0"
+    },
+    {
+      "date": "2021-06-03",
+      "type": "post",
+      "title": "Tailwind CSSのクラス名をハイライトするvscode拡張を作りました",
+      "url": "https://zenn.dev/ellreka/articles/6da7e293bf90e1"
+    },
+    {
+      "date": "2022-04-25",
+      "type": "release",
+      "title": "生配徊",
+      "url": "https://live.ellreka.net/"
+    }
+  ]
+}

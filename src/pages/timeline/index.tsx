@@ -26,7 +26,7 @@ export const getStaticProps = async (): Promise<{ props: Props }> => {
       date: frontMatter.date,
       type: 'post',
       title: frontMatter.title,
-      url: `https://ellreka.net/${slug}`
+      url: `https://ellreka.net/entry/${slug}`
     }
   })
 

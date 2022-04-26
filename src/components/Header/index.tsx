@@ -50,7 +50,7 @@ export function Header({ isDark, toggleTheme }: Props): React.ReactElement {
             </a>
           </Link>
         </h1>
-        <div className="flex w-1/3 justify-end">
+        {/* <div className="flex w-1/3 justify-end">
           <label className="relative block h-6 w-12 cursor-pointer rounded-full border border-solid border-gray-800 bg-white transition duration-500 ease-in-out dark:border-white dark:bg-gray-800">
             <span
               role="presentation"
@@ -88,7 +88,7 @@ export function Header({ isDark, toggleTheme }: Props): React.ReactElement {
               checked={isDark}
             />
           </label>
-        </div>
+        </div> */}
       </div>
     </header>
   )

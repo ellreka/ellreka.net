@@ -44,17 +44,19 @@ const Post = ({ slug }: Props): React.ReactElement => {
   const { meta, headings } = frontMatter
   return (
     <Layout>
-      <div className="flex justify-between mt-24 mx-auto">
+      <div className="mx-auto mt-24 flex justify-between">
         <div className="w-full lg:w-4/5">
           <EntryLayout meta={{ ...meta, id: slug, description: meta.title }}>
             <MDXContent />
           </EntryLayout>
         </div>
-        <div className="hidden ml-6 min-w-56 lg:block">
+        <div className="ml-6 hidden min-w-56 lg:block">
           <Sidebar headings={headings} />
         </div>
       </div>
-      <Adsense />
+      <div className="mt-10">
+        <Adsense />
+      </div>
     </Layout>
   )
 }

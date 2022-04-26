@@ -26,9 +26,9 @@ function Layout({ children }: Props): React.ReactElement {
       className={clsx({
         dark: isDark
       })}>
-      <div className="px-4 dark:bg-gray-800 bg-white">
-        <Header isDark={isDark} toggleTheme={onChangeTheme} />
-        <main className="mt-12 min-h-screen">{children}</main>
+      <div className="flex min-h-screen flex-col bg-white px-4 dark:bg-gray-800">
+        <Header isDark={true} toggleTheme={onChangeTheme} />
+        <main className="h-ful mt-12 grow">{children}</main>
         <Footer />
       </div>
     </div>

@@ -1,0 +1,139 @@
+---
+  date: '2022-05-01'
+  title: 'Youtube と Twitch の生配信をランダムに巡回するサービスを作った'
+  tags: ['React', 'TypeScript', 'Deno', 'tips']
+---
+
+## サービス概要
+
+Youtube と Twitch の生配信をランダムに少しずつ再生して巡回します。
+
+見ている人全員が同じ画面を共有していて、チャットでやり取りすることも出来ます。
+
+[生配徊](https://live.ellreka.net)
+
+## 動機
+
+[ニコ生クルーズ](https://dic.nicovideo.jp/a/%E3%83%8B%E3%82%B3%E7%94%9F%E3%82%AF%E3%83%AB%E3%83%BC%E3%82%BA) というニコ生の配信をランダムに巡回していくサービスがあり、これのニコ生以外版がほしいなと思ったので作りました。
+
+私は生配信を見るのが好きで作業中もずっと誰かの配信を垂れ流しているのですが、自分の好きな配信者が放送していないときは見るものがなくて困ります。
+
+そんなときにこのサービスを使えば作業用 BGM に困らなくなり、普段見ることがないジャンルの配信者を発掘することも出来ます。
+
+完全に自分用に作りました。
+
+## 技術的な構成
+
+フロントエンドは Vite(React)、バックエンドは Deno を使いました。
+
+またチャットや再生中の動画情報のリアルタイム共有のために Firebase を使っています。
+
+## Deno を使ってみた
+
+使ってみたくてバックエンドは Deno で書いてみました。
+
+[oak](https://github.com/oakserver/oak) というフレームワークを使って実装しました。
+
+Firebase を Deno で使う場合 Node.js には用意されている Firebase Admin SDK が使えません。
+
+そのため管理者権限で Firebase を操作するために事前にメールアドレスでユーザーを作成してそれで認証を行いました。
+
+こちらの記事が参考になりました。
+
+https://qiita.com/access3151fq/items/eed16862893dc004d404
+
+また Hosting には [Deno Deploy](https://deno.com/deploy) を使いました。
+
+特に設定もせず簡単にデプロイ出来て最高でした。
+
+ブラウザからコードを書いてデプロイまですることも出来るので、ちょっとしたサーバーを立てたいときにはすごく便利ですね。
+
+## VSCode の Multi-root Workspaces 環境で Deno の拡張機能が壊れる
+
+VSCode で Deno を書く場合、まず [拡張機能](https://marketplace.visualstudio.com/items?itemName=denoland.vscode-deno) をインストールします。
+
+これによって Deno 特有の import 文などでエラーが出なくなります。
+
+今回はフロントエンドとバックエンドを同じリポジトリに入れて [Multi-root Workspaces](https://code.visualstudio.com/docs/editor/multi-root-workspaces) を使用して開発しました。
+
+code-workspace の設定はこんな感じで、各フォルダの root 直下に`.vscode/setting.json` を設置しています。
+
+参考: https://github.com/denoland/vscode_deno/blob/main/docs/workspaceFolders.md
+
+```json
+{
+  "folders": [
+    {
+      "name": "web",
+      "path": "web"
+    },
+    {
+      "name": "server",
+      "path": "server"
+    }
+  ]
+}
+```
+
+この状態で Deno ファイルの Diff を見るとエラーが表示されてしまい、VSCode リロードしないと直らなくなります。
+
+<video src="/assets/live-cruise.mov" controls></video>
+
+解決方法としては、code-workspace の設定ファイルに settings を追加することです。
+
+```json
+{
+  "folders": [
+    {
+      "name": "web",
+      "path": "web"
+    },
+    {
+      "name": "server",
+      "path": "server"
+    }
+  ],
+  "settings": {
+    "deno.enable": true
+  }
+}
+```
+
+その上で Deno 以外のフォルダでは`deno.enable: false` を設定すればどちらも問題なく機能するようになりました。
+
+## YouTube Searh API で日本のライブ配信のみを取得できない
+
+[YouTube Searh API](https://developers.google.com/youtube/v3/docs/search/list?hl=ja) を使用して動画を取得しているのですが、`regionCode` と `relevanceLanguage` に日本を指定しても日本語以外の動画が混ざってしまいます。
+
+指定したパラメータはこんな感じです。
+
+```js
+const params = {
+  key: '',
+  order: 'date',
+  part: 'snippet',
+  type: 'video',
+  maxResults: '50',
+  eventType: 'live',
+  videoEmbeddable: 'true',
+  regionCode: 'JP',
+  relevanceLanguage: 'ja',
+  fields: 'nextPageToken,items(id(videoId),snippet(title))'
+}
+```
+
+色々調べましたが、日本語のみの動画を取得する方法がわからなかったので仕方なく正規表現を使って日本語以外の動画を弾くようにしました。
+
+ガバガバな判定方法ですがまあこの程度のサービスであれば問題ないので妥協します。
+
+## 最後に
+
+こういう複数人が使わないと成り立たないサービス(SNS とか)って、せっかく作ってもユーザーがいなければ虚しいだけですよね。
+
+ユーザー数を増やすためには宣伝が必須ですが、私はそういうのが苦手だしあまりやりたくないです。
+
+なので Web サービスで利益を得ている人はホントにすごいなと常々思っています。
+
+私はこれからもひっそりと自分さえ使えればそれで良い自己中心的なサービスを作っていきます。
+
+(あわよくば誰かが見つけて使ってくれないかなという淡い期待を込めてこの記事を公開します。)

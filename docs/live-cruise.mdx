@@ -10,7 +10,7 @@ Youtube と Twitch の生配信をランダムに少しずつ再生して巡回�
 
 見ている人全員が同じ画面を共有していて、チャットでやり取りすることも出来ます。
 
-[生配徊](https://live.ellreka.net)
+https://live.ellreka.net
 
 ## 動機
 
@@ -58,7 +58,9 @@ VSCode で Deno を書く場合、まず [拡張機能](https://marketplace.visu
 
 code-workspace の設定はこんな感じで、各フォルダの root 直下に`.vscode/setting.json` を設置しています。
 
-参考: https://github.com/denoland/vscode_deno/blob/main/docs/workspaceFolders.md
+参考
+
+https://github.com/denoland/vscode_deno/blob/main/docs/workspaceFolders.md
 
 ```json
 {
@@ -77,7 +79,9 @@ code-workspace の設定はこんな感じで、各フォルダの root 直下�
 
 この状態で Deno ファイルの Diff を見るとエラーが表示されてしまい、VSCode リロードしないと直らなくなります。
 
-<video src="/assets/live-cruise.mov" controls></video>
+<video controls>
+  <source src="/assets/live-cruise.mov" />
+</video>
 
 解決方法としては、code-workspace の設定ファイルに settings を追加することです。
 

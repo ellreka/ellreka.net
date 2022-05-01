@@ -5,6 +5,7 @@ import Link from 'next/link'
 import React from 'react'
 
 import { MetaType } from '../../types'
+import { BlogCard } from '../BlogCard'
 import { Meta } from '../Meta'
 
 interface Props {
@@ -16,7 +17,7 @@ const components: MDXProviderComponentsProp = {
   h2: (props) => {
     return (
       <h2
-        className="mb-4 mt-12 pl-2 text-black dark:text-white text-xl font-medium border-l-4 border-solid border-blue-300"
+        className="mb-4 mt-12 border-l-4 border-solid border-blue-300 pl-2 text-xl font-medium text-black dark:text-white"
         id={props.children}
         {...props}>
         {props.children}
@@ -26,7 +27,7 @@ const components: MDXProviderComponentsProp = {
   h3: (props: any) => {
     return (
       <h3
-        className="mb-4 mt-4 text-black dark:text-white text-lg font-medium"
+        className="mb-4 mt-4 text-lg font-medium text-black dark:text-white"
         id={props.children}
         {...props}>
         {props.children}
@@ -35,18 +36,28 @@ const components: MDXProviderComponentsProp = {
   },
   p: (props: any) => (
     <p
-      className="my-4 text-black dark:text-white text-sm leading-8"
+      className="my-4 text-sm leading-8 text-black dark:text-white"
       {...props}
     />
   ),
   img: (props: any) => (
-    <img className="w-auto h-auto" alt={props.alt} {...props} />
+    <img className="h-auto w-auto" alt={props.alt} {...props} />
   ),
-  a: (props: any) => (
-    <a className="text-blue-500 break-all" href={props.href} {...props}>
-      {props.children}
-    </a>
-  ),
+  a: (props: any) => {
+    return !props?.['data-title']?.length ? (
+      <a className="break-all text-blue-500" href={props.href} {...props}>
+        {props.children}
+      </a>
+    ) : (
+      <BlogCard
+        title={props['data-title']}
+        description={props['data-description']}
+        domain={props['data-domain']}
+        url={props['data-url']}
+        image={props['data-image']}
+      />
+    )
+  },
   ul: (props: any) => (
     <ul className="list text-black dark:text-white" {...props} />
   ),
@@ -57,18 +68,18 @@ const components: MDXProviderComponentsProp = {
     </li>
   ),
   strong: (props: any) => (
-    <strong className="text-black dark:text-white font-bold" {...props} />
+    <strong className="font-bold text-black dark:text-white" {...props} />
   ),
   inlineCode: (props: any) => (
     <code
-      className="mx-1 px-2 py-1 text-black dark:text-orange-500 break-all bg-gray-200 dark:bg-gray-800 border border-solid border-gray-500 dark:border-gray-900 rounded-sm"
+      className="mx-1 break-all rounded-sm border border-solid border-gray-500 bg-gray-200 px-2 py-1 text-black dark:border-gray-900 dark:bg-gray-800 dark:text-orange-500"
       {...props}
     />
   ),
   blockquote: (props: any) => (
     <>
       <blockquote
-        className="relative px-3 py-2 h-full dark:text-gray-400 text-gray-600 whitespace-pre-wrap bg-gray-200 dark:bg-gray-700 border-l-4 border-solid border-gray-600"
+        className="relative h-full whitespace-pre-wrap border-l-4 border-solid border-gray-600 bg-gray-200 px-3 py-2 text-gray-600 dark:bg-gray-700 dark:text-gray-400"
         {...props}
       />
     </>
@@ -86,27 +97,27 @@ export function EntryLayout({ meta, children }: Props): React.ReactElement {
           rel="stylesheet"
         />
       </Meta>
-      <div className={clsx('pb-12 border-b-4 border-dotted border-blue-300')}>
-        <h1 className="dark:text-white text-xl">{meta.title}</h1>
-        <div className={clsx('flex items-center mt-4')}>
-          <p className="dark:text-gray-300 text-gray-600 text-base">
+      <div className={clsx('border-b-4 border-dotted border-blue-300 pb-12')}>
+        <h1 className="text-xl dark:text-white">{meta.title}</h1>
+        <div className={clsx('mt-4 flex items-center')}>
+          <p className="text-base text-gray-600 dark:text-gray-300">
             created at: {meta.date}
           </p>
           <a
             href={`https://github.com/ellreka/ellreka.net/commits/master/docs/${meta.id}.mdx`}
             target="_blank"
             rel="noreferrer"
-            className="ml-4 text-blue-500 text-base">
+            className="ml-4 text-base text-blue-500">
             history
           </a>
         </div>
-        <div className={clsx('flex items-center mt-4')}>
+        <div className={clsx('mt-4 flex items-center')}>
           <p className="text-black dark:text-white">Tags:</p>
           <ul>
             {meta.tags.map((tag, idx) => (
               <li
                 key={idx}
-                className="inline-block ml-3 px-2 text-white bg-gray-700 rounded-full">
+                className="ml-3 inline-block rounded-full bg-gray-700 px-2 text-white">
                 <Link href={`/tag/${tag}`}>
                   <a>{tag}</a>
                 </Link>

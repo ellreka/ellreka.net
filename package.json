@@ -21,7 +21,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
     "@fullhuman/postcss-purgecss": "4.0.3",
-    "@mapbox/rehype-prism": "0.6.0",
+    "@mapbox/rehype-prism": "0.8.0",
     "@mdx-js/loader": "1.6.22",
     "@mdx-js/react": "1.6.22",
     "@next/mdx": "10.2.0",

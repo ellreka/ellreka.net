@@ -44,7 +44,7 @@ const Post = ({ slug }: Props): React.ReactElement => {
   const { meta, headings } = frontMatter
   return (
     <Layout>
-      <div className="mx-auto mt-24 flex justify-between">
+      <div className="mx-auto mt-24 flex max-w-screen-xl justify-between">
         <div className="w-full lg:w-4/5">
           <EntryLayout meta={{ ...meta, id: slug, description: meta.title }}>
             <MDXContent />

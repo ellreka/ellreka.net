@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 import fs from 'fs'
 import { GetStaticProps } from 'next'
+import dynamic from 'next/dynamic'
 import path from 'path'
 import React from 'react'
 import { Adsense } from '../../components/Adsense'
@@ -8,9 +8,14 @@ import { Adsense } from '../../components/Adsense'
 import { EntryLayout } from '../../components/Entry'
 import Layout from '../../components/Layout'
 import { Sidebar } from '../../components/Sidebar'
+import { MetaType } from '../../types'
 
 interface Props {
   slug: string
+  frontMatter: {
+    meta: MetaType
+    headings: Array<{ level: number; title: string }>
+  }
 }
 
 const root = process.cwd()
@@ -29,18 +34,17 @@ export function getStaticPaths(): { paths: string[]; fallback: boolean } {
 
 export const getStaticProps: GetStaticProps = async (props) => {
   const slug = props.params?.entry as string
+  const frontMatter = (await import(`../../../docs/${slug}.mdx`)).frontMatter
   return {
     props: {
-      slug
+      slug,
+      frontMatter
     }
   }
 }
 
-const Post = ({ slug }: Props): React.ReactElement => {
-  const {
-    default: MDXContent,
-    frontMatter
-  } = require(`../../../docs/${slug}.mdx`)
+const Post = ({ slug, frontMatter }: Props): React.ReactElement => {
+  const MDXContent = dynamic(() => import(`../../../docs/${slug}.mdx`))
   const { meta, headings } = frontMatter
   return (
     <Layout>

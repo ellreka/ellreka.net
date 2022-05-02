@@ -13,8 +13,8 @@ interface Props {
   children: React.ReactNode
 }
 
-const components: MDXProviderComponentsProp = {
-  h2: (props) => {
+export const mdxComponents: MDXProviderComponentsProp = {
+  h2: (props: any) => {
     return (
       <h2
         className="mb-4 mt-12 border-l-4 border-solid border-blue-300 pl-2 text-xl font-medium text-black dark:text-white"
@@ -127,7 +127,7 @@ export function EntryLayout({ meta, children }: Props): React.ReactElement {
         </div>
       </div>
       <div className="mt-12">
-        <MDXProvider components={components}>{children}</MDXProvider>
+        <MDXProvider components={mdxComponents}>{children}</MDXProvider>
       </div>
     </div>
   )

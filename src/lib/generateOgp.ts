@@ -75,5 +75,9 @@ export const generateOgp = async ({
   )
 
   const ogpImage = await sharp(svg).resize(1200, 630).png().toBuffer()
+  const imagePath = path.join(root, '/public/ogp')
+  if (!fs.existsSync(imagePath)) {
+    fs.mkdirSync(imagePath)
+  }
   fs.writeFileSync(path.join(root, `/public/ogp/${slug}.png`), ogpImage)
 }

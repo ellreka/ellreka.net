@@ -108,11 +108,11 @@ export function EntryLayout({ meta, children }: Props): React.ReactElement {
         </div>
         <div className={clsx('mt-4 flex items-center')}>
           <p className="text-black dark:text-white">Tags:</p>
-          <ul>
+          <ul className="inline-flex flex-wrap items-center gap-1">
             {meta.tags.map((tag, idx) => (
               <li
                 key={idx}
-                className="ml-3 inline-block rounded-full bg-gray-700 px-2 text-white">
+                className="inline-block rounded-full bg-gray-700 px-2 text-white">
                 <Link href={`/tag/${tag}`}>
                   <a>{tag}</a>
                 </Link>

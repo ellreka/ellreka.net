@@ -6,6 +6,7 @@ import React from 'react'
 
 import { MetaType } from '../../types'
 import { BlogCard } from '../BlogCard'
+import { Image } from '../Image/Image'
 import { Meta } from '../Meta'
 
 interface Props {
@@ -27,7 +28,7 @@ export const mdxComponents: MDXProviderComponentsProp = {
   h3: (props: any) => {
     return (
       <h3
-        className="mb-4 mt-4 text-lg font-medium text-black dark:text-white"
+        className="mb-4 mt-4 inline-block border-b-2 border-solid border-blue-300 text-lg font-medium text-black dark:text-white"
         id={props.children}
         {...props}>
         {props.children}
@@ -41,21 +42,15 @@ export const mdxComponents: MDXProviderComponentsProp = {
     />
   ),
   img: (props: any) => (
-    <img className="h-auto w-auto" alt={props.alt} {...props} />
+    <Image className="h-auto w-auto" alt={props.alt} {...props} />
   ),
   a: (props: any) => {
-    return !props?.['data-title']?.length ? (
+    return props.href === props.children ? (
+      <BlogCard {...props} />
+    ) : (
       <a className="break-all text-blue-500" href={props.href} {...props}>
         {props.children}
       </a>
-    ) : (
-      <BlogCard
-        title={props['data-title']}
-        description={props['data-description']}
-        domain={props['data-domain']}
-        url={props['data-url']}
-        image={props['data-image']}
-      />
     )
   },
   ul: (props: any) => (
@@ -98,7 +93,7 @@ export function EntryLayout({ meta, children }: Props): React.ReactElement {
         />
       </Meta>
       <div className={clsx('border-b-4 border-dotted border-blue-300 pb-12')}>
-        <h1 className="text-xl dark:text-white">{meta.title}</h1>
+        <h1 className="text-xl font-bold dark:text-white">{meta.title}</h1>
         <div className={clsx('mt-4 flex items-center')}>
           <p className="text-base text-gray-600 dark:text-gray-300">
             created at: {meta.date}

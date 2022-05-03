@@ -1,5 +1,6 @@
 import { ReactElement, CSSProperties } from 'react'
 import clsx from 'clsx'
+import NextImage from 'next/image'
 
 interface ImageProps {
   width?: string | number
@@ -24,7 +25,7 @@ export function Image({
         alt={alt}
         width={width}
         height={height}
-        className={clsx('w-full h-auto cursor-pointer md:w-1/2', className)}
+        className={clsx('h-auto w-full cursor-pointer md:w-1/2', className)}
         style={style}
       />
     </a>

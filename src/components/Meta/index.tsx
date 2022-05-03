@@ -32,7 +32,7 @@ export function Meta({
         </>
       ) : (
         <>
-          <meta property="og:image" content="/favicon.ico" />
+          <meta property="og:image" content="https://ellreka.net/favicon.ico" />
           <meta name="twitter:card" content="summary" />
         </>
       )}

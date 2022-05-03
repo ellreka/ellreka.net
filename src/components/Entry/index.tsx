@@ -86,7 +86,7 @@ export function EntryLayout({ meta, children }: Props): React.ReactElement {
   // const y = 100
   return (
     <div className="relative">
-      <Meta meta={meta}>
+      <Meta meta={meta} isEntry={true}>
         <link
           href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/themes/prism-tomorrow.min.css"
           rel="stylesheet"

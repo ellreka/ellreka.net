@@ -4,6 +4,7 @@ export interface MetaType {
   description?: string
   date: string
   tags: string[]
+  image: string
 }
 
 export type Timeline = Array<{

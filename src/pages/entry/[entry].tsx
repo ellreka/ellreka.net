@@ -8,6 +8,7 @@ import { Adsense } from '../../components/Adsense'
 import { EntryLayout } from '../../components/Entry'
 import Layout from '../../components/Layout'
 import { Sidebar } from '../../components/Sidebar'
+import { generateOgp } from '../../lib/generateOgp'
 import { MetaType } from '../../types'
 
 interface Props {
@@ -35,6 +36,7 @@ export function getStaticPaths(): { paths: string[]; fallback: boolean } {
 export const getStaticProps: GetStaticProps = async (props) => {
   const slug = props.params?.entry as string
   const frontMatter = (await import(`../../../docs/${slug}.mdx`)).frontMatter
+  await generateOgp({ slug, title: frontMatter.meta.title })
   return {
     props: {
       slug,
@@ -50,7 +52,13 @@ const Post = ({ slug, frontMatter }: Props): React.ReactElement => {
     <Layout>
       <div className="mx-auto mt-10 flex max-w-screen-xl justify-between">
         <div className="w-full lg:w-4/5">
-          <EntryLayout meta={{ ...meta, id: slug, description: meta.title }}>
+          <EntryLayout
+            meta={{
+              ...meta,
+              id: slug,
+              description: meta.title,
+              image: `https://ellreka.net/ogp/${slug}.png`
+            }}>
             <MDXContent />
           </EntryLayout>
         </div>

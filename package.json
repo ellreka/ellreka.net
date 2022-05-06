@@ -10,6 +10,7 @@
     "eslint": "eslint src --ext ts,tsx",
     "storybook": "start-storybook -p 6006 -s ./public",
     "build-storybook": "build-storybook",
+    "gen:docs": "bash bin/gen-mdx.sh",
     "ci:vrt": "reg-suit run",
     "ci:storycap": "storycap --serverTimeout 60000 --captureTimeout 10000 --serverCmd 'yarn storybook' http://localhost:6006"
   },

@@ -37,7 +37,7 @@ export const mdxComponents: MDXProviderComponentsProp = {
   },
   p: (props: any) => (
     <p
-      className="my-4 text-sm leading-8 text-black dark:text-white"
+      className="text-md my-4 leading-8 text-black dark:text-white"
       {...props}
     />
   ),

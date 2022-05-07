@@ -1,28 +1,13 @@
 const path = require('path')
 const rehypePrism = require('@mapbox/rehype-prism')
-// const withMDX = require('@next/mdx')({
-//   extension: /\.mdx?$/,
-//   options: {
-//     providerImportSource: '@mdx-js/react',
-//     rehypePlugins: [rehypePrism]
-//   }
-// })
-
-// module.exports = withMDX({
-//   pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
-//   webpack(config, _) {
-//     config.module.rules.push({
-//       test: /\.mdx/,
-//       use: [path.join(__dirname, './lib/fm-loader')]
-//     })
-//     return config
-//   }
-// })
 
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
   experimental: { esmExternals: true },
+  images: {
+    domains: ['gyazo.com']
+  },
   // Support MDX files as pages:
   pageExtensions: ['md', 'mdx', 'tsx', 'ts', 'jsx', 'js'],
   // Support loading `.md`, `.mdx`:

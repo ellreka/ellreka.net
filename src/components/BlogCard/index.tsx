@@ -10,7 +10,7 @@ export const BlogCard: FC<Props> = ({ href }) => {
   const { ogp, isLoading } = useOgp(href)
   return (
     <a
-      href={ogp?.url}
+      href={href}
       target="_blank"
       rel="noreferrer"
       className={clsx(

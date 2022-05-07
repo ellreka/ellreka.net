@@ -19,6 +19,7 @@ export const Adsense: VFC = () => {
         style={{ display: 'block', margin: 'auto', width: 320, height: 70 }}
         data-ad-client={process.env.GOOGLE_ADSENSE_CLIENT}
         data-ad-slot="5914435371"
+        data-ad-format="auto"
         data-full-width-responsive="true"></ins>
     </div>
   )

@@ -14,10 +14,10 @@ export const BlogCard: FC<Props> = ({ href }) => {
       target="_blank"
       rel="noreferrer"
       className={clsx(
-        'my-4 flex max-h-[150px] items-center justify-between gap-2 rounded-md border border-gray-400 bg-slate-700 py-4 px-4 hover:bg-slate-800',
+        'my-4 flex min-h-[150px] items-center justify-between gap-2 overflow-hidden rounded-md border border-gray-400 bg-slate-700 py-4 px-4 hover:bg-slate-800',
         isLoading && 'animate-pulse'
       )}>
-      <div className="flex grow flex-col gap-2">
+      <div className="flex w-full grow flex-col gap-2">
         {isLoading ? (
           <div className="h-2 w-10 rounded-full bg-slate-500"></div>
         ) : (

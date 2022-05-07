@@ -61,7 +61,7 @@ export function Image({
                 leave="ease-in duration-200"
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95">
-                <Dialog.Panel className="w-full max-w-5xl transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all">
+                <Dialog.Panel className="w-full transform overflow-hidden rounded-2xl text-left align-middle shadow-xl transition-all sm:max-w-5xl sm:p-6">
                   <img
                     onClick={openModal}
                     src={src}

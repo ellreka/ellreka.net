@@ -1,10 +1,15 @@
 export interface MetaType {
-  id: string
+  // id: string
   title: string
   description?: string
   date: string
   tags: string[]
-  image: string
+  ogpImage?: string
+}
+
+export interface EntryType {
+  slug: string
+  meta: MetaType
 }
 
 export type Timeline = Array<{

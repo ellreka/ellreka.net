@@ -1,8 +1,10 @@
----
-  date: '2022-05-07'
-  title: 'QMK で かなキー を Hold している間だけローマ字入力になるようにしてみる'
-  tags: ['QMK', 'Tips']
----
+export const meta = {
+  date: '2022-05-07',
+  title:
+    'QMK で かなキー を Hold している間だけローマ字入力になるようにしてみる',
+  tags: ['QMK', 'Tips'],
+  ogpImage: '/assets/qmk-input-jp.jpeg'
+}
 
 import { Image } from '../src/components'
 
@@ -43,7 +45,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 色々考えた結果私はこのようになりました。
 
-<Image src="https://gyazo.com/cfec7f4c438f96d7e2eedaa479df7d64.jpg" />
+<Image src="/assets/qmk-input-jp.jpeg" />
 
 まず スペースキー と かなキー は左右で分けています。
 

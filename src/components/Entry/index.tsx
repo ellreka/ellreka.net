@@ -8,9 +8,11 @@ import { MetaType } from '../../types'
 import { BlogCard } from '../BlogCard'
 import { Image } from '../Image/Image'
 import { Meta } from '../Meta'
+import path from 'path'
 
 interface Props {
   meta: MetaType
+  slug: string
   children: React.ReactNode
 }
 
@@ -36,7 +38,7 @@ export const mdxComponents: MDXProviderComponentsProp = {
     )
   },
   p: (props: any) => (
-    <p
+    <div
       className="sm:text-md my-4 text-sm leading-8 text-black dark:text-white"
       {...props}
     />
@@ -81,12 +83,24 @@ export const mdxComponents: MDXProviderComponentsProp = {
   )
 }
 
-export function EntryLayout({ meta, children }: Props): React.ReactElement {
+export function EntryLayout({
+  meta,
+  children,
+  slug
+}: Props): React.ReactElement {
   // const { y } = useWindowScroll()
   // const y = 100
   return (
     <div className="relative">
-      <Meta meta={meta} isEntry={true}>
+      <Meta
+        meta={{
+          title: meta.title,
+          description: meta.title,
+          image: meta.ogpImage
+            ? `${path.join('https://ellreka.net/', meta.ogpImage)}`
+            : `https://ellreka.net/ogp/${slug}.png`
+        }}
+        isEntry={true}>
         <link
           href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/themes/prism-tomorrow.min.css"
           rel="stylesheet"
@@ -99,7 +113,7 @@ export function EntryLayout({ meta, children }: Props): React.ReactElement {
             created at: {meta.date}
           </p>
           <a
-            href={`https://github.com/ellreka/ellreka.net/commits/master/docs/${meta.id}.mdx`}
+            href={`https://github.com/ellreka/ellreka.net/commits/master/docs/${slug}.mdx`}
             target="_blank"
             rel="noreferrer"
             className="ml-4 text-base text-blue-500">

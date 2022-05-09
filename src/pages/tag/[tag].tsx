@@ -8,25 +8,17 @@ import Layout from '../../components/Layout'
 import { List } from '../../components/List'
 import { Meta } from '../../components/Meta'
 import { Title } from '../../components/Title'
-import { MetaType } from '../../types'
-
-const root = process.cwd()
+import { getEntries } from '../../lib/getEntries'
+import { EntryType } from '../../types'
 
 interface Props {
   tag: string
-  entries: Array<{
-    slug: string
-    frontMatter: MetaType
-  }>
+  entries: EntryType[]
 }
 
-export function getStaticPaths(): { paths: string[]; fallback: boolean } {
-  const docs = path.join(root, 'docs')
-  const tags: string[] = fs.readdirSync(docs).flatMap((p) => {
-    const content = fs.readFileSync(path.join(docs, p), 'utf8')
-    const frontMatter = matter(content).data
-    return frontMatter.tags
-  })
+export const getStaticPaths = async () => {
+  const entries = await getEntries()
+  const tags = entries.flatMap((entry) => entry.meta.tags)
   const paths = Array.from(new Set(tags)).map((tag) => {
     return `/tag/${tag}`
   })
@@ -38,25 +30,11 @@ export function getStaticPaths(): { paths: string[]; fallback: boolean } {
 
 export const getStaticProps: GetStaticProps = async (props) => {
   const tag = props.params?.tag as string
-  const docs = path.join(root, 'docs')
-  const entries = fs
-    .readdirSync(docs)
-    .map((p) => {
-      const content = fs.readFileSync(path.join(docs, p), 'utf8')
-      return {
-        slug: p.replace(/\.mdx/, ''),
-        frontMatter: matter(content).data as MetaType
-      }
-    })
-    .filter((entry) => {
-      return entry.frontMatter.tags.includes(tag)
-    })
-    .sort(
-      (a, b) =>
-        new Date(b.frontMatter.date).getTime() -
-        new Date(a.frontMatter.date).getTime()
-    )
-  return { props: { tag, entries } }
+  const entries = await getEntries()
+  const filteringEntries = entries.filter((entry) => {
+    return entry.meta.tags.includes(tag)
+  })
+  return { props: { tag, entries: filteringEntries } }
 }
 
 const Tag = ({ tag, entries }: Props): React.ReactElement => {

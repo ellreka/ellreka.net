@@ -34,13 +34,13 @@ export const BlogCard: FC<Props> = ({ href }) => {
         {isLoading ? (
           <div className="h-2 w-20 rounded-full bg-slate-500"></div>
         ) : (
-          <p className="flex items-center gap-1 text-xs text-white">
+          <div className="flex items-center gap-1 text-xs text-white">
             <img
               src={`https://www.google.com/s2/favicons?domain=${ogp?.domain}`}
               alt=""
             />
             <span>{ogp?.domain}</span>
-          </p>
+          </div>
         )}
       </div>
       {isLoading ? (

@@ -8,39 +8,38 @@ import fs from 'fs'
 import { MetaType, Timeline } from '../../types'
 import matter from 'gray-matter'
 import timelineJson from '../../timeline.json'
+import { getEntries } from '../../lib/getEntries'
 
 interface Props {
   timeline: Timeline
+  years: number[]
 }
 
 const meta = { title: 'Timeline', description: 'タイムライン' }
 
 export const getStaticProps = async (): Promise<{ props: Props }> => {
-  const root = process.cwd()
-  const docs = path.join(root, 'docs')
-  const entries: Timeline = fs.readdirSync(docs).map((p) => {
-    const content = fs.readFileSync(path.join(docs, p), 'utf8')
-    const frontMatter = matter(content).data as MetaType
-    const slug = p.replace(/\.mdx/, '')
+  const entries = await getEntries()
+  const posts: Timeline = entries.map((entry) => {
     return {
-      date: frontMatter.date,
+      date: entry.meta.date,
       type: 'post',
-      title: frontMatter.title,
-      url: `https://ellreka.net/entry/${slug}`
+      title: entry.meta.title,
+      url: `https://ellreka.net/entry/${entry.slug}`
     }
   })
 
-  const timeline = [...timelineJson.items, ...entries].sort(
+  const timeline = [...timelineJson.items, ...posts].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   )
 
-  return { props: { timeline } }
-}
-
-const Timeline: React.FC<Props> = ({ timeline }) => {
   const years = Array.from(
     new Set(timeline.map((i) => new Date(i.date).getFullYear()))
   ).sort((a, b) => b - a)
+
+  return { props: { timeline, years } }
+}
+
+const Timeline: React.FC<Props> = ({ timeline, years }) => {
   return (
     <Layout>
       <Meta meta={meta} />

@@ -7,15 +7,13 @@ import Layout from '../components/Layout'
 import { List } from '../components/List'
 import { Meta } from '../components/Meta'
 import { Title } from '../components/Title'
-import { MetaType } from '../types'
+import { getEntries } from '../lib/getEntries'
+import { EntryType, MetaType } from '../types'
 
 const root = process.cwd()
 
 interface Props {
-  entries: Array<{
-    slug: string
-    frontMatter: MetaType
-  }>
+  entries: EntryType[]
 }
 
 const meta = {
@@ -24,21 +22,7 @@ const meta = {
 }
 
 export const getStaticProps = async (): Promise<{ props: Props }> => {
-  const docs = path.join(root, 'docs')
-  const entries = fs
-    .readdirSync(docs)
-    .map((p) => {
-      const content = fs.readFileSync(path.join(docs, p), 'utf8')
-      return {
-        slug: p.replace(/\.mdx/, ''),
-        frontMatter: matter(content).data as MetaType
-      }
-    })
-    .sort(
-      (a, b) =>
-        new Date(b.frontMatter.date).getTime() -
-        new Date(a.frontMatter.date).getTime()
-    )
+  const entries = await getEntries()
 
   return { props: { entries } }
 }

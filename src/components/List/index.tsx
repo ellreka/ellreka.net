@@ -6,7 +6,7 @@ import { MetaType } from '../../types'
 interface Props {
   entries: Array<{
     slug: string
-    frontMatter: MetaType
+    meta: MetaType
   }>
 }
 
@@ -17,21 +17,21 @@ export const List = ({ entries }: Props): React.ReactElement => {
         <div key={entry.slug} className="mb-8 pt-8">
           <Link href="/entry/[entry]" as={`/entry/${entry.slug}`}>
             <a className="inline-block">
-              <h2 className="text-blue-400 hover:text-blue-600 text-sm md:text-lg">
-                {entry.frontMatter.title}
+              <h2 className="text-sm text-blue-400 hover:text-blue-600 md:text-lg">
+                {entry.meta.title}
               </h2>
             </a>
           </Link>
-          <div className="flex items-end justify-between mt-3">
+          <div className="mt-3 flex items-end justify-between">
             <div className="flex items-end">
-              <p className="text-black dark:text-white text-xs md:text-sm">
+              <p className="text-xs text-black dark:text-white md:text-sm">
                 Tags:
               </p>
               <ul>
-                {entry.frontMatter.tags.map((tag) => (
+                {entry.meta.tags.map((tag) => (
                   <li
                     key={tag}
-                    className="inline-block ml-1 px-2 text-white text-xs bg-gray-700 rounded-full md:text-sm">
+                    className="ml-1 inline-block rounded-full bg-gray-700 px-2 text-xs text-white md:text-sm">
                     <Link href={`/tag/${tag}`}>
                       <a>{tag}</a>
                     </Link>
@@ -39,9 +39,9 @@ export const List = ({ entries }: Props): React.ReactElement => {
                 ))}
               </ul>
             </div>
-            <p className="dark:text-gray-400 text-gray-600 text-xs md:text-sm">
-              {entry.frontMatter.date}
-            </p>
+            <span className="text-xs text-gray-600 dark:text-gray-400 md:text-sm">
+              {entry.meta.date}
+            </span>
           </div>
         </div>
       ))}

@@ -97,7 +97,7 @@ export function EntryLayout({
           title: meta.title,
           description: meta.title,
           image: meta.ogpImage
-            ? `${path.join('https://ellreka.net/', meta.ogpImage)}`
+            ? `https://ellreka.net${meta.ogpImage}`
             : `https://ellreka.net/ogp/${slug}.png`
         }}
         isEntry={true}>

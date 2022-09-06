@@ -35,11 +35,11 @@ export function Image({
         onClick={openModal}
         src={src}
         alt={alt}
-        className={clsx('h-auto w-full cursor-pointer md:w-2/3', className)}
+        className={clsx('h-auto w-full md:w-2/3 cursor-zoom-in', className)}
         style={style}
       />
       <Transition appear show={isOpen} as={Fragment}>
-        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+        <Dialog as="div" className="relative z-10 cursor-zoom-out" onClose={closeModal}>
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
@@ -52,7 +52,7 @@ export function Image({
           </Transition.Child>
 
           <div className="fixed inset-0 overflow-y-auto">
-            <div className="flex min-h-full w-full items-center justify-center p-4 text-center">
+            <div className="flex min-h-full w-full items-center justify-center text-center">
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -61,12 +61,12 @@ export function Image({
                 leave="ease-in duration-200"
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95">
-                <Dialog.Panel className="w-full transform overflow-hidden rounded-2xl text-left align-middle shadow-xl transition-all sm:max-w-5xl sm:p-6">
+                <Dialog.Panel className="w-full transform overflow-hidden rounded-2xl text-left align-middle shadow-xl transition-all sm:max-w-5xl">
                   <img
-                    onClick={openModal}
+                    onClick={closeModal}
                     src={src}
                     alt={alt}
-                    className={clsx('h-auto w-full cursor-pointer', className)}
+                    className={clsx('h-auto w-full', className)}
                     style={style}
                   />
                 </Dialog.Panel>

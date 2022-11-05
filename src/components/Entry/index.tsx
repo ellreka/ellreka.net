@@ -46,7 +46,7 @@ export const mdxComponents: MDXProviderComponentsProp = {
     <Image className="h-auto w-auto" alt={props.alt} {...props} />
   ),
   a: (props: any) => {
-    return props.href === props.children ? (
+    return props.href === props.children || props.children == null ? (
       <BlogCard {...props} />
     ) : (
       <a className="break-all text-blue-500" href={props.href} {...props}>

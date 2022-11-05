@@ -1,4 +1,4 @@
-import { MDXProvider, MDXProviderComponentsProp } from '@mdx-js/react'
+import { MDXProviderComponentsProp } from '@mdx-js/react'
 // import { useWindowScroll } from 'react-use'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -8,7 +8,6 @@ import { MetaType } from '../../types'
 import { BlogCard } from '../BlogCard'
 import { Image } from '../Image/Image'
 import { Meta } from '../Meta'
-import path from 'path'
 
 interface Props {
   meta: MetaType
@@ -76,11 +75,12 @@ export const mdxComponents: MDXProviderComponentsProp = {
   blockquote: (props: any) => (
     <>
       <blockquote
-        className="relative h-full whitespace-pre-wrap border-l-4 border-solid border-gray-600 bg-gray-200 px-3 py-2 text-gray-600 dark:bg-gray-700 dark:text-gray-400"
+        className="relative h-full border-l-4 border-solid border-gray-600 bg-gray-200 px-3 py-2 text-gray-600 dark:bg-gray-700 dark:text-gray-400"
         {...props}
       />
     </>
-  )
+  ),
+  Image: Image
 }
 
 export function EntryLayout({
@@ -136,7 +136,7 @@ export function EntryLayout({
         </div>
       </div>
       <div className="mt-12">
-        <MDXProvider components={mdxComponents}>{children}</MDXProvider>
+        {children}
       </div>
     </div>
   )

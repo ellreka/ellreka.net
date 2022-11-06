@@ -5,11 +5,17 @@
     "noEmit": true,
     "module": "esnext",
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "include": [
     "src/**/*",
-    "decls.d.ts"
+    "decls.d.ts",
+    ".next/types/**/*.ts"
   ],
   "exclude": [
     "node_modules"

@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import React from 'react'
 
 interface Props {
@@ -18,7 +17,7 @@ export function Meta({
 }: Props): React.ReactElement {
   const title = `${meta.title} | ellreka.net`
   return (
-    <Head>
+    <>
       <title>{title}</title>
       <meta name="description" content={meta.description ?? 'ellreka.net'} />
       <meta property="og:description" content={meta.description ?? ''} />
@@ -40,6 +39,6 @@ export function Meta({
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={meta.description ?? ''} />
       {children}
-    </Head>
+    </>
   )
 }

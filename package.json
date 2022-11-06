@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next dev --port 4444",
     "build": "next build",
+    "export": "next export",
     "lint": "next lint",
     "eslint": "eslint src --ext ts,tsx",
     "storybook": "start-storybook -p 6006 -s ./public",
@@ -77,6 +78,6 @@
     "@mdx-js/mdx": "^2.0.0-rc.2"
   },
   "volta": {
-    "node": "14.19.1"
+    "node": "16.8.0"
   }
 }

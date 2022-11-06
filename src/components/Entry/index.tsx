@@ -127,17 +127,19 @@ export function EntryLayout({
               <li
                 key={idx}
                 className="inline-block rounded-full bg-gray-700 px-2 text-white">
-                <Link href={`/tag/${tag}`}>
-                  <a>{tag}</a>
+                <Link
+                  href={{
+                    pathname: '/tag/[tag]',
+                    query: { tag }
+                  }}>
+                  {tag}
                 </Link>
               </li>
             ))}
           </ul>
         </div>
       </div>
-      <div className="mt-12">
-        {children}
-      </div>
+      <div className="mt-12">{children}</div>
     </div>
   )
 }

@@ -6,7 +6,6 @@ import Link from 'next/link'
 import { ReactNode } from 'react'
 
 import { MetaType } from '@/types'
-import { Meta } from '@/components/Meta'
 
 interface Props {
   meta: MetaType
@@ -23,20 +22,6 @@ export function EntryLayout({
   // const y = 100
   return (
     <div className="relative">
-      <Meta
-        meta={{
-          title: meta.title,
-          description: meta.title,
-          image: meta.ogpImage
-            ? `https://ellreka.net${meta.ogpImage}`
-            : `https://ellreka.net/ogp/${slug}.png`
-        }}
-        isEntry={true}>
-        <link
-          href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/themes/prism-tomorrow.min.css"
-          rel="stylesheet"
-        />
-      </Meta>
       <div className={clsx('border-b-4 border-dotted border-blue-300 pb-12')}>
         <h1 className="text-xl font-bold dark:text-white">{meta.title}</h1>
         <div className={clsx('mt-4 flex items-center')}>

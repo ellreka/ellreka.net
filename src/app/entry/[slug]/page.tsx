@@ -12,6 +12,7 @@ import { getEntries } from '@/lib/getEntries'
 import rehypePrism from '@mapbox/rehype-prism'
 import { MDXContent } from '@/components/MDXContent/MDXContent'
 import { generateOgp } from '@/lib/generateOgp'
+import { Meta } from '@/components/Meta'
 
 interface Params {
   params: {
@@ -53,7 +54,11 @@ const getData = async (slug: string) => {
 
   const code = compiled.toString()
 
-  // await generateOgp({ slug, title: meta.title })
+  try {
+    await generateOgp({ slug, title: meta.title })
+  } catch (e) {
+    console.error(e)
+  }
   return {
     code,
     frontMatter: {
@@ -72,6 +77,20 @@ const Post = async ({ params: { slug } }: Params) => {
 
   return (
     <>
+      <Meta
+        meta={{
+          title: meta.title,
+          description: meta.title,
+          image: meta.ogpImage
+            ? `https://ellreka.net${meta.ogpImage}`
+            : `https://ellreka.net/ogp/${slug}.png`
+        }}
+        isEntry={true}>
+        <link
+          href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/themes/prism-tomorrow.min.css"
+          rel="stylesheet"
+        />
+      </Meta>
       <div className="mx-auto mt-10 flex max-w-screen-xl justify-between">
         <div className="w-full lg:w-4/5">
           <EntryLayout slug={slug} meta={meta}>

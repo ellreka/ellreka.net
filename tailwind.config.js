@@ -2,10 +2,9 @@ const colors = require('tailwindcss/colors')
 
 module.exports = {
   ...require('@ellreka/configs/tailwind.config'),
-  purge: ['./src/**/*.{js,jsx,ts,tsx}'],
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
   plugins: [require('@ellreka/tailwindcss-table')],
   darkMode: 'class',
-  mode: process.env.NODE_ENV ? 'jit' : undefined,
   theme: {
     extend: {
       colors: {

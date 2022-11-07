@@ -1,17 +1,15 @@
-import React from 'react'
+import { Title } from '@/components/Title'
+import { Meta } from '@/components/Meta'
 
-import Layout from '../../components/Layout'
-import { Meta } from '../../components/Meta'
-import { Title } from '../../components/Title'
-
-const About: React.FC = () => {
-  const meta = {
-    title: 'About',
-    description: 'このブログについて'
-  }
+const About = () => {
   return (
-    <Layout>
-      <Meta meta={meta} />
+    <>
+      <Meta
+        meta={{
+          title: 'About',
+          description: 'このブログについて'
+        }}
+      />
       <div className="mx-auto max-w-2xl">
         <Title>About</Title>
         <div className="mt-20 space-y-10">
@@ -63,7 +61,7 @@ const About: React.FC = () => {
           </ul> */}
         </div>
       </div>
-    </Layout>
+    </>
   )
 }
 

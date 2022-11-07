@@ -4,7 +4,11 @@ const rehypePrism = require('@mapbox/rehype-prism')
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
-  experimental: { esmExternals: true },
+  experimental: {
+    esmExternals: true,
+    appDir: true,
+    fontLoaders: [{ loader: '@next/font/google' }]
+  },
   images: {
     domains: ['gyazo.com']
   },
@@ -21,8 +25,7 @@ module.exports = {
           loader: '@mdx-js/loader',
           /** @type {import('@mdx-js/loader').Options} */
           options: {
-            providerImportSource: '@mdx-js/react',
-            rehypePlugins: [rehypePrism]
+            providerImportSource: '@mdx-js/react'
           }
         },
         { loader: path.join(__dirname, './lib/fm-loader') }

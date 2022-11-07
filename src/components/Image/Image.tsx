@@ -1,3 +1,5 @@
+'use client'
+
 import { ReactElement, CSSProperties, useState, Fragment } from 'react'
 import clsx from 'clsx'
 import NextImage from 'next/image'

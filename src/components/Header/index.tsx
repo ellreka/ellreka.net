@@ -17,19 +17,13 @@ export function Header({ isDark, toggleTheme }: Props): React.ReactElement {
   const ListItems = (): JSX.Element => (
     <>
       <li className="sm:text-md mr-4 hidden text-sm hover:text-blue-500 dark:hover:text-blue-700 sm:block">
-        <Link href="/">
-          <a>Entries</a>
-        </Link>
+        <Link href="/">Entries</Link>
       </li>
       <li className="sm:text-md mr-4 text-sm hover:text-blue-500 dark:hover:text-blue-700">
-        <Link href="/timeline">
-          <a>Timeline</a>
-        </Link>
+        <Link href="/timeline">Timeline</Link>
       </li>
       <li className="sm:text-md mr-4 text-sm hover:text-blue-500 dark:hover:text-blue-700">
-        <Link href="/about">
-          <a>About</a>
-        </Link>
+        <Link href="/about">About</Link>
       </li>
     </>
   )
@@ -41,13 +35,11 @@ export function Header({ isDark, toggleTheme }: Props): React.ReactElement {
         </ul>
         <h1 className="flex w-1/3 justify-center text-lg">
           <Link href="/">
-            <a>
-              <img
-                src="/icon.png"
-                alt=""
-                className="inline-block h-6 w-6 rounded-full bg-ellreka"
-              />
-            </a>
+            <img
+              src="/icon.png"
+              alt=""
+              className="inline-block h-6 w-6 rounded-full bg-ellreka"
+            />
           </Link>
         </h1>
         {/* <div className="flex w-1/3 justify-end">

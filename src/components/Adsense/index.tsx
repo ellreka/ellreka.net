@@ -1,8 +1,10 @@
-import { useRouter } from 'next/router'
+'use client'
+
+import { usePathname } from 'next/navigation'
 import React, { useEffect, VFC } from 'react'
 
 export const Adsense: VFC = () => {
-  const { pathname } = useRouter()
+  const pathname = usePathname()
 
   useEffect(() => {
     try {

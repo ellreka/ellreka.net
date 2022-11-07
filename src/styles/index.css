@@ -3,7 +3,3 @@
 @tailwind components;
 /* purgecss end ignore */
 @tailwind utilities;
-
-body {
-  font-family: 'M PLUS 1p', sans-serif;
-}

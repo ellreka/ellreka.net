@@ -1,3 +1,5 @@
+'use client'
+
 import clsx from 'clsx'
 import React, { FC } from 'react'
 import { useOgp } from '../../hooks/useOgp'

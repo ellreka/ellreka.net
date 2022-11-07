@@ -1,4 +1,3 @@
-import React from 'react'
 import { List } from '@/components/List'
 import { Meta } from '@/components/Meta'
 import { Title } from '@/components/Title'

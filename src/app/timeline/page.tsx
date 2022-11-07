@@ -1,23 +1,10 @@
-import React from 'react'
+import { Meta } from '@/components/Meta'
+import { Title } from '@/components/Title'
+import timelineJson from '@/timeline.json'
+import { getEntries } from '@/lib/getEntries'
+import { Timeline } from '@/types'
 
-import Layout from '../../components/Layout'
-import { Meta } from '../../components/Meta'
-import { Title } from '../../components/Title'
-import path from 'path'
-import fs from 'fs'
-import { MetaType, Timeline } from '../../types'
-import matter from 'gray-matter'
-import timelineJson from '../../timeline.json'
-import { getEntries } from '../../lib/getEntries'
-
-interface Props {
-  timeline: Timeline
-  years: number[]
-}
-
-const meta = { title: 'Timeline', description: 'タイムライン' }
-
-export const getStaticProps = async (): Promise<{ props: Props }> => {
+const getData = async () => {
   const entries = await getEntries()
   const posts: Timeline = entries.map((entry) => {
     return {
@@ -36,13 +23,14 @@ export const getStaticProps = async (): Promise<{ props: Props }> => {
     new Set(timeline.map((i) => new Date(i.date).getFullYear()))
   ).sort((a, b) => b - a)
 
-  return { props: { timeline, years } }
+  return { timeline, years }
 }
 
-const Timeline: React.FC<Props> = ({ timeline, years }) => {
+const Timeline = async () => {
+  const { timeline, years } = await getData()
   return (
-    <Layout>
-      <Meta meta={meta} />
+    <>
+      <Meta meta={{ title: 'Timeline', description: 'タイムライン' }} />
       <div className="mx-auto h-full max-w-2xl">
         <Title>Timeline</Title>
         <div className="mt-10 flex h-full flex-col gap-10">
@@ -93,7 +81,7 @@ const Timeline: React.FC<Props> = ({ timeline, years }) => {
           })}
         </div>
       </div>
-    </Layout>
+    </>
   )
 }
 

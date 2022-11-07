@@ -1,9 +1,7 @@
-import React from 'react'
-
 import { Title } from '@/components/Title'
 import { Meta } from '@/components/Meta'
 
-const About: React.FC = () => {
+const About = () => {
   return (
     <>
       <Meta

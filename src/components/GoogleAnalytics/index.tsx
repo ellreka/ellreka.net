@@ -5,6 +5,7 @@ import Script from 'next/script'
 import { GA_TRACKING_ID } from '@/lib/gtag'
 
 export const GoogleAnalytics = () => {
+  console.log('gtag');
   return (
     <>
       <Script
@@ -13,7 +14,7 @@ export const GoogleAnalytics = () => {
         src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
         strategy="afterInteractive"
       />
-      <Script
+      {/* <Script
         id="ga-script"
         defer
         dangerouslySetInnerHTML={{
@@ -25,7 +26,7 @@ export const GoogleAnalytics = () => {
             `
         }}
         strategy="afterInteractive"
-      />
+      /> */}
     </>
   )
 }

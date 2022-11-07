@@ -2,7 +2,6 @@ import { List } from '@/components/List'
 import { Meta } from '@/components/Meta'
 import { Title } from '@/components/Title'
 import { getEntries } from '@/lib/getEntries'
-import { notFound } from 'next/navigation'
 
 interface Props {
   params: {

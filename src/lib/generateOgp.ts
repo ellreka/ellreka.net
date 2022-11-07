@@ -19,7 +19,7 @@ export const generateOgp = async ({
   slug: string
 }) => {
   const font = await opentype.load(
-    path.join(root, 'public/fonts/MPLUS1p-Bold.ttf')
+    path.join(root, 'fonts/MPLUS1p-Bold.ttf')
   )
   const generateTextPath = () => {
     const stringArr = mikan.split(title)

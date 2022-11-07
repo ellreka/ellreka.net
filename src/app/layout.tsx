@@ -1,5 +1,3 @@
-'use client'
-
 import { Suspense } from 'react'
 import '@/styles/index.css'
 import Loading from './loading'
@@ -22,9 +20,9 @@ export default function RootLayout({
         <GoogleAnalytics />
       </head>
       <body>
-        <Suspense fallback={<Loading />}>
-          <Layout>{children}</Layout>
-        </Suspense>
+        <Layout>
+          <Suspense fallback={<Loading />}>{children}</Suspense>
+        </Layout>
       </body>
     </html>
   )

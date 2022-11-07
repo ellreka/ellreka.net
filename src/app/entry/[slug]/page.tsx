@@ -22,6 +22,8 @@ interface Params {
 const root = process.cwd()
 const docs = path.join(root, 'docs')
 
+export const dynamicParams = false
+
 export const generateStaticParams = async () => {
   const allDirents = fs.readdirSync(docs, { withFileTypes: true })
   const paths = allDirents

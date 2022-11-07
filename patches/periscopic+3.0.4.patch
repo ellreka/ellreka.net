@@ -1,0 +1,15 @@
+diff --git a/node_modules/periscopic/package.json b/node_modules/periscopic/package.json
+index d2f9d81..0186069 100644
+--- a/node_modules/periscopic/package.json
++++ b/node_modules/periscopic/package.json
+@@ -6,9 +6,7 @@
+   "main": "src/index.js",
+   "module": "src/index.js",
+   "type": "module",
+-  "exports": {
+-    "import": "./src/index.js"
+-  },
++  "exports": "./src/index.js",
+   "types": "types/index.d.ts",
+   "files": [
+     "src",

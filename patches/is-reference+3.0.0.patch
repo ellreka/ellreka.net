@@ -1,0 +1,15 @@
+diff --git a/node_modules/is-reference/package.json b/node_modules/is-reference/package.json
+index 5ea760f..e460e2f 100644
+--- a/node_modules/is-reference/package.json
++++ b/node_modules/is-reference/package.json
+@@ -5,9 +5,7 @@
+   "type": "module",
+   "module": "src/index.js",
+   "types": "types/index.d.ts",
+-  "exports": {
+-    "import": "./src/index.js"
+-  },
++  "exports": "./src/index.js",
+   "files": [
+     "src",
+     "types"

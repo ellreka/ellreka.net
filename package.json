@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "postinstall": "patch-package",
     "dev": "next dev --port 4444",
     "build": "next build",
     "export": "next export",
@@ -76,7 +77,8 @@
     "typescript": "^4.8.4"
   },
   "dependencies": {
-    "@mdx-js/mdx": "^2.0.0-rc.2"
+    "@mdx-js/mdx": "^2.0.0-rc.2",
+    "patch-package": "^6.5.0"
   },
   "volta": {
     "node": "16.8.0"

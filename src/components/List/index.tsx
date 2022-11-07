@@ -15,12 +15,7 @@ export const List = ({ entries }: Props): React.ReactElement => {
     <div className="mt-4">
       {entries.map((entry) => (
         <div key={entry.slug} className="mb-8 pt-8">
-          <Link
-            href={{
-              pathname: 'entry/[entry]',
-              query: { entry: entry.slug }
-            }}
-            className="inline-block">
+          <Link href={`/entry/${entry.slug}`} className="inline-block">
             <h2 className="text-sm text-blue-400 hover:text-blue-600 md:text-lg">
               {entry.meta.title}
             </h2>
@@ -35,13 +30,7 @@ export const List = ({ entries }: Props): React.ReactElement => {
                   <li
                     key={tag}
                     className="ml-1 inline-block rounded-full bg-gray-700 px-2 text-xs text-white md:text-sm">
-                    <Link
-                      href={{
-                        pathname: 'tag/[tag]',
-                        query: { tag }
-                      }}>
-                      {tag}
-                    </Link>
+                    <Link href={`/tag/${tag}`}>{tag}</Link>
                   </li>
                 ))}
               </ul>

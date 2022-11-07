@@ -4,7 +4,11 @@ const rehypePrism = require('@mapbox/rehype-prism')
 /** @type {import('next').NextConfig} */
 module.exports = {
   reactStrictMode: true,
-  experimental: { esmExternals: true, appDir: true },
+  experimental: {
+    esmExternals: true,
+    appDir: true,
+    fontLoaders: [{ loader: '@next/font/google' }]
+  },
   images: {
     domains: ['gyazo.com']
   },

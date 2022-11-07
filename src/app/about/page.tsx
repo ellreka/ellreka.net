@@ -1,10 +1,17 @@
 import React from 'react'
 
-import { Title } from '../../components/Title'
+import { Title } from '@/components/Title'
+import { Meta } from '@/components/Meta'
 
 const About: React.FC = () => {
   return (
     <>
+      <Meta
+        meta={{
+          title: 'About',
+          description: 'このブログについて'
+        }}
+      />
       <div className="mx-auto max-w-2xl">
         <Title>About</Title>
         <div className="mt-20 space-y-10">

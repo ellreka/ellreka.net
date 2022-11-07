@@ -1,3 +1,7 @@
+'use client'
+
+import { ProgressBar } from '@/components/ProgressBar/ProgressBar'
+
 export default function Loading() {
-  return <div className="">loading</div>
+  return <ProgressBar loading={true} />
 }

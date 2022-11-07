@@ -128,10 +128,7 @@ export function EntryLayout({
                 key={idx}
                 className="inline-block rounded-full bg-gray-700 px-2 text-white">
                 <Link
-                  href={{
-                    pathname: '/tag/[tag]',
-                    query: { tag }
-                  }}>
+                  href={`/tag/${tag}`}>
                   {tag}
                 </Link>
               </li>

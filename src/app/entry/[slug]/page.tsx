@@ -53,7 +53,7 @@ const getData = async (slug: string) => {
 
   const code = compiled.toString()
 
-  await generateOgp({ slug, title: meta.title })
+  // await generateOgp({ slug, title: meta.title })
   return {
     code,
     frontMatter: {

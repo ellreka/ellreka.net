@@ -25,8 +25,7 @@ module.exports = {
           loader: '@mdx-js/loader',
           /** @type {import('@mdx-js/loader').Options} */
           options: {
-            providerImportSource: '@mdx-js/react',
-            rehypePlugins: [rehypePrism]
+            providerImportSource: '@mdx-js/react'
           }
         },
         { loader: path.join(__dirname, './lib/fm-loader') }

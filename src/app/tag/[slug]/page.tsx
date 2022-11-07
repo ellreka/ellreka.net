@@ -5,7 +5,7 @@ import { getEntries } from '@/lib/getEntries'
 
 interface Props {
   params: {
-    tag: string
+    slug: string
   }
 }
 
@@ -14,28 +14,33 @@ export const generateStaticParams = async () => {
   const tags = entries.flatMap((entry) => entry.meta.tags)
   const paths = Array.from(new Set(tags)).map((tag) => {
     return {
-      tag: tag
+      slug: tag
     }
   })
   return paths
 }
 
-const Tag = async ({ params: { tag } }: Props) => {
+const getData = async (slug: string) => {
   const entries = await getEntries()
   const filteringEntries = entries.filter((entry) => {
-    return entry.meta.tags.includes(tag)
+    return entry.meta.tags.includes(slug)
   })
+  return filteringEntries
+}
+
+const Tag = async ({ params: { slug } }: Props) => {
+  const entries = await getData(slug)
   return (
     <>
       <Meta
         meta={{
-          title: `「${tag}」一覧`,
-          description: `「${tag}」一覧`
+          title: `「${slug}」一覧`,
+          description: `「${slug}」一覧`
         }}
       />
       <div className="mx-auto max-w-2xl">
-        <Title>{tag}</Title>
-        <List entries={filteringEntries} />
+        <Title>{slug}</Title>
+        <List entries={entries} />
       </div>
     </>
   )

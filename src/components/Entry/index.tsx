@@ -1,86 +1,17 @@
-import { MDXProviderComponentsProp } from '@mdx-js/react'
+'use client'
+
 // import { useWindowScroll } from 'react-use'
 import clsx from 'clsx'
 import Link from 'next/link'
-import React from 'react'
+import { ReactNode } from 'react'
 
-import { MetaType } from '../../types'
-import { BlogCard } from '../BlogCard'
-import { Image } from '../Image/Image'
-import { Meta } from '../Meta'
+import { MetaType } from '@/types'
+import { Meta } from '@/components/Meta'
 
 interface Props {
   meta: MetaType
   slug: string
-  children: React.ReactNode
-}
-
-export const mdxComponents: MDXProviderComponentsProp = {
-  h2: (props: any) => {
-    return (
-      <h2
-        className="mb-4 mt-12 border-l-4 border-solid border-blue-300 pl-2 text-xl font-medium text-black dark:text-white"
-        id={props.children}
-        {...props}>
-        {props.children}
-      </h2>
-    )
-  },
-  h3: (props: any) => {
-    return (
-      <h3
-        className="mb-4 mt-4 inline-block border-b-2 border-solid border-blue-300 text-lg font-medium text-black dark:text-white"
-        id={props.children}
-        {...props}>
-        {props.children}
-      </h3>
-    )
-  },
-  p: (props: any) => (
-    <div
-      className="sm:text-md my-4 text-sm leading-8 text-black dark:text-white"
-      {...props}
-    />
-  ),
-  img: (props: any) => (
-    <Image className="h-auto w-auto" alt={props.alt} {...props} />
-  ),
-  a: (props: any) => {
-    return props.href === props.children || props.children == null ? (
-      <BlogCard {...props} />
-    ) : (
-      <a className="break-all text-blue-500" href={props.href} {...props}>
-        {props.children}
-      </a>
-    )
-  },
-  ul: (props: any) => (
-    <ul className="list text-black dark:text-white" {...props} />
-  ),
-  li: (props: any) => (
-    <li className="relative mb-2 text-black dark:text-white" {...props}>
-      <span className="mr-2 text-black dark:text-white">-</span>
-      {props.children}
-    </li>
-  ),
-  strong: (props: any) => (
-    <strong className="font-bold text-black dark:text-white" {...props} />
-  ),
-  inlineCode: (props: any) => (
-    <code
-      className="mx-1 break-all rounded-sm border border-solid border-gray-500 bg-gray-200 px-2 py-1 text-black dark:border-gray-900 dark:bg-gray-800 dark:text-orange-500"
-      {...props}
-    />
-  ),
-  blockquote: (props: any) => (
-    <>
-      <blockquote
-        className="relative h-full border-l-4 border-solid border-gray-600 bg-gray-200 px-3 py-2 text-gray-600 dark:bg-gray-700 dark:text-gray-400"
-        {...props}
-      />
-    </>
-  ),
-  Image: Image
+  children: ReactNode
 }
 
 export function EntryLayout({
@@ -127,10 +58,7 @@ export function EntryLayout({
               <li
                 key={idx}
                 className="inline-block rounded-full bg-gray-700 px-2 text-white">
-                <Link
-                  href={`/tag/${tag}`}>
-                  {tag}
-                </Link>
+                <Link href={`/tag/${tag}`}>{tag}</Link>
               </li>
             ))}
           </ul>

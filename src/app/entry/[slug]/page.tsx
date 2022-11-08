@@ -56,7 +56,11 @@ const getData = async (slug: string) => {
 
     const code = compiled.toString()
 
-    await generateOgp({ slug, title: meta.title })
+    try {
+      await generateOgp({ slug, title: meta.title })
+    } catch (e) {
+      console.error(e)
+    }
 
     return {
       code,

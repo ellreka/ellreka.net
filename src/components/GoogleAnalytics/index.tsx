@@ -2,23 +2,10 @@
 
 import Script from 'next/script'
 
-import { GA_TRACKING_ID, pageview } from '@/lib/gtag'
-import { useEffect } from 'react'
-import { usePathname, useSearchParams } from 'next/navigation'
-
-const usePageView = () => {
-  const pathname = usePathname()
-  const searchParams = useSearchParams()
-
-  useEffect(() => {
-    const url = pathname + searchParams.toString()
-    pageview(url)
-  }, [pathname, searchParams])
-}
+import { GA_TRACKING_ID } from '@/lib/gtag'
+import { PageView } from './PageView'
 
 export const GoogleAnalytics = () => {
-  usePageView()
-
   return (
     <>
       <Script
@@ -40,6 +27,7 @@ export const GoogleAnalytics = () => {
         }}
         strategy="afterInteractive"
       />
+      <PageView />
     </>
   )
 }

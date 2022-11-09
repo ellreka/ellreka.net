@@ -2,6 +2,7 @@ import { List } from '@/components/List'
 import { Meta } from '@/components/Meta'
 import { Title } from '@/components/Title'
 import { getEntries } from '@/lib/getEntries'
+import { notFound } from 'next/navigation'
 
 interface Props {
   params: {
@@ -9,7 +10,7 @@ interface Props {
   }
 }
 
-export const dynamicParams = false
+export const dynamicParams = true
 
 export const generateStaticParams = async () => {
   const entries = await getEntries()
@@ -30,8 +31,14 @@ const getData = async (slug: string) => {
   return filteringEntries
 }
 
-const Tag = async ({ params: { slug } }: Props) => {
+const Tag = async ({ params }: Props) => {
+  const { slug } = params
   const entries = await getData(slug)
+
+  if (entries.length <= 0) {
+    return notFound()
+  }
+
   return (
     <>
       <Meta

@@ -3,6 +3,7 @@
 import Script from 'next/script'
 
 import { GA_TRACKING_ID } from '@/lib/gtag'
+import { PageView } from './PageView'
 
 export const GoogleAnalytics = () => {
   return (
@@ -26,6 +27,7 @@ export const GoogleAnalytics = () => {
         }}
         strategy="afterInteractive"
       />
+      <PageView />
     </>
   )
 }

@@ -13,8 +13,9 @@ import rehypePrism from '@mapbox/rehype-prism'
 import { MDXContent } from '@/components/MDXContent/MDXContent'
 import { generateOgp } from '@/lib/generateOgp'
 import { Meta } from '@/components/Meta'
+import { notFound } from 'next/navigation'
 
-interface Params {
+interface Props {
   params: {
     slug: string
   }
@@ -23,7 +24,7 @@ interface Params {
 const root = process.cwd()
 const docs = path.join(root, 'docs')
 
-export const dynamicParams = false
+export const dynamicParams = true
 
 export const generateStaticParams = async () => {
   const allDirents = fs.readdirSync(docs, { withFileTypes: true })
@@ -38,43 +39,53 @@ export const generateStaticParams = async () => {
 }
 
 const getData = async (slug: string) => {
-  const entries = await getEntries()
-  const mdxPath = path.join(docs, `${slug}.mdx`)
-
-  const { meta, headings } = await import(`../../../../docs/${slug}.mdx`)
-  const mdx = fs.readFileSync(mdxPath, {
-    encoding: 'utf-8'
-  })
-
-  const compiled = await compile(mdx, {
-    outputFormat: 'function-body',
-    useDynamicImport: true,
-    rehypePlugins: [rehypePrism]
-  })
-
-  const code = compiled.toString()
-
   try {
+    const entries = await getEntries()
+    const mdxPath = path.join(docs, `${slug}.mdx`)
+
+    const { meta, headings } = await import(`../../../../docs/${slug}.mdx`)
+    const mdx = fs.readFileSync(mdxPath, {
+      encoding: 'utf-8'
+    })
+
+    const compiled = await compile(mdx, {
+      outputFormat: 'function-body',
+      useDynamicImport: true,
+      rehypePlugins: [rehypePrism]
+    })
+
+    const code = compiled.toString()
+
     await generateOgp({ slug, title: meta.title })
+
+    return {
+      code,
+      frontMatter: {
+        meta,
+        headings
+      },
+      entries: entries
+        .filter((entry) =>
+          entry.meta.tags.some((tag) => meta.tags.includes(tag))
+        )
+        .filter((entry) => entry.slug !== slug)
+    }
   } catch (e) {
     console.error(e)
-  }
-  return {
-    code,
-    frontMatter: {
-      meta,
-      headings
-    },
-    entries: entries
-      .filter((entry) => entry.meta.tags.some((tag) => meta.tags.includes(tag)))
-      .filter((entry) => entry.slug !== slug)
+    return null
   }
 }
 
-const Post = async ({ params: { slug } }: Params) => {
-  const { code, frontMatter, entries } = await getData(slug)
-  const { meta, headings } = frontMatter
+const Post = async ({ params }: Props) => {
+  const { slug } = params
+  const data = await getData(slug)
 
+  if (data == null) {
+    return notFound()
+  }
+
+  const { code, frontMatter, entries } = data
+  const { meta, headings } = frontMatter
   return (
     <>
       <Meta

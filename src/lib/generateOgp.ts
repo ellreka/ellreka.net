@@ -18,6 +18,9 @@ export const generateOgp = async ({
   title: string
   slug: string
 }) => {
+  const ogpPath = path.join(root, 'public', 'ogp', `${slug}.png`)
+  if (fs.existsSync(ogpPath)) return
+
   const font = await opentype.load(path.join(root, 'fonts/MPLUS1p-Bold.ttf'))
   const generateTextPath = () => {
     const stringArr = mikan.split(title)

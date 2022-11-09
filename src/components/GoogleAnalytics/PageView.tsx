@@ -8,7 +8,6 @@ const usePageView = () => {
   const pathname = usePathname()
 
   useEffect(() => {
-    console.log(pathname, window.gtag);
     if (pathname != null) {
       pageview(pathname)
     }

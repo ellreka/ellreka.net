@@ -17,6 +17,5 @@ export default async function handler(
     }
   )
   response.setHeader('Cache-Control', 's-maxage=86400')
-  console.log(new Date())
   response.status(200).json(ogp)
 }

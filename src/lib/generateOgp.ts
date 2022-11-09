@@ -19,7 +19,6 @@ export const generateOgp = async ({
   slug: string
 }) => {
   const ogpPath = path.join(root, 'public', 'ogp', `${slug}.png`)
-  console.log({ ogpPath, exit: fs.existsSync(ogpPath) })
   if (fs.existsSync(ogpPath)) return
 
   const font = await opentype.load(path.join(root, 'fonts/MPLUS1p-Bold.ttf'))

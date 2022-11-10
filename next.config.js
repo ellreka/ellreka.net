@@ -6,6 +6,7 @@ module.exports = {
   reactStrictMode: true,
   experimental: {
     esmExternals: true,
+    scrollRestoration: true,
     appDir: true,
     fontLoaders: [{ loader: '@next/font/google' }]
   },

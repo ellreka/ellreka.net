@@ -1,8 +1,6 @@
 import clsx from 'clsx'
 import Link from 'next/link'
 import React from 'react'
-import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 interface Props {
   isDark: boolean

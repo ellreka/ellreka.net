@@ -1292,10 +1292,10 @@
   resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-common-types/-/fontawesome-common-types-6.2.0.tgz#76467a94aa888aeb22aafa43eb6ff889df3a5a7f"
   integrity sha512-rBevIsj2nclStJ7AxTdfsa3ovHb1H+qApwrxcTVo+NNdeJiB9V75hsKfrkG5AwNcRUNxrPPiScGYCNmLMoh8pg==
 
-"@fortawesome/fontawesome-free@6.1.1":
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-6.1.1.tgz#bf5d45611ab74890be386712a0e5d998c65ee2a1"
-  integrity sha512-J/3yg2AIXc9wznaVqpHVX3Wa5jwKovVF0AMYSnbmcXTiL3PpRPfF58pzWucCwEiCJBp+hCNRLWClTomD8SseKg==
+"@fortawesome/fontawesome-free@6.2.0":
+  version "6.2.0"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-6.2.0.tgz#ba3510825b332816fe7190f28827f8cb33a298b5"
+  integrity sha512-CNR7qRIfCwWHNN7FnKUniva94edPdyQzil/zCwk3v6k4R6rR2Fr8i4s3PM7n/lyfPA6Zfko9z5WDzFxG9SW1uQ==
 
 "@fortawesome/fontawesome-svg-core@^6.1.1":
   version "6.2.0"
@@ -1318,10 +1318,10 @@
   dependencies:
     "@fortawesome/fontawesome-common-types" "6.2.0"
 
-"@fortawesome/react-fontawesome@^0.1.14":
-  version "0.1.19"
-  resolved "https://registry.yarnpkg.com/@fortawesome/react-fontawesome/-/react-fontawesome-0.1.19.tgz#2b36917578596f31934e71f92b7cf9c425fd06e4"
-  integrity sha512-Hyb+lB8T18cvLNX0S3llz7PcSOAJMLwiVKBuuzwM/nI5uoBw+gQjnf9il0fR1C3DKOI5Kc79pkJ4/xB0Uw9aFQ==
+"@fortawesome/react-fontawesome@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@fortawesome/react-fontawesome/-/react-fontawesome-0.2.0.tgz#d90dd8a9211830b4e3c08e94b63a0ba7291ddcf4"
+  integrity sha512-uHg75Rb/XORTtVt7OS9WoK8uM276Ufi7gCzshVWkUJbHhh3svsUUeqXerrM96Wm7fRiDzfKRwSoahhMIkGAYHw==
   dependencies:
     prop-types "^15.8.1"
 
@@ -1577,10 +1577,10 @@
   resolved "https://registry.yarnpkg.com/@next/env/-/env-13.0.2.tgz#5fbd7b4146175ae406edfb4a38b62de8c880c09d"
   integrity sha512-Qb6WPuRriGIQ19qd6NBxpcrFOfj8ziN7l9eZUfwff5gl4zLXluqtuZPddYZM/oWjN53ZYcuRXzL+oowKyJeYtA==
 
-"@next/eslint-plugin-next@13.0.2":
-  version "13.0.2"
-  resolved "https://registry.yarnpkg.com/@next/eslint-plugin-next/-/eslint-plugin-next-13.0.2.tgz#89fe2144b37896f926e2bd9bed675396f1f697ce"
-  integrity sha512-W+fIIIaFU7Kct7Okx91C7XDRGolv/w2RUenX2yZFeeNVcuVzDIKUcNmckrYbYcwrNQUSXmtwrs3g8xwast0YtA==
+"@next/eslint-plugin-next@13.0.3-canary.3":
+  version "13.0.3-canary.3"
+  resolved "https://registry.yarnpkg.com/@next/eslint-plugin-next/-/eslint-plugin-next-13.0.3-canary.3.tgz#4ad5e2c60717c1024080ad5f27cdd494cdc8a007"
+  integrity sha512-KdE14MxRqQ6v6p+Rv1kw6scNy0jiVfBIECNPKcECK5/kVy+dqcASEpv9lELdhKMNdieIf+9CHG95QWU83dQtdg==
   dependencies:
     glob "7.1.7"
 
@@ -3160,7 +3160,7 @@
     "@typescript-eslint/typescript-estree" "4.33.0"
     debug "^4.3.1"
 
-"@typescript-eslint/parser@^5.20.0", "@typescript-eslint/parser@^5.21.0":
+"@typescript-eslint/parser@^5.20.0":
   version "5.42.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-5.42.0.tgz#be0ffbe279e1320e3d15e2ef0ad19262f59e9240"
   integrity sha512-Ixh9qrOTDRctFg3yIwrLkgf33AHyEIn6lhyf5cCfwwiGtkWhNpVKlEZApi3inGQR/barWnY7qY8FbGKBO7p3JA==
@@ -3168,6 +3168,16 @@
     "@typescript-eslint/scope-manager" "5.42.0"
     "@typescript-eslint/types" "5.42.0"
     "@typescript-eslint/typescript-estree" "5.42.0"
+    debug "^4.3.4"
+
+"@typescript-eslint/parser@^5.42.0":
+  version "5.42.1"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/parser/-/parser-5.42.1.tgz#3e66156f2f74b11690b45950d8f5f28a62751d35"
+  integrity sha512-kAV+NiNBWVQDY9gDJDToTE/NO8BHi4f6b7zTsVAJoTkmB/zlfOpiEVBzHOKtlgTndCKe8vj9F/PuolemZSh50Q==
+  dependencies:
+    "@typescript-eslint/scope-manager" "5.42.1"
+    "@typescript-eslint/types" "5.42.1"
+    "@typescript-eslint/typescript-estree" "5.42.1"
     debug "^4.3.4"
 
 "@typescript-eslint/scope-manager@4.33.0":
@@ -3194,6 +3204,14 @@
     "@typescript-eslint/types" "5.42.0"
     "@typescript-eslint/visitor-keys" "5.42.0"
 
+"@typescript-eslint/scope-manager@5.42.1":
+  version "5.42.1"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/scope-manager/-/scope-manager-5.42.1.tgz#05e5e1351485637d466464237e5259b49f609b18"
+  integrity sha512-QAZY/CBP1Emx4rzxurgqj3rUinfsh/6mvuKbLNMfJMMKYLRBfweus8brgXF8f64ABkIZ3zdj2/rYYtF8eiuksQ==
+  dependencies:
+    "@typescript-eslint/types" "5.42.1"
+    "@typescript-eslint/visitor-keys" "5.42.1"
+
 "@typescript-eslint/type-utils@5.20.0":
   version "5.20.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/type-utils/-/type-utils-5.20.0.tgz#151c21cbe9a378a34685735036e5ddfc00223be3"
@@ -3217,6 +3235,11 @@
   version "5.42.0"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-5.42.0.tgz#5aeff9b5eced48f27d5b8139339bf1ef805bad7a"
   integrity sha512-t4lzO9ZOAUcHY6bXQYRuu+3SSYdD9TS8ooApZft4WARt4/f2Cj/YpvbTe8A4GuhT4bNW72goDMOy7SW71mZwGw==
+
+"@typescript-eslint/types@5.42.1":
+  version "5.42.1"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-5.42.1.tgz#0d4283c30e9b70d2aa2391c36294413de9106df2"
+  integrity sha512-Qrco9dsFF5lhalz+lLFtxs3ui1/YfC6NdXu+RAGBa8uSfn01cjO7ssCsjIsUs484vny9Xm699FSKwpkCcqwWwA==
 
 "@typescript-eslint/typescript-estree@4.33.0":
   version "4.33.0"
@@ -3251,6 +3274,19 @@
   dependencies:
     "@typescript-eslint/types" "5.42.0"
     "@typescript-eslint/visitor-keys" "5.42.0"
+    debug "^4.3.4"
+    globby "^11.1.0"
+    is-glob "^4.0.3"
+    semver "^7.3.7"
+    tsutils "^3.21.0"
+
+"@typescript-eslint/typescript-estree@5.42.1":
+  version "5.42.1"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-5.42.1.tgz#f9a223ecb547a781d37e07a5ac6ba9ff681eaef0"
+  integrity sha512-qElc0bDOuO0B8wDhhW4mYVgi/LZL+igPwXtV87n69/kYC/7NG3MES0jHxJNCr4EP7kY1XVsRy8C/u3DYeTKQmw==
+  dependencies:
+    "@typescript-eslint/types" "5.42.1"
+    "@typescript-eslint/visitor-keys" "5.42.1"
     debug "^4.3.4"
     globby "^11.1.0"
     is-glob "^4.0.3"
@@ -3305,6 +3341,14 @@
   integrity sha512-QHbu5Hf/2lOEOwy+IUw0GoSCuAzByTAWWrOTKzTzsotiUnWFpuKnXcAhC9YztAf2EElQ0VvIK+pHJUPkM0q7jg==
   dependencies:
     "@typescript-eslint/types" "5.42.0"
+    eslint-visitor-keys "^3.3.0"
+
+"@typescript-eslint/visitor-keys@5.42.1":
+  version "5.42.1"
+  resolved "https://registry.yarnpkg.com/@typescript-eslint/visitor-keys/-/visitor-keys-5.42.1.tgz#df10839adf6605e1cdb79174cf21e46df9be4872"
+  integrity sha512-LOQtSF4z+hejmpUvitPlc4hA7ERGoj2BVkesOcG91HCn8edLGUXbTrErmutmPbl8Bo9HjAvOO/zBKQHExXNA2A==
+  dependencies:
+    "@typescript-eslint/types" "5.42.1"
     eslint-visitor-keys "^3.3.0"
 
 "@webassemblyjs/ast@1.9.0":
@@ -6392,14 +6436,14 @@ escodegen@^2.0.0:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-config-next@^13.0.2:
-  version "13.0.2"
-  resolved "https://registry.yarnpkg.com/eslint-config-next/-/eslint-config-next-13.0.2.tgz#7c87837821ea7468e018ca41f3bf6fa37d53db68"
-  integrity sha512-SrrHp+zBDYLjOFZdM5b9aW/pliK687Xxfa+qpDuL08Z04ReHhmz3L+maXaAqgrEVZHQximP7nh0El4yNDJW+CA==
+eslint-config-next@13.0.3-canary.3:
+  version "13.0.3-canary.3"
+  resolved "https://registry.yarnpkg.com/eslint-config-next/-/eslint-config-next-13.0.3-canary.3.tgz#a807c2ea79477fdc2709d2179aa0fc42bf1b407a"
+  integrity sha512-kn4yztbSaePcdYJc08CvdqW+Q+p4Icl2N7sogp9NUsCkpr2kk/xyRtZ99X6tJlFbj1sMEiacgjkdAO7mhFXx1w==
   dependencies:
-    "@next/eslint-plugin-next" "13.0.2"
+    "@next/eslint-plugin-next" "13.0.3-canary.3"
     "@rushstack/eslint-patch" "^1.1.3"
-    "@typescript-eslint/parser" "^5.21.0"
+    "@typescript-eslint/parser" "^5.42.0"
     eslint-import-resolver-node "^0.3.6"
     eslint-import-resolver-typescript "^2.7.1"
     eslint-plugin-import "^2.26.0"
@@ -14228,10 +14272,10 @@ symbol.prototype.description@^1.0.0:
     has-symbols "^1.0.2"
     object.getownpropertydescriptors "^2.1.2"
 
-tailwindcss@^3.0.24:
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.2.2.tgz#705f78cec8f4de2feb52abdb7a8a056e67f2d736"
-  integrity sha512-c2GtSdqg+harR4QeoTmex0Ngfg8IIHNeLQH5yr2B9uZbZR1Xt1rYbjWOWTcj3YLTZhrmZnPowoQDbSRFyZHQ5Q==
+tailwindcss@^3.2.3:
+  version "3.2.3"
+  resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-3.2.3.tgz#c5ee3cb95dae7a80592d43a460d277915c7b2938"
+  integrity sha512-Xt9D4PK4zuuQCEB8bwK9JUCKmTgUwyac/6b0/42Vqhgl6YJkep+Wf5wq+5uXYfmrupdAD0YY2NY1hyZp1HjRrg==
   dependencies:
     arg "^5.0.2"
     chokidar "^3.5.3"

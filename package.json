@@ -50,6 +50,7 @@
     "autoprefixer": "^10.4.5",
     "babel-loader": "9.1.0",
     "clsx": "1.2.1",
+    "dayjs": "^1.11.6",
     "eslint": "8.27.0",
     "eslint-config-next": "13.0.3-canary.3",
     "gray-matter": "4.0.3",

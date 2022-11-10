@@ -3,6 +3,22 @@ import { Title } from '@/components/Title'
 import timelineJson from '@/timeline.json'
 import { getEntries } from '@/lib/getEntries'
 import { Timeline } from '@/types'
+import dayjs from 'dayjs'
+
+const fetchZennArticles = async (): Promise<Timeline> => {
+  const res = await fetch(
+    `https://zenn.dev/api/articles?username=ellreka&count=96&order=latest`
+  )
+  const json = await res.json()
+  return json.articles.map((article: any) => {
+    return {
+      title: article.title,
+      type: 'post',
+      date: article.published_at,
+      url: `https://zenn.dev/ellreka/articles/${article.slug}`
+    }
+  })
+}
 
 const getData = async () => {
   const entries = await getEntries()
@@ -15,7 +31,9 @@ const getData = async () => {
     }
   })
 
-  const timeline = [...timelineJson.items, ...posts].sort(
+  const zennArticles = await fetchZennArticles()
+
+  const timeline = [...timelineJson.items, ...posts, ...zennArticles].sort(
     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
   )
 
@@ -67,7 +85,9 @@ const Timeline = async () => {
                                   {item.title}
                                 </p>
                                 <p className="text-xs text-gray-400">
-                                  {item.date}
+                                  {dayjs(new Date(item.date)).format(
+                                    'YYYY/MM/DD'
+                                  )}
                                 </p>
                               </a>
                             </div>

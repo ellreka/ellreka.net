@@ -13,16 +13,28 @@
       "url": "https://chrome.google.com/webstore/detail/copy-selected-tabs-url/cllpjhdcnppedhjbohppjocbcahkifij?hl=ja&authuser=0"
     },
     {
-      "date": "2021-06-03",
-      "type": "post",
-      "title": "Tailwind CSSのクラス名をハイライトするvscode拡張を作りました",
-      "url": "https://zenn.dev/ellreka/articles/6da7e293bf90e1"
-    },
-    {
       "date": "2022-04-25",
       "type": "release",
       "title": "生配徊",
       "url": "https://live.ellreka.net/"
+    },
+    {
+      "date": "2022-06-16",
+      "type": "release",
+      "title": "Gather Auto Teleport",
+      "url": "https://chrome.google.com/webstore/detail/gather-auto-teleport/injoakgeofihmikhnmifmniakkdbnjpl"
+    },
+    {
+      "date": "2022-06-30",
+      "type": "release",
+      "title": "StreamDeck Slack Status",
+      "url": "https://apps.elgato.com/plugins/net.ellreka.slack-status"
+    },
+    {
+      "date": "2022-11-08",
+      "type": "release",
+      "title": "Google Search Code Viewer",
+      "url": "https://chrome.google.com/webstore/detail/google-search-code-viewer/fgbckiappabdbccgpkckpaanlbddbggm"
     }
   ]
 }

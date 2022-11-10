@@ -15,6 +15,8 @@ export default function RootLayout({
   return (
     <html lang="ja" className={mPlus1p.className}>
       <head>
+        <meta charSet="UTF-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
         <GoogleAnalytics />
       </head>
       <body>

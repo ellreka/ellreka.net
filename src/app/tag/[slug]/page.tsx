@@ -1,7 +1,9 @@
 import { List } from '@/components/List'
 import { Meta } from '@/components/Meta'
+import { Tags } from '@/components/Tags/Tags'
 import { Title } from '@/components/Title'
 import { getEntries } from '@/lib/getEntries'
+import { getTags } from '@/lib/getTags'
 import { notFound } from 'next/navigation'
 
 interface Props {
@@ -25,15 +27,19 @@ export const generateStaticParams = async () => {
 
 const getData = async (slug: string) => {
   const entries = await getEntries()
+  const tags = getTags(entries)
   const filteringEntries = entries.filter((entry) => {
     return entry.meta.tags.includes(slug)
   })
-  return filteringEntries
+  return {
+    entries: filteringEntries,
+    tags
+  }
 }
 
 const Tag = async ({ params }: Props) => {
   const { slug } = params
-  const entries = await getData(slug)
+  const { entries, tags } = await getData(slug)
 
   if (entries.length <= 0) {
     return notFound()
@@ -43,13 +49,16 @@ const Tag = async ({ params }: Props) => {
     <>
       <Meta
         meta={{
-          title: `「${slug}」一覧`,
-          description: `「${slug}」一覧`
+          title: `${slug} | Entries`,
+          description: `${slug} | Entries`
         }}
       />
       <div className="mx-auto max-w-2xl">
         <Title>{slug}</Title>
-        <List entries={entries} />
+        <div className="my-4 flex flex-col gap-4 sm:my-8 sm:gap-8">
+          <Tags tags={tags} />
+          <List entries={entries} />
+        </div>
       </div>
     </>
   )

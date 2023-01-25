@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 export function Footer(): React.ReactElement {
   return (
-    <footer className="mt-32 h-12 text-center">
+    <footer className="h-12 text-center">
       <div className="mx-auto flex w-12 justify-between">
         <a
           href="https://github.com/ellreka"

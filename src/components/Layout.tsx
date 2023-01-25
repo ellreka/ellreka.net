@@ -30,7 +30,7 @@ function Layout({ children }: Props): React.ReactElement {
       })}>
       <div className="flex min-h-screen flex-col bg-white px-4 dark:bg-gray-800">
         <Header isDark={true} toggleTheme={onChangeTheme} />
-        <main className="h-ful mt-12 grow">{children}</main>
+        <main className="h-full mt-12 grow">{children}</main>
         <Footer />
       </div>
     </div>

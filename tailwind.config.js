@@ -1,9 +1,14 @@
 const colors = require('tailwindcss/colors')
+const plugin = require('tailwindcss/plugin')
+
+const addVariant = plugin(({ addVariant, e }) => {
+  addVariant('where', ':where(&)')
+})
 
 module.exports = {
   ...require('@ellreka/configs/tailwind.config'),
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
-  plugins: [require('@ellreka/tailwindcss-table')],
+  plugins: [require('@ellreka/tailwindcss-table'), addVariant],
   darkMode: 'class',
   theme: {
     extend: {

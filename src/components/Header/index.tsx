@@ -15,7 +15,7 @@ export function Header({ isDark, toggleTheme }: Props): React.ReactElement {
   const ListItems = (): JSX.Element => (
     <>
       <li className="sm:text-md mr-4 hidden text-sm hover:text-blue-500 dark:hover:text-blue-700 sm:block">
-        <Link href="/">Entries</Link>
+        <Link href="/entries">Entries</Link>
       </li>
       <li className="sm:text-md mr-4 text-sm hover:text-blue-500 dark:hover:text-blue-700">
         <Link href="/timeline">Timeline</Link>

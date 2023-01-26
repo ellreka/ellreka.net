@@ -3,7 +3,13 @@ import dayjs from 'dayjs'
 
 export const fetchZennArticles = async () => {
   const res = await fetch(
-    `https://zenn.dev/api/articles?username=ellreka&count=96&order=latest`
+    `https://zenn.dev/api/articles?username=ellreka&count=96&order=latest`,
+    {
+      next: {
+        // 1day
+        revalidate: 60 * 60 * 24
+      }
+    }
   )
   const json: ZennArticleResponse = await res.json()
   return json.articles.map((article: any) => {

@@ -26,18 +26,19 @@ const Home = async () => {
             <div className="grid aspect-square h-full w-full grid-cols-1 gap-2">
               <Card
                 className="aspect-auto"
-                href="/timeline"
-                label="Timeline"
+                href="/about"
+                label="About"
+                // className="from-pink-800 to-violet-400"
                 background={
-                  <ClockIcon className="absolute right-2 bottom-2 h-[40px] w-auto text-white/20" />
+                  <UserIcon className="absolute right-2 bottom-2 h-[40px] w-auto text-white/20" />
                 }
               />
               <Card
                 className="aspect-auto"
                 href="/timeline"
-                label="Releases"
+                label="Timeline"
                 background={
-                  <RocketLaunchIcon className="absolute right-2 bottom-2 h-[40px] w-auto text-white/20" />
+                  <ClockIcon className="absolute right-2 bottom-2 h-[40px] w-auto text-white/20" />
                 }
               />
             </div>
@@ -49,46 +50,45 @@ const Home = async () => {
               }
             />
             <Card
-              href="/about"
-              label="About"
+              href="/timeline"
+              label="Releases"
               background={
-                <UserIcon className="absolute right-0 bottom-0 h-[60px] w-auto text-white/20" />
+                <RocketLaunchIcon className="absolute right-2 bottom-2 h-[60px] w-auto text-white/20" />
               }
             />
             <div className="grid aspect-square w-full grid-cols-2 gap-2">
+              <div></div>
               <Card
-                href="/about"
+                href="https://twitter.com/ellreka"
+                label="Twitter"
+                className="from-sky-900 to-sky-400"
+                icon={
+                  <span className="text-3xl text-gray-300">
+                    <FontAwesomeIcon icon={faTwitter} />
+                  </span>
+                }
+              />
+              <Card
+                href="https://zenn.dev/ellreka"
+                label="Zenn"
+                className="from-sky-100 to-sky-300"
+                icon={
+                  <span className="">
+                    <img
+                      className="h-auto w-[40px]"
+                      src="/assets/logo/zenn.svg"
+                      alt=""
+                    />
+                  </span>
+                }
+              />
+              <Card
+                href="https://github.com/ellreka"
                 label="GitHub"
+                className="from-black to-gray-500"
                 icon={
                   <span className="text-3xl text-gray-300">
                     <FontAwesomeIcon icon={faGithub} />
-                  </span>
-                }
-              />
-              <Card
-                href="/about"
-                label="Twitter"
-                icon={
-                  <span className="text-3xl text-gray-300">
-                    <FontAwesomeIcon icon={faTwitter} />
-                  </span>
-                }
-              />
-              <Card
-                href="/about"
-                label="Twitter"
-                icon={
-                  <span className="text-3xl text-gray-300">
-                    <FontAwesomeIcon icon={faTwitter} />
-                  </span>
-                }
-              />
-              <Card
-                href="/about"
-                label="Twitter"
-                icon={
-                  <span className="text-3xl text-gray-300">
-                    <FontAwesomeIcon icon={faTwitter} />
                   </span>
                 }
               />

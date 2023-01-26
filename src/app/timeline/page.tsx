@@ -49,7 +49,7 @@ const Timeline = async () => {
   return (
     <>
       <Meta meta={{ title: 'Timeline', description: 'タイムライン' }} />
-      <div className="mx-auto h-full max-w-2xl">
+      <div className="mx-auto h-full max-w-2xl animate-fade-in">
         <Title>Timeline</Title>
         <div className="mt-10 flex h-full flex-col gap-10">
           {years.map((year) => {

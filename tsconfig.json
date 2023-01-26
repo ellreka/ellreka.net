@@ -1,6 +1,7 @@
 {
   "extends": "@ellreka/configs/tsconfig",
   "compilerOptions": {
+    "target": "esnext",
     "skipLibCheck": true,
     "noEmit": true,
     "module": "esnext",

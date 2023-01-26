@@ -4,7 +4,8 @@ import { M_PLUS_1p } from '@next/font/google'
 import { GoogleAnalytics } from '@/components/GoogleAnalytics'
 
 const mPlus1p = M_PLUS_1p({
-  weight: ['400', '700']
+  weight: ['400', '700'],
+  preload: false
 })
 
 export default function RootLayout({

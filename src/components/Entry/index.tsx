@@ -37,7 +37,7 @@ export function EntryLayout({
           </a>
         </div>
         <div className={clsx('mt-4 flex items-center')}>
-          <p className="text-black dark:text-white">Tags:</p>
+          {/* <p className="text-black dark:text-white">Tags:</p> */}
           <ul className="inline-flex flex-wrap items-center gap-1">
             {meta.tags.map((tag, idx) => (
               <li

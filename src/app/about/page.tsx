@@ -10,7 +10,7 @@ const About = () => {
           description: 'このブログについて'
         }}
       />
-      <div className="mx-auto max-w-2xl">
+      <div className="mx-auto max-w-2xl animate-fade-in">
         <Title>About</Title>
         <div className="mt-20 space-y-10">
           <p className="dark:text-white">日頃学んだことを雑に書きます。</p>

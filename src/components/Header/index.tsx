@@ -7,31 +7,42 @@ interface Props {
   toggleTheme: (arg: boolean) => void
 }
 
+const links = [
+  {
+    href: '/entries',
+    label: 'Entries'
+  },
+  {
+    href: '/releases',
+    label: 'Releases'
+  },
+  {
+    href: '/timeline',
+    label: 'Timeline'
+  },
+  {
+    href: '/about',
+    label: 'About'
+  }
+]
+
 export function Header({ isDark, toggleTheme }: Props): React.ReactElement {
   const handleChangeTheme = (): void => {
     toggleTheme(!isDark)
   }
-
-  const ListItems = (): JSX.Element => (
-    <>
-      <li className="sm:text-md mr-4 hidden text-sm hover:text-blue-500 dark:hover:text-blue-700 sm:block">
-        <Link href="/">Entries</Link>
-      </li>
-      <li className="sm:text-md mr-4 text-sm hover:text-blue-500 dark:hover:text-blue-700">
-        <Link href="/timeline">Timeline</Link>
-      </li>
-      <li className="sm:text-md mr-4 text-sm hover:text-blue-500 dark:hover:text-blue-700">
-        <Link href="/about">About</Link>
-      </li>
-    </>
-  )
   return (
-    <header className="h-12 w-full pt-3">
-      <div className="flex">
-        <ul className="flex w-1/3 justify-start text-gray-600 dark:text-gray-400">
-          <ListItems />
+    <header className="relative h-12 w-full pt-3">
+      <div className="flex items-center">
+        <ul className="order-2 flex justify-start gap-3 text-gray-600 dark:text-gray-400 sm:order-1 sm:w-1/3">
+          {links.map((link) => (
+            <li
+              key={link.label}
+              className="sm:text-md text-sm hover:text-blue-700">
+              <Link href={link.href}>{link.label}</Link>
+            </li>
+          ))}
         </ul>
-        <h1 className="flex w-1/3 justify-center text-lg">
+        <h1 className="order-1 mr-5 flex justify-center self-center text-lg sm:order-2 sm:mr-0 sm:w-1/3">
           <Link href="/">
             <img
               src="/icon.png"

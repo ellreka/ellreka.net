@@ -50,7 +50,7 @@ export const Card = ({
       {background != null && <>{background}</>}
       {icon == null ? (
         <span aria-hidden className="">
-          <span className="inline-block text-xl font-bold text-gray-300 transition-transform group-hover:-translate-x-2 group-hover:-rotate-12">
+          <span className="inline-block text-xl font-bold text-gray-300 transition-transform -translate-x-1 -rotate-12">
             {firstChar}
           </span>
           <span className="text-lg text-gray-300">{restChar}</span>

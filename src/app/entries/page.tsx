@@ -1,38 +1,21 @@
-import { List } from '@/components/List'
-import { Title } from '@/components/Title'
-import { getEntries } from '@/lib/getEntries'
+import { getAllEntries } from '@/lib/getAllEntries'
+import { Entries } from '@/components/Entries/Entries'
 import { Meta } from '@/components/Meta'
-import { Tags } from '@/components/Tags/Tags'
-import { getTags } from '@/lib/getTags'
+import { Title } from '@/components/Title'
 
-const getData = async () => {
-  const entries = await getEntries()
-  const tags = getTags(entries)
-  return {
-    entries,
-    tags
-  }
-}
+type Props = {}
 
-const Home = async () => {
-  const { entries, tags } = await getData()
+const EntriesPage = async ({}: Props) => {
+  const { entries, tags } = await getAllEntries()
   return (
     <>
-      <Meta
-        meta={{
-          title: 'Entries',
-          description: "ellreka's entries."
-        }}
-      />
-      <div className="mx-auto max-w-2xl">
+      <Meta meta={{ title: 'Entries', description: "ellreka's entries." }} />
+      <div className="mx-auto h-full max-w-2xl">
         <Title>Entries</Title>
-        <div className="my-4 flex flex-col gap-4 sm:my-8 sm:gap-8">
-          <Tags tags={tags} />
-          <List entries={entries} />
-        </div>
+        <Entries activeId={'all'} entries={entries} tags={tags} />
       </div>
     </>
   )
 }
 
-export default Home
+export default EntriesPage

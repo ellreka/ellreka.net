@@ -27,7 +27,9 @@ export const Entries = ({ activeId, entries, tags }: Props) => {
     <div className="mx-auto max-w-2xl">
       <div className="my-4 flex flex-col gap-4 sm:my-8 sm:gap-8">
         <Tabs activeId={activeId} tabs={tabs} />
-        <List entries={filteringEntries} />
+        <div className="animate-fade-in">
+          <List entries={filteringEntries} />
+        </div>
       </div>
     </div>
   )

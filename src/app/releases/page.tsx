@@ -10,7 +10,7 @@ const Releases = () => {
           description: "ellreka's releases."
         }}
       />
-      <div className="mx-auto max-w-2xl">
+      <div className="mx-auto max-w-2xl animate-fade-in">
         <Title>Releases</Title>
       </div>
     </>

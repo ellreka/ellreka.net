@@ -28,7 +28,6 @@ const Home = async () => {
                 className="aspect-auto"
                 href="/about"
                 label="About"
-                // className="from-pink-800 to-violet-400"
                 background={
                   <UserIcon className="absolute right-2 bottom-2 h-[40px] w-auto text-white/20" />
                 }
@@ -50,7 +49,7 @@ const Home = async () => {
               }
             />
             <Card
-              href="/timeline"
+              href="/releases"
               label="Releases"
               background={
                 <RocketLaunchIcon className="absolute right-2 bottom-2 h-[60px] w-auto text-white/20" />

@@ -28,9 +28,13 @@ function Layout({ children }: Props): React.ReactElement {
       className={clsx({
         dark: isDark
       })}>
-      <div className="flex min-h-screen flex-col bg-white px-4 dark:bg-gray-800">
+      <div
+        className="flex flex-col bg-white px-4 dark:bg-gray-800"
+        style={{
+          minHeight: '100svh'
+        }}>
         <Header isDark={true} toggleTheme={onChangeTheme} />
-        <main className="h-full mt-12 grow">{children}</main>
+        <main className="mt-12 h-full grow">{children}</main>
         <Footer />
       </div>
     </div>

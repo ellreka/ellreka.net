@@ -1,0 +1,80 @@
+[
+  {
+    "id": "lets-try-keyboard-layouts",
+    "title": "Let's Try Keyboard Layouts!",
+    "description": "色々なキーボード配列を気軽に試したりカスタマイズ出来るサイト",
+    "url": "https://lets-try-keyboard-layouts.ellreka.net/",
+    "github": "https://github.com/ellreka/lets-try-keyboard-layouts",
+    "article": "https://zenn.dev/ellreka/articles/lets-try-keyboard-layouts",
+    "tags": [
+      "Remix",
+      "TypeScript",
+      "Next.js",
+      "React",
+      "Tailwind CSS",
+      "Vercel"
+    ]
+  },
+  {
+    "id": "google-search-code-viewer",
+    "title": "Google Search Code Viewer",
+    "description": "検索結果にサイト内コードを表示するChrome拡張",
+    "url": "https://chrome.google.com/webstore/detail/google-search-code-viewer/fgbckiappabdbccgpkckpaanlbddbggm",
+    "github": "https://github.com/ellreka/google-search-code-viewer",
+    "article": "",
+    "tags": ["TypeScript", "React", "Tailwind CSS"]
+  },
+  {
+    "id": "stream-deck-slack-status",
+    "title": "Stream Deck Slack Status",
+    "description": "StreamDeckでSlackのステータスを変更するプラグイン",
+    "url": "https://apps.elgato.com/plugins/net.ellreka.slack-status",
+    "github": "https://github.com/ellreka/streamdeck-slack-status",
+    "article": "",
+    "tags": ["TypeScript", "esbuild"]
+  },
+  {
+    "id": "gather-auto-teleport",
+    "title": "Gather Auto Teleport",
+    "description": "Gather.Townで自動テレポートするChrome拡張",
+    "url": "https://chrome.google.com/webstore/detail/gather-auto-teleport/injoakgeofihmikhnmifmniakkdbnjpl",
+    "github": "https://github.com/ellreka/gather-auto-teleport",
+    "article": "https://zenn.dev/ellreka/articles/cf6638e72d9285",
+    "tags": ["TypeScript", "React", "Tailwind CSS", "Vitest"]
+  },
+  {
+    "id": "namahaikai",
+    "title": "生配徊",
+    "description": "YoutubeとTwitchの生配信をランダムに巡回するサイト",
+    "url": "https://live.ellreka.net/",
+    "github": "",
+    "article": "https://ellreka.net/entry/live-cruise",
+    "tags": [
+      "TypeScript",
+      "React",
+      "Tailwind CSS",
+      "Deno",
+      "Deno Deploy",
+      "CloudFlare Pages",
+      "Firebase"
+    ]
+  },
+  {
+    "id": "tailwindcss-highlight",
+    "title": "Tailwind CSS Highlight",
+    "description": "TailwindCSSのクラス名をユーティリティごとにハイライトするVSCode拡張",
+    "url": "https://marketplace.visualstudio.com/items?itemName=ellreka.tailwindcss-highlight",
+    "github": "https://github.com/ellreka/tailwindcss-highlight",
+    "article": "https://zenn.dev/ellreka/articles/6da7e293bf90e1",
+    "tags": ["TypeScript", "Jest"]
+  },
+  {
+    "id": "copy-selected-tabs-url",
+    "title": "copy-selected-tabs-url",
+    "description": "選択したタブのURLやタイトルを一括でコピーするChrome拡張",
+    "url": "https://chrome.google.com/webstore/detail/copy-selected-tabs-url/cllpjhdcnppedhjbohppjocbcahkifij",
+    "github": "https://github.com/ellreka/copy-selected-tabs-url",
+    "article": "",
+    "tags": ["TypeScript", "React", "Tailwind CSS"]
+  }
+]

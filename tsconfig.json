@@ -15,7 +15,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "strictNullChecks": true
   },
   "include": ["src/**/*", "decls.d.ts", ".next/types/**/*.ts"],
   "exclude": ["node_modules"]

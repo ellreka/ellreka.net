@@ -5,7 +5,9 @@ import { FC } from 'react'
 import * as runtime from 'react/jsx-runtime'
 import { BlogCard } from '@/components/BlogCard'
 import { Image } from '@/components/Image/Image'
+import { Link } from '@/components/Link/Link'
 import { MDXComponents } from 'mdx/types'
+import clsx from 'clsx'
 
 type Props = {
   code: string
@@ -24,17 +26,19 @@ export const mdxComponents: MDXComponents = {
   },
   h3: (props: any) => {
     return (
-      <h3
-        className="mb-4 mt-4 inline-block border-b-2 border-solid border-blue-300 text-lg font-medium text-black dark:text-white"
-        id={props.children}
-        {...props}>
-        {props.children}
-      </h3>
+      <div>
+        <h3
+          className="mb-4 mt-4 inline-flex border-b-2 border-solid border-blue-300 text-lg font-medium text-black dark:text-white"
+          id={props.children}
+          {...props}>
+          {props.children}
+        </h3>
+      </div>
     )
   },
   p: (props: any) => (
     <div
-      className="sm:text-md my-4 text-sm leading-8 text-black dark:text-white"
+      className="sm:text-base my-4 text-sm leading-8 text-black dark:text-white"
       {...props}
     />
   ),
@@ -50,24 +54,25 @@ export const mdxComponents: MDXComponents = {
       </a>
     )
   },
-  ul: (props: any) => (
-    <ul className="list text-black dark:text-white" {...props} />
-  ),
+  ul: (props: any) => {
+    return <ul className={clsx('list text-black dark:text-white text-sm sm:text-base')} {...props} />
+  },
   li: (props: any) => (
     <li className="relative mb-2 text-black dark:text-white" {...props}>
-      <span className="mr-2 text-black dark:text-white">-</span>
       {props.children}
     </li>
   ),
   strong: (props: any) => (
     <strong className="font-bold text-black dark:text-white" {...props} />
   ),
-  inlineCode: (props: any) => (
-    <code
-      className="mx-1 break-all rounded-sm border border-solid border-gray-500 bg-gray-200 px-2 py-1 text-black dark:border-gray-900 dark:bg-gray-800 dark:text-orange-500"
-      {...props}
-    />
-  ),
+  code: (props: any) => {
+    return (
+      <code
+        className="mx-1 break-all rounded-sm border border-solid border-gray-500 bg-gray-200 px-2 py-1 text-black dark:border-gray-900 dark:bg-gray-800 dark:text-orange-500"
+        {...props}
+      />
+    )
+  },
   blockquote: (props: any) => (
     <>
       <blockquote
@@ -76,7 +81,8 @@ export const mdxComponents: MDXComponents = {
       />
     </>
   ),
-  Image: Image
+  Image: Image,
+  Link: Link
 }
 
 export const MDXContent: FC<Props> = ({ code }) => {

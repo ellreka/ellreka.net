@@ -28,32 +28,32 @@ const Home = async () => {
                 className="aspect-auto"
                 href="/about"
                 label="About"
-                background={
-                  <UserIcon className="absolute right-2 bottom-2 h-[40px] w-auto text-white/20" />
-                }
+                // background={
+                //   <UserIcon className="absolute right-2 bottom-2 h-[40px] w-auto text-white/20" />
+                // }
               />
               <Card
                 className="aspect-auto"
                 href="/timeline"
                 label="Timeline"
-                background={
-                  <ClockIcon className="absolute right-2 bottom-2 h-[40px] w-auto text-white/20" />
-                }
+                // background={
+                //   <ClockIcon className="absolute right-2 bottom-2 h-[40px] w-auto text-white/20" />
+                // }
               />
             </div>
             <Card
               href="/entries"
               label="Entries"
-              background={
-                <DocumentTextIcon className="absolute right-0 bottom-0 h-[60px] w-auto text-white/20" />
-              }
+              // background={
+              //   <DocumentTextIcon className="absolute right-0 bottom-0 h-[60px] w-auto text-white/20" />
+              // }
             />
             <Card
               href="/releases"
               label="Releases"
-              background={
-                <RocketLaunchIcon className="absolute right-2 bottom-2 h-[60px] w-auto text-white/20" />
-              }
+              // background={
+              //   <RocketLaunchIcon className="absolute right-2 bottom-2 h-[60px] w-auto text-white/20" />
+              // }
             />
             <div className="grid aspect-square w-full grid-cols-2 gap-2">
               <div></div>

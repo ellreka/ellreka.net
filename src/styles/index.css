@@ -3,3 +3,19 @@
 @tailwind components;
 /* purgecss end ignore */
 @tailwind utilities;
+
+ul.list {
+  @apply pl-[1.8em];
+}
+
+ul.list > li {
+  @apply list-disc;
+}
+
+ul.list > li > ul {
+  @apply my-2;
+}
+
+ul.list > li > ul > li {
+  @apply list-circle;
+}

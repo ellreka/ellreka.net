@@ -107,7 +107,7 @@ const Post = async ({ params }: Props) => {
           <EntryLayout slug={slug} meta={meta}>
             <MDXContent code={code} />
           </EntryLayout>
-          {entries.length && (
+          {entries.length > 0 && (
             <div className="mt-20">
               <RelatedEntry entries={entries} />
             </div>
@@ -118,7 +118,7 @@ const Post = async ({ params }: Props) => {
         </div>
       </div>
       <div className="mt-10">
-        <Adsense />
+        {/* <Adsense /> */}
       </div>
     </>
   )

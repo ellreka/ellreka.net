@@ -102,8 +102,8 @@ const Post = async ({ params }: Props) => {
           rel="stylesheet"
         />
       </Meta>
-      <div className="mx-auto mt-10 flex max-w-screen-xl justify-between">
-        <div className="w-full lg:w-4/5">
+      <div className="mx-auto mt-10 flex max-w-screen-xl justify-between gap-x-5">
+        <div className="w-full flex-1 lg:w-0">
           <EntryLayout slug={slug} meta={meta}>
             <MDXContent code={code} />
           </EntryLayout>
@@ -113,7 +113,7 @@ const Post = async ({ params }: Props) => {
             </div>
           )}
         </div>
-        <div className="ml-6 hidden min-w-56 lg:block">
+        <div className="hidden min-w-56 lg:block">
           <Sidebar headings={headings} />
         </div>
       </div>

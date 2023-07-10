@@ -43,7 +43,7 @@ export function EntryLayout({
               <li
                 key={idx}
                 className="inline-block rounded-full bg-gray-700 px-2 text-white">
-                <Link href={`/tag/${tag}`}>{tag}</Link>
+                <Link href={`/entries/${tag}`}>{tag}</Link>
               </li>
             ))}
           </ul>

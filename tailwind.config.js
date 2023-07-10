@@ -24,6 +24,9 @@ module.exports = {
       minWidth: {
         56: '14rem'
       },
+      listStyleType: {
+        circle: 'circle'
+      },
       keyframes: {
         fadeIn: {
           '0%': { opacity: 0, transform: 'translateY(10px)' },

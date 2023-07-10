@@ -35,7 +35,7 @@ const Item = (async (props: ItemProps) => {
             {props.title}
           </a>
         </h3>
-        <p className="text-md text-white">{props.description}</p>
+        <p className="text-base text-white">{props.description}</p>
         <div className="mt-auto flex flex-col gap-2">
           {props?.article && (
             <a

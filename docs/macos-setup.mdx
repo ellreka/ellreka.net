@@ -1,28 +1,230 @@
 export const meta = {
-  date: '2023-06-20',
+  date: '2023-07-11',
   title: 'MacOSセットアップ手順 備忘録',
   tags: ['MacOS']
 }
 
 ## はじめに
 
-転職するにあたって、私用の MacBook をわざわざ初期化してセットアップ手順をまとめました。
-
-折角なので備忘録として残しておきます。
+転職するにあたって、MacBook のセットアップ手順をまとめました。
 
 自分用に書いてるので説明雑な部分もあると思いますがご了承ください。
 
 ## 環境
 
+- MacBook Pro (13-inch, 2022, M2)
 - MacOS Ventura
 
-## アプリケーション
+## homebrew のインストール
 
-- Chrome
-- Firefox
-- iTerm2
-- Visual Studio Code
-- Slack
-- BetterTouchTool
-- Karabiner-Elements
-- Docker
+{/* [https://brew.sh/](https://brew.sh/) */}
+
+<Link href="https://brew.sh/" />
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+インストールしたら指示に従って PATH を通す。
+
+## シェルを fish に変更する
+
+私は fish を使っているのでシェルを fish に変更します。
+
+```bash
+brew install fish
+
+# fish のパスを確認
+where fish
+
+# 末尾に where fish で出力されたパスを追加
+sudo vi /etc/shells
+
+# デフォルトシェルを fish に変更
+chsh -s /opt/homebrew/bin/fish
+
+# ターミナルを再起動
+```
+
+### fish で homebrew の PATH を通す
+
+`~/.config/fish/config.fish` に以下を追加
+
+```bash
+fish_add_path /opt/homebrew/bin
+```
+
+### fisher のインストール
+
+<Link href="https://github.com/jorgebucaran/fisher" />
+
+```bash
+curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
+```
+
+## homebrew cask でアプリをインストール
+
+```bash
+brew install --cask \
+  google-chrome \
+  firefox \
+  slack \
+  visual-studio-code \
+  iterm2 \
+  raycast \
+  gyazo \
+  bettertouchtool \
+  karabiner-elements \
+  krisp \
+  elgato-stream-deck
+```
+
+## Mac のシステム環境設定
+
+この辺は自分の好みなので参考程度に。
+
+- バッテリーを%表示に
+- 日付を常に表示して秒を表示
+- Spotlight をメニューバーから削除
+- キーボードのリピートを最速に
+- マウスの感度を調整
+- ユニバーサルコントロールをオフ
+- ショートカットを全てオフ
+- Dock を左に移動してアプリを整理
+
+## ターミナル環境のセットアップ
+
+### 必要なパッケージをインストール
+
+```bash
+brew install \
+  bat \
+  ffmpeg \
+  gh \
+  jq \
+  neovim \
+  fzf
+```
+
+### Node 環境
+
+Node は [volta](https://volta.sh/) を使って管理しています。
+
+```bash
+# voltaをインストール
+curl https://get.volta.sh | bash
+
+volta install node
+volta install yarn@1
+brew install pnpm
+
+# npmやyarnを自動判別してくれるツール abbreviationとかで使ってるのでついでに入れておく
+npm i -g @antfu/ni
+```
+
+### Neovim
+
+[vim-plug](https://github.com/junegunn/vim-plug) をインストール
+
+```bash
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+```
+
+## dotfile の設定
+
+私は dotfile を github で管理しているので clone してきます。
+
+fish、git、karabiner-elements、nvim などの設定ファイルを管理しています。
+
+```bash
+git clone https://github.com/ellreka/dotfiles
+```
+
+### シンボリックリンクを設定
+
+[setup.sh](https://github.com/ellreka/dotfiles/blob/master/setup.sh) というシェルスクリプトを用意しているのでそれを実行します。
+
+```bash
+sh setup.sh
+```
+
+## 各アプリの設定
+
+### Google 日本語入力
+
+- homebrew でインストール出来なかったので手動でインストールします。
+  - <Link href="https://www.google.co.jp/ime/" />
+- キーボード > 入力ソース から ひらがな(Google)、英数(Google)を追加する
+- デフォルトのソースを削除
+  - 参考: <Link href="https://www.karakaram.com/deleting-alphanumeric-input-sources-on-macos-bigsur/" />
+- Google 日本語入力の環境設定からローマ字テーブルをインポートする
+  - Dvoraker なので C でか行を入力出来るようにしています
+
+### BetterTouchTool
+
+- ライセンスをインポート
+- iCloud の設定ファイルを同期
+- 設定 > 通常のマウス > Inverse... をオンにする
+
+BetterTouchTool では複数ディスプレイでもカーソル移動をしやすいようにショートカットを設定したりしています。
+
+[https://folivora.ai/](https://folivora.ai/)
+
+### Stay
+
+ウィンドウの位置を記憶してその状態に戻してくれるアプリです。
+
+出社してディスプレイをつなぎ直したときなど、いつものウィンドウ位置に復元してくれるので便利です。
+
+これは AppStore で購入したので AppStore からインストールします。
+
+- Hotkeys を登録
+  - ![](https://gyazo.com/b15988afca543cd19a0f8fdd32c29f01.png)
+
+[https://cordlessdog.com/stay/](https://cordlessdog.com/stay/)
+
+### Raycast
+
+- アカウントにログイン
+- 設定 > Advanced > Import/Export から設定ファイルをインポート
+- Extension をインストール
+  - <Link href="https://www.raycast.com/thomas/visual-studio-code" />
+
+Search Recent Projects の alias に code を設定していて、code コマンドと同じ感じで使えるようにしています。とても便利。
+
+VSCode の設定で `window.newWindowDimensions` を `inherit` にしておくと他の VSCode のウィンドウサイズと同じサイズで開いてくれるようになります。
+[https://www.raycast.com/](https://www.raycast.com/)
+
+### Karabiner-Elements
+
+基本外付けキーボードを使っているので関係ないのですが、たまに内蔵キーボードを使ったときのために Dvorak 配列を設定しています。
+
+また、[尊師スタイル](https://www.google.com/search?q=%E5%B0%8A%E5%B8%AB%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB)で外付けキーボードを繋いだときに内蔵キーボードを無効化する設定もしています。
+
+- 外付けキーボードを接続したら Devices > Disable the … をオン
+- 外付けキーボードの modify events をオフ
+
+[https://karabiner-elements.pqrs.org/](https://karabiner-elements.pqrs.org/)
+
+### iTerm2
+
+Hotkey を押したら画面全体を覆うように表示する設定をしています。
+
+- General > Startup > Window... を Only... に
+- General > Window > Native full... をオフ
+- Profiles > Keys > configure Hotkey Windows に `⌥+Space` を登録
+
+[https://iterm2.com/](https://iterm2.com/)
+
+### Stream Deck
+
+- 環境設定 > プロファイル > すべてをバックアップ から復元
+- Pluginをインストール
+  - <Link href="https://apps.elgato.com/plugins/net.ellreka.slack-status" />
+  - <Link href="https://apps.elgato.com/plugins/gg.datagram.web-requests" />
+  - <Link href="https://apps.elgato.com/plugins/com.elgato.cpu" />
+  - <Link href="https://apps.elgato.com/plugins/com.elgato.analogclock" />
+  - <Link href="https://apps.elgato.com/plugins/com.fredemmott.micmutetoggle" />
+
+[https://www.elgato.com/jp/ja/p/stream-deck-plus-black](https://www.elgato.com/jp/ja/p/stream-deck-plus-black)

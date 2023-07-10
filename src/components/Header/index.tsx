@@ -37,7 +37,7 @@ export function Header({ isDark, toggleTheme }: Props): React.ReactElement {
           {links.map((link) => (
             <li
               key={link.label}
-              className="sm:text-md text-sm hover:text-blue-700">
+              className="sm:text-base text-sm hover:text-blue-700">
               <Link href={link.href}>{link.label}</Link>
             </li>
           ))}

@@ -116,7 +116,9 @@ curl https://get.volta.sh | bash
 
 volta install node
 volta install yarn@1
-brew install pnpm
+volta install pnpm
+
+set -Ux VOLTA_FEATURE_PNPM 1
 
 # npmやyarnを自動判別してくれるツール abbreviationとかで使ってるのでついでに入れておく
 npm i -g @antfu/ni

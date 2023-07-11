@@ -1,0 +1,236 @@
+export const meta = {
+  date: '2023-07-12',
+  title:
+    'Raspberry Pi 4 に Home Assistant、 AdGuard Home、 OpenMediaValut をインストールする',
+  tags: ['RaspberryPi', 'Diary']
+}
+
+## はじめに
+
+先日 Raspberry Pi 4 を買って色々遊びました。
+
+その中で Home Assistant、 AdGuard Home、 OpenMediaValut をインストールしたのでその手順をまとめます。
+
+![](https://gyazo.com/3a14a84e47a4d20b8e5aaefbbd62e5d6.jpg)
+
+## 準備したもの
+
+- Raspberry Pi 4 Model B 8GB
+- microSDXC 128GB
+- HDD 1TB
+- HDD ケース
+
+## OS のインストール
+
+[Raspberry Pi Imager](https://www.raspberrypi.com/software/) で Raspberry Pi OS Lite (64 bit) をインストールします。
+
+設定で事前に SSH、ユーザー名、Wi-Fi の設定をしておきます。
+
+## 準備
+
+`raspberrypi.local` でアクセスします。
+
+ユーザー名のパスワードは先程設定したものを入力します。
+
+```bash
+ssh pi@raspberrypi.local
+```
+
+### IP アドレスを固定する
+
+`dhcpcd.conf`に固定したい IP アドレスを設定します。
+
+```bash
+sudo vi /etc/dhcpcd.conf
+```
+
+```bash
+# dhcpcd.conf
+interface eth0
+static ip_address=192.168.0.41/24
+static routers=192.168.0.1
+static domain_name_servers=192.168.0.1 8.8.8.8
+```
+
+設定したら `sudo reboot` で再起動して固定した IP アドレスで接続できるか確認します。
+
+```bash
+ssh pi@192.168.0.41
+```
+
+## Home Assistant
+
+基本的に以下の手順に沿ってインストールします。
+
+[https://github.com/home-assistant/supervised-installer](https://github.com/home-assistant/supervised-installer)
+
+あとこちらの記事を参考にしました。
+
+[https://sympapa.hatenablog.com/entry/2022/04/03/111131](https://sympapa.hatenablog.com/entry/2022/04/03/111131)
+
+### Docker をインストールする
+
+```bash
+curl -fsSL get.docker.com | sh
+
+sudo usermod -aG docker pi # dockerにユーザーを追加
+
+sudo reboot # 再起動
+```
+
+### 依存関係をインストールする
+
+```bash
+apt install \
+  apparmor \
+  jq \
+  wget \
+  curl \
+  udisks2 \
+  libglib2.0-bin \
+  network-manager \
+  dbus \
+  lsb-release \
+  systemd-journal-remote \
+  systemd-resolved -y
+```
+
+私の場合 `systemd-resolved` がインストール出来なかったので省きました。
+
+### OS をインストールする
+
+`1.5.1` の部分は[最新のバージョン](https://github.com/home-assistant/os-agent/releases/latest)に置き換えてください。
+
+```bash
+wget https://github.com/home-assistant/os-agent/releases/download/1.5.1/os-agent_1.5.1_linux_aarch64.deb
+
+sudo dpkg -i os-agent_1.5.1_linux_aarch64.deb
+```
+
+### appArmor を設定する
+
+[こちら](https://www.home-assistant.io/more-info/unsupported/apparmor)を参考に設定します。
+
+```bash
+sudo vi /boot/cmdline.txt
+```
+
+末尾に以下を追加する。
+
+```bash
+apparmor=1 security=apparmor
+```
+
+### Supervisor をインストールする
+
+```bash
+wget https://github.com/home-assistant/supervised-installer/releases/latest/download/homeassistant-supervised.deb
+
+sudo dpkg -i --ignore-depends=systemd-resolved homeassistant-supervised.deb
+```
+
+先程 `systemd-resolved` をインストールしなかったため依存関係のエラーが出ます。
+
+そのため以下の issue を参考に `--ignore-depends=systemd-resolved` を追加してインストールします。
+
+[https://github.com/home-assistant/supervised-installer/issues/304](https://github.com/home-assistant/supervised-installer/issues/304)
+
+無事インストール出来たら `[IPアドレス]:8123` にアクセスして設定します。
+
+### HACS をインストールする
+
+[https://hacs.xyz/](https://hacs.xyz/)
+
+HACS を使うことで Store に無いサードパーティ製のプラグインをインストールできるようになります。
+
+[インストール手順](https://hacs.xyz/docs/setup/download)
+
+私は [Alexa Media Player](https://github.com/custom-components/alexa_media_player) というコンポーネントを使ってます。
+
+### 用途
+
+まだあまり活用できていないのですが、各スマートデバイスで設定していたものを Home Assistant に集約して管理しています。
+
+あとは Chromecast で毎朝 Youtube のニュースを流したり、予定の 5 分前に Alexa で知らせるようにしてみました。
+
+![](https://gyazo.com/9b7711ab4c1f68a00229d5facaa91c86.png)
+
+## AdGuard Home
+
+DNS サーバとして使うことで広告をブロックすることが出来ます。
+
+以下を参考にインストールします。
+
+[https://github.com/AdguardTeam/AdGuardHome/wiki/Raspberry-Pi](https://github.com/AdguardTeam/AdGuardHome/wiki/Raspberry-Pi)
+
+```bash
+wget 'https://static.adguard.com/adguardhome/release/AdGuardHome_linux_arm64.tar.gz'
+
+tar -f AdGuardHome_linux_arm64.tar.gz -x -v
+
+cd ./AdGuardHome/
+
+sudo ./AdGuardHome -s install
+```
+
+インストールできたら `[IPアドレス]:3000` にアクセスして設定します。
+
+### 53 ポートの重複を回避する
+
+`systemd-resolved` と重複していたので以下を参考に設定しました。
+
+[https://github.com/AdguardTeam/AdGuardHome/wiki/FAQ#why-am-i-getting-bind-address-already-in-use-error-when-trying-to-install-on-ubuntu](https://github.com/AdguardTeam/AdGuardHome/wiki/FAQ#why-am-i-getting-bind-address-already-in-use-error-when-trying-to-install-on-ubuntu)
+
+### ダッシュボードの URL を変更する
+
+デフォルトだと 80 ポートで起動するので、OpenMediaValut と重複してしまいます。
+
+なので `AdGuardHome.yaml` を編集して 3000 ポートで起動するようにしました。
+
+```bash
+sudo vi ./AdGuardHome/AdGuardHome.yaml
+```
+
+```bash
+http:
+  address: 0.0.0.0:3000
+  session_ttl: 720h
+
+...
+```
+
+### 各デバイスで DNS を設定する
+
+ルータの設定でカスタム DNS を設定すれば必要は無いのですが、私のルータでは出来なかったので各デバイスで設定しました。
+
+Wi-Fi の設定に DNS の項目があるのでそこに IP アドレスを設定します。
+
+## OpenMediaVault
+
+1TB の外付け HDD を接続して NAS を作りました。
+
+大したデータを保存するわけではないので RAID は設定しません。
+
+### インストール
+
+```bash
+sudo wget -O - https://github.com/OpenMediaVault-Plugin-Developers/installScript/raw/master/install | sudo bash
+```
+
+インストール出来たら IP アドレスでアクセスしログインします。
+
+初期ユーザー名は `admin`、パスワードは `openmediavault` です。
+
+あとは HDD を登録してファイル共有を設定します。詳しい手順は割愛します。
+
+### 用途
+
+主に自炊した漫画を保存するのに使用してます。
+
+iOS だと [ComicShare](https://comicshare.net/) というアプリが便利でした。
+
+## 最後に
+
+ラズパイを買ったのは初めてだったので少々苦戦しましたが、楽しかったです。
+
+他にも色々出来ないか模索中です。

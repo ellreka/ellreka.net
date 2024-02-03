@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { ReactNode } from 'react'
 
 import { MetaType } from '@/types'
+import { useScrollTop } from '@/hooks/useScrollTop'
 
 interface Props {
   meta: MetaType
@@ -18,8 +19,7 @@ export function EntryLayout({
   children,
   slug
 }: Props): React.ReactElement {
-  // const { y } = useWindowScroll()
-  // const y = 100
+  useScrollTop()
   return (
     <div className="relative">
       <div className={clsx('border-b-4 border-dotted border-blue-300 pb-12')}>

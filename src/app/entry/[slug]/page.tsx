@@ -117,9 +117,7 @@ const Post = async ({ params }: Props) => {
           <Sidebar headings={headings} />
         </div>
       </div>
-      <div className="mt-10">
-        {/* <Adsense /> */}
-      </div>
+      <div className="mt-10">{/* <Adsense /> */}</div>
     </>
   )
 }

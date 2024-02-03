@@ -20,10 +20,10 @@ const links = [
     href: '/timeline',
     label: 'Timeline'
   },
-  {
-    href: '/about',
-    label: 'About'
-  }
+  // {
+  //   href: '/about',
+  //   label: 'About'
+  // }
 ]
 
 export function Header({ isDark, toggleTheme }: Props): React.ReactElement {

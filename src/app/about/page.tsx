@@ -1,5 +1,6 @@
 import { Title } from '@/components/Title'
 import { Meta } from '@/components/Meta'
+import Link from 'next/link'
 
 const About = () => {
   return (
@@ -13,9 +14,8 @@ const About = () => {
       <div className="mx-auto max-w-2xl animate-fade-in">
         <Title>About</Title>
         <div className="mt-20 space-y-10">
-          <p className="dark:text-white">日頃学んだことを雑に書きます。</p>
           <p className="dark:text-white">
-            もし間違っている情報などあればプルリクいただけると大変嬉しいです。
+            技術的なことから日常的なことまで色々書くブログ
           </p>
           <p className="dark:text-white">
             <a
@@ -23,8 +23,15 @@ const About = () => {
               target="_blank"
               rel="noreferrer"
               className="text-blue-600">
-              このブログのソースコード
+              ソースコード
             </a>
+          </p>
+          <p>
+            <Link
+              href="/privacy"
+              className="text-blue-600">
+              プライバシーポリシー
+            </Link>
           </p>
           {/* <h2 className="mt-10 dark:text-white text-lg font-bold">Accounts</h2>
           <ul className="dark:text-white">

@@ -48,7 +48,7 @@ export const List = ({ entries }: Props): React.ReactElement => {
   )
 }
 
-const Entry = ({
+export const Entry = ({
   url,
   site,
   title,

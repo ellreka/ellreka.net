@@ -1,7 +1,7 @@
 import { Title } from '@/components/Title'
 import { Meta } from '@/components/Meta'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGithub, faTwitter } from '@fortawesome/free-brands-svg-icons'
+import { faGithub, faXTwitter } from '@fortawesome/free-brands-svg-icons'
 import {
   DocumentTextIcon,
   ClockIcon,
@@ -60,10 +60,10 @@ const Home = async () => {
               <Card
                 href="https://twitter.com/ellreka"
                 label="Twitter"
-                className="from-sky-900 to-sky-400"
+                className="from-zinc-600 to-zinc-300"
                 icon={
-                  <span className="text-3xl text-gray-300">
-                    <FontAwesomeIcon icon={faTwitter} />
+                  <span className="text-3xl text-black">
+                    <FontAwesomeIcon icon={faXTwitter} />
                   </span>
                 }
               />

@@ -80,7 +80,7 @@ const Timeline = async () => {
                                 href={item.url}
                                 target="_blank"
                                 rel="noreferrer noopener"
-                                className="flex w-full flex-col gap-1 rounded-md border border-gray-500 bg-gray-700 px-5 py-3 transition-colors duration-150 hover:bg-gray-600">
+                                className="flex w-full flex-col gap-1 rounded-md bg-gray-700 px-5 py-3 transition-colors duration-150 hover:bg-gray-600">
                                 <p className="text-sm text-white">
                                   {item.title}
                                 </p>

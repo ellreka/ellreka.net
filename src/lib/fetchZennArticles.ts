@@ -18,7 +18,7 @@ export const fetchZennArticles = async () => {
       site: 'zenn',
       meta: {
         title: article.title,
-        date: dayjs(new Date(article.published_at)).format('YYYY/MM/DD'),
+        date: dayjs(new Date(article.published_at)).format('YYYY-MM-DD'),
         tags: [] as string[]
       }
     }

@@ -86,7 +86,7 @@ const Timeline = async () => {
                                 </p>
                                 <p className="text-xs text-gray-400">
                                   {dayjs(new Date(item.date)).format(
-                                    'YYYY/MM/DD'
+                                    'YYYY-MM-DD'
                                   )}
                                 </p>
                               </a>

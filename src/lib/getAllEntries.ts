@@ -12,7 +12,7 @@ export const getAllEntries = async () => {
       site: 'ellreka',
       meta: {
         title: entry.meta.title,
-        date: dayjs(new Date(entry.meta.date)).format('YYYY/MM/DD'),
+        date: dayjs(new Date(entry.meta.date)).format('YYYY-MM-DD'),
         tags: entry.meta.tags
       }
     }

@@ -38,7 +38,7 @@ export const mdxComponents: MDXComponents = {
   },
   p: (props: any) => (
     <div
-      className="sm:text-base my-4 text-sm leading-8 text-black dark:text-white"
+      className="my-4 text-sm leading-8 text-black dark:text-white sm:text-base"
       {...props}
     />
   ),
@@ -49,13 +49,23 @@ export const mdxComponents: MDXComponents = {
     return props.href === props.children || props.children == null ? (
       <BlogCard {...props} />
     ) : (
-      <a className="break-all text-blue-500" href={props.href} {...props}>
+      <a
+        className="break-all text-blue-500"
+        href={props.href}
+        target="_blank"
+        rel="noreferrer"
+        {...props}>
         {props.children}
       </a>
     )
   },
   ul: (props: any) => {
-    return <ul className={clsx('list text-black dark:text-white text-sm sm:text-base')} {...props} />
+    return (
+      <ul
+        className={clsx('list text-sm text-black dark:text-white sm:text-base')}
+        {...props}
+      />
+    )
   },
   li: (props: any) => (
     <li className="relative mb-2 text-black dark:text-white" {...props}>

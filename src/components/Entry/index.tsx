@@ -29,7 +29,7 @@ export function EntryLayout({
             created at: {meta.date}
           </p>
           <a
-            href={`https://github.com/ellreka/ellreka.net/commits/master/docs/${slug}.mdx`}
+            href={`https://github.com/ellreka/ellreka.net/commits/main/docs/${slug}.mdx`}
             target="_blank"
             rel="noreferrer"
             className="ml-4 text-base text-blue-500">

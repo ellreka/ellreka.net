@@ -28,6 +28,7 @@ const Home = async () => {
                 className="aspect-auto"
                 href="/about"
                 label="About"
+                index={0}
                 // background={
                 //   <UserIcon className="absolute right-2 bottom-2 h-[40px] w-auto text-white/20" />
                 // }
@@ -36,6 +37,7 @@ const Home = async () => {
                 className="aspect-auto"
                 href="/timeline"
                 label="Timeline"
+                index={1}
                 // background={
                 //   <ClockIcon className="absolute right-2 bottom-2 h-[40px] w-auto text-white/20" />
                 // }
@@ -44,6 +46,7 @@ const Home = async () => {
             <Card
               href="/entries"
               label="Entries"
+              index={2}
               // background={
               //   <DocumentTextIcon className="absolute right-0 bottom-0 h-[60px] w-auto text-white/20" />
               // }
@@ -51,6 +54,7 @@ const Home = async () => {
             <Card
               href="/releases"
               label="Releases"
+              index={3}
               // background={
               //   <RocketLaunchIcon className="absolute right-2 bottom-2 h-[60px] w-auto text-white/20" />
               // }
@@ -61,6 +65,7 @@ const Home = async () => {
                 href="https://twitter.com/ellreka"
                 label="Twitter"
                 className="from-zinc-600 to-zinc-300"
+                index={4}
                 icon={
                   <span className="text-3xl text-black">
                     <FontAwesomeIcon icon={faXTwitter} />
@@ -71,6 +76,7 @@ const Home = async () => {
                 href="https://zenn.dev/ellreka"
                 label="Zenn"
                 className="from-sky-100 to-sky-300"
+                index={5}
                 icon={
                   <span className="">
                     <img
@@ -85,6 +91,7 @@ const Home = async () => {
                 href="https://github.com/ellreka"
                 label="GitHub"
                 className="from-black to-gray-500"
+                index={6}
                 icon={
                   <span className="text-3xl text-gray-300">
                     <FontAwesomeIcon icon={faGithub} />

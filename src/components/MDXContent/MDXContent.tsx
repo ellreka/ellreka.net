@@ -67,6 +67,16 @@ export const mdxComponents: MDXComponents = {
       />
     )
   },
+  ol: (props: any) => {
+    return (
+      <ol
+        className={clsx(
+          'list-decimal pl-[1.8em] text-sm text-black dark:text-white sm:text-base'
+        )}
+        {...props}
+      />
+    )
+  },
   li: (props: any) => (
     <li className="relative mb-2 text-black dark:text-white" {...props}>
       {props.children}

@@ -29,7 +29,7 @@ function Layout({ children }: Props): React.ReactElement {
         dark: isDark
       })}>
       <div
-        className="flex flex-col bg-white px-4 dark:bg-gray-800"
+        className="flex flex-col bg-white px-4 dark:bg-slate-900"
         style={{
           minHeight: '100svh'
         }}>

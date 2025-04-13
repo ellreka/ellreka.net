@@ -1,5 +1,4 @@
 const path = require('path')
-const rehypePrism = require('@mapbox/rehype-prism')
 
 /** @type {import('next').NextConfig} */
 module.exports = {

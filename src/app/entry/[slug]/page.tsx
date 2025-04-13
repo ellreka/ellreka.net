@@ -7,9 +7,7 @@ import { EntryLayout } from '@/components/Entry'
 import { RelatedEntry } from '@/components/RelatedEntry'
 import { Sidebar } from '@/components/Sidebar'
 import { getEntries } from '@/lib/getEntries'
-
-// @ts-ignore
-import rehypePrism from '@mapbox/rehype-prism'
+import rehypePrettyCode from 'rehype-pretty-code' // 追加
 import { MDXContent } from '@/components/MDXContent/MDXContent'
 import { generateOgp } from '@/lib/generateOgp'
 import { Meta } from '@/components/Meta'
@@ -48,10 +46,15 @@ const getData = async (slug: string) => {
       encoding: 'utf-8'
     })
 
+    /** @type {import('rehype-pretty-code').Options} */
+    const options = {
+      theme: 'ayu-dark',
+      keepBackground: false
+    }
+
     const compiled = await compile(mdx, {
       outputFormat: 'function-body',
-      useDynamicImport: true,
-      rehypePlugins: [rehypePrism]
+      rehypePlugins: [[rehypePrettyCode, options]]
     })
 
     const code = compiled.toString()
@@ -96,12 +99,7 @@ const Post = async ({ params }: Props) => {
             ? `https://ellreka.net${meta.ogpImage}`
             : `https://ellreka.net/ogp/${slug}.png`
         }}
-        isEntry={true}>
-        <link
-          href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.9.0/themes/prism-tomorrow.min.css"
-          rel="stylesheet"
-        />
-      </Meta>
+        isEntry={true}></Meta>
       <div className="mx-auto mt-10 flex max-w-screen-xl justify-between gap-x-5">
         <div className="w-full flex-1 lg:w-0">
           <EntryLayout slug={slug} meta={meta}>

@@ -19,3 +19,7 @@ ul.list > li > ul {
 ul.list > li > ul > li {
   @apply list-circle;
 }
+
+figcaption[data-rehype-pretty-code-title] + div > pre {
+  @apply mt-0 rounded-tl-none;
+}

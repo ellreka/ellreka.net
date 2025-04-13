@@ -1,7 +1,8 @@
 'use client'
 
 import { runSync } from '@mdx-js/mdx'
-import { FC } from 'react'
+import React, { FC, Fragment, useState } from 'react'
+import { ChevronDownIcon, ChevronUpIcon } from '@heroicons/react/24/solid'
 import * as runtime from 'react/jsx-runtime'
 import { BlogCard } from '@/components/BlogCard'
 import { Image } from '@/components/Image/Image'
@@ -86,9 +87,16 @@ export const mdxComponents: MDXComponents = {
     <strong className="font-bold text-black dark:text-white" {...props} />
   ),
   code: (props: any) => {
+    const isCodeBlock = props['data-language'] !== undefined
+
+    if (isCodeBlock) {
+      return <code className={props.className} {...props} />
+    }
+
+    // インラインコードにのみスタイルを適用
     return (
       <code
-        className="mx-1 break-all rounded-sm border border-solid border-gray-500 bg-gray-200 px-2 py-1 text-black dark:border-gray-900 dark:bg-gray-800 dark:text-orange-500"
+        className="mx-1 break-all rounded-md border border-slate-800 bg-slate-800 px-1 py-0.5 text-sky-400"
         {...props}
       />
     )
@@ -101,12 +109,46 @@ export const mdxComponents: MDXComponents = {
       />
     </>
   ),
+  pre: (props: any) => {
+    const CodeBlockWithToggle = () => {
+      // const [isExpanded, setIsExpanded] = useState(false)
+
+      return (
+        <div className="relative">
+          <pre
+            className={clsx(
+              'my-4 overflow-auto rounded-md border border-slate-600 p-[1rem]'
+              // isExpanded ? '' : 'max-h-[500px]'
+            )}
+            {...props}
+          />
+        </div>
+      )
+    }
+
+    return <CodeBlockWithToggle />
+  },
+  figcaption: (props: any) => {
+    if (props['data-rehype-pretty-code-title'] !== undefined) {
+      return (
+        <figcaption
+          className="inline-block rounded-t-md border border-b-0 border-slate-600 bg-slate-800 px-2 py-1 text-sm text-slate-500"
+          {...props}
+        />
+      )
+    }
+    // 通常の figcaption
+    return <figcaption {...props} />
+  },
   Image: Image,
   Link: Link
 }
 
 export const MDXContent: FC<Props> = ({ code }) => {
-  const { default: Content } = runSync(code, runtime)
+  const { default: Content } = runSync(code, {
+    ...runtime,
+    Fragment
+  })
 
   return <Content components={mdxComponents} />
 }

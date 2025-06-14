@@ -1,8 +1,4 @@
-/* purgecss start ignore */
-@tailwind base;
-@tailwind components;
-/* purgecss end ignore */
-@tailwind utilities;
+@import 'tailwindcss';
 
 ul.list {
   @apply pl-[1.8em];
@@ -20,6 +16,14 @@ ul.list > li > ul > li {
   @apply list-circle;
 }
 
-figcaption[data-rehype-pretty-code-title] + div > pre {
-  @apply mt-0 rounded-tl-none;
+ol.list {
+  @apply pl-[2.2em];
+}
+
+ol.list > li {
+  list-style-type: decimal;
+}
+
+ol.list > li > ol > li {
+  list-style-type: lower-alpha;
 }

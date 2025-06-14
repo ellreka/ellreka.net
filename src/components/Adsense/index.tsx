@@ -1,9 +1,9 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
-import React, { useEffect, VFC } from 'react'
+import React, { useEffect, FC } from 'react'
 
-export const Adsense: VFC = () => {
+export const Adsense: FC = () => {
   const pathname = usePathname()
 
   useEffect(() => {

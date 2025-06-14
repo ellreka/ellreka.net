@@ -6,7 +6,8 @@ import { GoogleAnalytics } from '@/components/GoogleAnalytics'
 
 const mPlus1p = M_PLUS_1p({
   weight: ['400', '700'],
-  preload: false
+  subsets: ['latin'],
+  display: 'swap'
 })
 
 export default function RootLayout({

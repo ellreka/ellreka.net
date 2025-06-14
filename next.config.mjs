@@ -8,8 +8,7 @@ const __dirname = dirname(__filename)
 const nextConfig = {
   reactStrictMode: true,
   experimental: {
-    esmExternals: true,
-    scrollRestoration: true
+    esmExternals: true
   },
   images: {
     domains: ['gyazo.com']
@@ -30,7 +29,7 @@ const nextConfig = {
             providerImportSource: '@mdx-js/react'
           }
         },
-        { 
+        {
           loader: join(__dirname, './lib/fm-loader.mjs')
         }
       ]

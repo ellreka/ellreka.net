@@ -6,6 +6,7 @@ import { useLocalStorage } from 'react-use'
 
 import { Footer } from './Footer'
 import { Header } from './Header'
+import { ScrollToTop } from './ScrollToTop'
 
 interface Props {
   children: React.ReactNode
@@ -36,6 +37,7 @@ function Layout({ children }: Props): React.ReactElement {
         <Header isDark={true} toggleTheme={onChangeTheme} />
         <main className="mt-12 h-full grow">{children}</main>
         <Footer />
+        <ScrollToTop />
       </div>
     </div>
   )

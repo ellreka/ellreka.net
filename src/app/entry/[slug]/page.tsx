@@ -142,7 +142,7 @@ const Post = async ({ params }: Props) => {
             </div>
           )}
         </div>
-        <div className="hidden min-w-56 lg:block">
+        <div className="hidden w-56 lg:block">
           <Sidebar headings={headings} />
         </div>
       </div>

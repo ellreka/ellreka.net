@@ -12,8 +12,10 @@ import { MetaType, EntryType } from '@/types'
 import rehypePrettyCode from 'rehype-pretty-code' // 追加
 import { MDXContent } from '@/components/MDXContent/MDXContent'
 import { generateOgp } from '@/lib/generateOgp'
-import { Meta } from '@/components/Meta'
 import { notFound } from 'next/navigation'
+import { createArticleStructuredData } from '@/lib/structured-data'
+import { Breadcrumb } from '@/components/Breadcrumb'
+import { Metadata } from 'next'
 
 interface Props {
   params: Promise<{
@@ -25,6 +27,51 @@ const root = process.cwd()
 const docs = path.join(root, 'docs')
 
 export const dynamicParams = true
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params
+  const data = await getData(slug)
+  
+  if (!data) {
+    return {
+      title: 'Not Found',
+    }
+  }
+  
+  const { frontMatter } = data
+  const { meta } = frontMatter
+  const imageUrl = meta.ogpImage
+    ? `https://ellreka.net${meta.ogpImage}`
+    : `https://ellreka.net/ogp/${slug}.png`
+  
+  return {
+    title: `${meta.title} | ellreka.net`,
+    description: meta.description || meta.title,
+    openGraph: {
+      title: meta.title,
+      description: meta.description || meta.title,
+      type: 'article',
+      publishedTime: meta.date,
+      authors: ['ellreka'],
+      tags: meta.tags,
+      url: `https://ellreka.net/entry/${slug}`,
+      siteName: 'ellreka.net',
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+        }
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: meta.title,
+      description: meta.description || meta.title,
+      images: [imageUrl],
+    },
+  }
+}
 
 export const generateStaticParams = async () => {
   const allDirents = fs.readdirSync(docs, { withFileTypes: true })
@@ -120,19 +167,33 @@ const Post = async ({ params }: Props) => {
 
   const { code, frontMatter, entries } = data
   const { meta, headings } = frontMatter
+  
+  const articleStructuredData = createArticleStructuredData({
+    title: meta.title,
+    date: meta.date,
+    description: meta.description || meta.title,
+    tags: meta.tags,
+    slug,
+    ogpImage: meta.ogpImage
+      ? `https://ellreka.net${meta.ogpImage}`
+      : `https://ellreka.net/ogp/${slug}.png`
+  });
+  
+  const breadcrumbItems = [
+    { name: 'Home', href: '/' },
+    { name: 'Entries', href: '/entries' },
+    { name: meta.title }
+  ];
+  
   return (
     <>
-      <Meta
-        meta={{
-          title: meta.title,
-          description: meta.title,
-          image: meta.ogpImage
-            ? `https://ellreka.net${meta.ogpImage}`
-            : `https://ellreka.net/ogp/${slug}.png`
-        }}
-        isEntry={true}></Meta>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleStructuredData) }}
+      />
       <div className="mx-auto mt-10 flex max-w-screen-xl justify-between gap-x-5">
         <div className="w-full flex-1 lg:w-0">
+          <Breadcrumb items={breadcrumbItems} />
           <EntryLayout slug={slug} meta={meta}>
             <MDXContent code={code} />
           </EntryLayout>

@@ -9,15 +9,42 @@ import {
   UserIcon
 } from '@heroicons/react/24/outline'
 import { Card } from '@/components/Card/Card'
+import { createWebsiteStructuredData } from '@/lib/structured-data'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Home | ellreka.net',
+  description: 'Personal website of ellreka.',
+  openGraph: {
+    title: 'Home | ellreka.net',
+    description: 'Personal website of ellreka.',
+    type: 'website',
+    url: 'https://ellreka.net',
+    siteName: 'ellreka.net',
+    images: [
+      {
+        url: 'https://ellreka.net/favicon.ico',
+        width: 1200,
+        height: 630,
+      }
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Home | ellreka.net',
+    description: 'Personal website of ellreka.',
+    images: ['https://ellreka.net/favicon.ico'],
+  },
+}
 
 const Home = async () => {
+  const websiteStructuredData = createWebsiteStructuredData();
+  
   return (
     <>
-      <Meta
-        meta={{
-          title: 'Home',
-          description: 'Personal website of ellreka.'
-        }}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteStructuredData) }}
       />
       <div className="mx-auto max-w-2xl animate-fade-in">
         <Title>Home</Title>

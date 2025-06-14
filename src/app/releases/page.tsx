@@ -1,10 +1,10 @@
 import { Title } from '@/components/Title'
-import { Meta } from '@/components/Meta'
 import releases from '@/data/releases.json'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Suspense } from 'react'
 import { ArrowTopRightOnSquareIcon } from '@heroicons/react/24/outline'
+import { Metadata } from 'next'
 
 type ItemProps = typeof releases[0]
 
@@ -74,15 +74,26 @@ const Item = (async (props: ItemProps) => {
   )
 }) as unknown as React.FC<ItemProps>
 
+export const metadata: Metadata = {
+  title: 'Releases | ellreka.net',
+  description: "ellreka's releases.",
+  openGraph: {
+    title: 'Releases | ellreka.net',
+    description: "ellreka's releases.",
+    type: 'website',
+    url: 'https://ellreka.net/releases',
+    siteName: 'ellreka.net',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Releases | ellreka.net',
+    description: "ellreka's releases.",
+  },
+}
+
 const Releases = () => {
   return (
     <>
-      <Meta
-        meta={{
-          title: 'Releases',
-          description: "ellreka's releases."
-        }}
-      />
       <div className="mx-auto max-w-3xl animate-fade-in">
         <Title>Releases</Title>
         <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2">

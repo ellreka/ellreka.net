@@ -8,7 +8,7 @@ const About = () => {
       <Meta
         meta={{
           title: 'About',
-          description: 'このブログについて'
+          description: 'About this blog'
         }}
       />
       <div className="mx-auto max-w-2xl animate-fade-in">

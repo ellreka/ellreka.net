@@ -60,7 +60,7 @@ export function createWebsiteStructuredData(): WebsiteStructuredData {
     '@type': 'WebSite',
     url: siteUrl,
     name: 'ellreka.net',
-    description: 'ellrekaの技術ブログ',
+    description: 'Technical blog by ellreka',
     author: {
       '@type': 'Person',
       name: 'ellreka',

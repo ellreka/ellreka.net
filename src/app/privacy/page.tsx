@@ -65,7 +65,7 @@ const PrivacyPolicy = () => {
       <Meta
         meta={{
           title: 'プライバシーポリシー',
-          description: 'プライバシーポリシー'
+          description: 'Privacy Policy'
         }}
       />
       <div className="mx-auto max-w-2xl animate-fade-in">

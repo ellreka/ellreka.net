@@ -46,10 +46,10 @@ const getData = async () => {
 
 export const metadata: Metadata = {
   title: 'Timeline | ellreka.net',
-  description: 'タイムライン',
+  description: 'Timeline of posts and releases',
   openGraph: {
     title: 'Timeline | ellreka.net',
-    description: 'タイムライン',
+    description: 'Timeline of posts and releases',
     type: 'website',
     url: 'https://ellreka.net/timeline',
     siteName: 'ellreka.net',
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Timeline | ellreka.net',
-    description: 'タイムライン',
+    description: 'Timeline of posts and releases',
   },
 }
 

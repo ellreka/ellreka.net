@@ -19,10 +19,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   
   return {
     title: `${decodedId} | Entries | ellreka.net`,
-    description: `${decodedId}のエントリー一覧`,
+    description: `Entries tagged with ${decodedId}`,
     openGraph: {
       title: `${decodedId} | Entries | ellreka.net`,
-      description: `${decodedId}のエントリー一覧`,
+      description: `Entries tagged with ${decodedId}`,
       type: 'website',
       url: `https://ellreka.net/entries/${id}`,
       siteName: 'ellreka.net',
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     twitter: {
       card: 'summary_large_image',
       title: `${decodedId} | Entries | ellreka.net`,
-      description: `${decodedId}のエントリー一覧`,
+      description: `Entries tagged with ${decodedId}`,
     },
   }
 }

@@ -31,7 +31,7 @@ export const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, currentPageTitle 
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
       />
-      <nav aria-label="パンくずリスト" className="mb-6 overflow-hidden">
+      <nav aria-label="Breadcrumb" className="mb-6 overflow-hidden">
         <ol className="flex items-center text-xs whitespace-nowrap">
           {items.map((item, index) => {
             const isLastItem = index === items.length - 1;

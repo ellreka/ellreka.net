@@ -4,12 +4,13 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "dev": "next dev --port 4444",
+    "dev": "next dev --turbopack --port 4444",
     "build": "next build",
     "export": "next export",
     "lint": "next lint",
     "lint:text": "textlint docs/*.mdx",
     "eslint": "eslint src --ext ts,tsx",
+    "typecheck": "tsc --noEmit",
     "gen:docs": "bash bin/gen-mdx.sh",
     "ci:vrt": "reg-suit run"
   },

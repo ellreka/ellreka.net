@@ -1,6 +1,7 @@
+import './globals.css'
 import '@/styles/index.css'
 import Layout from '@/components/Layout'
-import { M_PLUS_1p } from '@next/font/google'
+import { M_PLUS_1p } from 'next/font/google'
 import { GoogleAnalytics } from '@/components/GoogleAnalytics'
 
 const mPlus1p = M_PLUS_1p({

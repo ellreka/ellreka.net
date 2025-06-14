@@ -1,5 +1,7 @@
 import path from 'path'
 import fs from 'fs'
+import { evaluateSync } from '@mdx-js/mdx'
+import * as runtime from 'react/jsx-runtime'
 import { MetaType } from '../types'
 
 const root = process.cwd()
@@ -10,11 +12,28 @@ export const getEntries = async () => {
   const tmpEntries = []
 
   for (const filepath of filepaths) {
-    const { meta } = await import(`../../docs/${filepath}`)
-    tmpEntries.push({
-      slug: filepath.replace(/\.mdx/, ''),
-      meta: meta as MetaType
-    })
+    if (!filepath.endsWith('.mdx')) continue
+    
+    const fullPath = path.join(docs, filepath)
+    const fileContent = fs.readFileSync(fullPath, 'utf8')
+    
+    try {
+      // Properly evaluate the MDX content to extract exports
+      const { meta } = evaluateSync(fileContent, {
+        ...runtime,
+        development: false,
+        baseUrl: import.meta.url
+      })
+      
+      if (meta) {
+        tmpEntries.push({
+          slug: filepath.replace(/\.mdx/, ''),
+          meta: meta as MetaType
+        })
+      }
+    } catch (error) {
+      console.error(`Error parsing MDX from ${filepath}:`, error)
+    }
   }
 
   const entries = tmpEntries.sort(

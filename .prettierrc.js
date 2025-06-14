@@ -1,3 +1,7 @@
 module.exports = {
-  ...require('@ellreka/configs/.prettierrc')
+  semi: false,
+  singleQuote: true,
+  trailingComma: 'none',
+  printWidth: 80,
+  tabWidth: 2
 }

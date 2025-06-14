@@ -1,13 +1,15 @@
-const path = require('path')
+import { fileURLToPath } from 'url'
+import { dirname, join } from 'path'
+
+const __filename = fileURLToPath(import.meta.url)
+const __dirname = dirname(__filename)
 
 /** @type {import('next').NextConfig} */
-module.exports = {
+const nextConfig = {
   reactStrictMode: true,
   experimental: {
     esmExternals: true,
-    scrollRestoration: true,
-    appDir: true,
-    fontLoaders: [{ loader: '@next/font/google' }]
+    scrollRestoration: true
   },
   images: {
     domains: ['gyazo.com']
@@ -28,10 +30,14 @@ module.exports = {
             providerImportSource: '@mdx-js/react'
           }
         },
-        { loader: path.join(__dirname, './lib/fm-loader') }
+        { 
+          loader: join(__dirname, './lib/fm-loader.mjs')
+        }
       ]
     })
 
     return config
   }
 }
+
+export default nextConfig

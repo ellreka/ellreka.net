@@ -2,7 +2,7 @@ import { Meta } from '@/components/Meta'
 import { Title } from '@/components/Title'
 import timelineJson from '@/timeline.json'
 import { getEntries } from '@/lib/getEntries'
-import { Timeline } from '@/types'
+import type { Timeline } from '@/types'
 import dayjs from 'dayjs'
 
 const fetchZennArticles = async (): Promise<Timeline> => {

@@ -1,5 +1,6 @@
 import fs from 'fs'
-import { compile } from '@mdx-js/mdx'
+import { compile, evaluateSync } from '@mdx-js/mdx'
+import * as runtime from 'react/jsx-runtime'
 import path from 'path'
 import { Adsense } from '@/components/Adsense'
 
@@ -7,6 +8,7 @@ import { EntryLayout } from '@/components/Entry'
 import { RelatedEntry } from '@/components/RelatedEntry'
 import { Sidebar } from '@/components/Sidebar'
 import { getEntries } from '@/lib/getEntries'
+import { MetaType, EntryType } from '@/types'
 import rehypePrettyCode from 'rehype-pretty-code' // 追加
 import { MDXContent } from '@/components/MDXContent/MDXContent'
 import { generateOgp } from '@/lib/generateOgp'
@@ -14,9 +16,9 @@ import { Meta } from '@/components/Meta'
 import { notFound } from 'next/navigation'
 
 interface Props {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 const root = process.cwd()
@@ -40,11 +42,40 @@ const getData = async (slug: string) => {
   try {
     const entries = await getEntries()
     const mdxPath = path.join(docs, `${slug}.mdx`)
-
-    const { meta, headings } = await import(`../../../../docs/${slug}.mdx`)
+    
     const mdx = fs.readFileSync(mdxPath, {
       encoding: 'utf-8'
     })
+    
+    // Properly evaluate MDX to extract metadata
+    let meta: MetaType = { title: '', date: '', tags: [] }
+    
+    try {
+      const evaluated = evaluateSync(mdx, {
+        ...runtime,
+        development: false,
+        baseUrl: import.meta.url
+      })
+      
+      if (evaluated.meta) {
+        meta = evaluated.meta as MetaType
+      }
+    } catch (error) {
+      console.error(`Error evaluating MDX from ${slug}:`, error)
+    }
+    
+    // Extract headings from MDX content
+    const headingMatches = mdx.match(/^#{1,6}\s+.+$/gm) || []
+    const headings = headingMatches.map((heading) => {
+      const levelMatch = heading.match(/^(#{1,6})\s+(.+)$/)
+      if (levelMatch) {
+        return {
+          level: levelMatch[1].length,
+          title: levelMatch[2].trim()
+        }
+      }
+      return null
+    }).filter((h): h is { level: number; title: string } => h !== null)
 
     /** @type {import('rehype-pretty-code').Options} */
     const options = {
@@ -69,7 +100,7 @@ const getData = async (slug: string) => {
       },
       entries: entries
         .filter((entry) =>
-          entry.meta.tags.some((tag) => meta.tags.includes(tag))
+          entry.meta.tags.some((tag: string) => meta.tags.includes(tag))
         )
         .filter((entry) => entry.slug !== slug)
     }
@@ -80,7 +111,7 @@ const getData = async (slug: string) => {
 }
 
 const Post = async ({ params }: Props) => {
-  const { slug } = params
+  const { slug } = await params
   const data = await getData(slug)
 
   if (data == null) {

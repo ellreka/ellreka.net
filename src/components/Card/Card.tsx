@@ -87,7 +87,7 @@ export const Card = ({
       target={external ? '_blank' : undefined}
       className={clsx(
         className,
-        'group relative flex w-full items-center justify-center rounded-md bg-gradient-to-r bg-no-repeat transition-all where:aspect-square where:from-gray-700 where:to-gray-700'
+        'group relative flex w-full items-center justify-center rounded-md bg-gradient-to-r from-gray-700 to-gray-700 bg-no-repeat transition-all aspect-square'
       )}>
       {background != null && <>{background}</>}
       {icon == null ? (

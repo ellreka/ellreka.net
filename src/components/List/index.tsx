@@ -84,7 +84,7 @@ export const Entry = ({
             <li
               key={tag}
               className="inline-block rounded-full bg-slate-600 px-2 text-xs text-white md:text-sm">
-              <Link href={`/entries/${tag}`}>{tag}</Link>
+              <Link href={`/entries/${encodeURIComponent(tag)}`}>{tag}</Link>
             </li>
           ))}
         </ul>

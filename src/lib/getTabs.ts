@@ -34,14 +34,14 @@ export const getTabs = ({
     {
       id: 'Tips',
       label: 'Tips',
-      href: '/entries/Tips',
+      href: `/entries/${encodeURIComponent('Tips')}`,
       icon: '/assets/logo/tips.png',
       count: tags.find((tag) => tag.name === 'Tips')?.count ?? 0
     },
     {
       id: 'TypeScript',
       label: 'TypeScript',
-      href: '/entries/TypeScript',
+      href: `/entries/${encodeURIComponent('TypeScript')}`,
       icon: '/assets/logo/typescript.svg',
       count: tags.find((tag) => tag.name === 'TypeScript')?.count ?? 0
     }

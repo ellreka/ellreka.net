@@ -1,9 +1,9 @@
-import { Meta } from '@/components/Meta'
 import { Title } from '@/components/Title'
 import timelineJson from '@/timeline.json'
 import { getEntries } from '@/lib/getEntries'
 import type { Timeline } from '@/types'
 import dayjs from 'dayjs'
+import { Metadata } from 'next'
 
 const fetchZennArticles = async (): Promise<Timeline> => {
   const res = await fetch(
@@ -44,11 +44,28 @@ const getData = async () => {
   return { timeline, years }
 }
 
+export const metadata: Metadata = {
+  title: 'Timeline | ellreka.net',
+  description: 'タイムライン',
+  openGraph: {
+    title: 'Timeline | ellreka.net',
+    description: 'タイムライン',
+    type: 'website',
+    url: 'https://ellreka.net/timeline',
+    siteName: 'ellreka.net',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Timeline | ellreka.net',
+    description: 'タイムライン',
+  },
+}
+
 const Timeline = async () => {
   const { timeline, years } = await getData()
+  
   return (
     <>
-      <Meta meta={{ title: 'Timeline', description: 'タイムライン' }} />
       <div className="mx-auto h-full max-w-2xl animate-fade-in">
         <Title>Timeline</Title>
         <div className="mt-10 flex h-full flex-col gap-10">

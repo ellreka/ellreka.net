@@ -34,11 +34,11 @@
     "@next/mdx": "13.1.5",
     "@postlight/mercury-parser": "^2.2.1",
     "@shikijs/rehype": "^3.2.2",
-    "@storybook/addon-actions": "6.3.0-beta.17",
-    "@storybook/addon-essentials": "6.3.0-beta.17",
-    "@storybook/addon-links": "6.3.0-beta.17",
+    "@storybook/addon-actions": "^8.6.14",
+    "@storybook/addon-essentials": "^8.6.14",
+    "@storybook/addon-links": "^8.6.14",
     "@storybook/addon-postcss": "^2.0.0",
-    "@storybook/react": "6.3.0-beta.17",
+    "@storybook/react": "^8.6.14",
     "@textlint/textlint-plugin-markdown": "^14.5.0",
     "@types/eslint": "8.4.10",
     "@types/gtag.js": "^0.0.12",
@@ -52,7 +52,7 @@
     "@types/sharp": "^0.30.2",
     "@wellyshen/use-web-animations": "^0.9.1",
     "autoprefixer": "^10.4.5",
-    "babel-loader": "9.1.0",
+    "babel-loader": "^9.1.0",
     "clsx": "1.2.1",
     "dayjs": "^1.11.6",
     "eslint": "8.27.0",
@@ -90,6 +90,6 @@
     "patch-package": "^6.5.0"
   },
   "volta": {
-    "node": "20.10.0"
+    "node": "24.2.0"
   }
 }

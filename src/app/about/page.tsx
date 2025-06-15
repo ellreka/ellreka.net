@@ -1,17 +1,15 @@
 import { Title } from '@/components/Title'
-import { Meta } from '@/components/Meta'
 import Link from 'next/link'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'About',
+  description: 'About this blog'
+}
 
 const About = () => {
   return (
-    <>
-      <Meta
-        meta={{
-          title: 'About',
-          description: 'About this blog'
-        }}
-      />
-      <div className="mx-auto max-w-2xl animate-fade-in">
+    <div className="mx-auto max-w-2xl animate-fade-in">
         <Title>About</Title>
         <div className="mt-20 space-y-10">
           <p className="dark:text-white">
@@ -68,7 +66,6 @@ const About = () => {
           </ul> */}
         </div>
       </div>
-    </>
   )
 }
 

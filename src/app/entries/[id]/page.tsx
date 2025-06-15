@@ -1,9 +1,9 @@
 import { Entries } from '@/components/Entries/Entries'
-import { Meta } from '@/components/Meta'
 import { Title } from '@/components/Title'
 import { getAllEntries } from '@/lib/getAllEntries'
 import { getEntries } from '@/lib/getEntries'
 import { getTags } from '@/lib/getTags'
+import { Metadata } from 'next'
 
 interface Props {
   params: Promise<{
@@ -12,6 +12,28 @@ interface Props {
 }
 
 export const dynamicParams = true
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params
+  const decodedId = decodeURIComponent(id)
+  
+  return {
+    title: `${decodedId} | Entries | ellreka.net`,
+    description: `Entries tagged with ${decodedId}`,
+    openGraph: {
+      title: `${decodedId} | Entries | ellreka.net`,
+      description: `Entries tagged with ${decodedId}`,
+      type: 'website',
+      url: `https://ellreka.net/entries/${id}`,
+      siteName: 'ellreka.net',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${decodedId} | Entries | ellreka.net`,
+      description: `Entries tagged with ${decodedId}`,
+    },
+  }
+}
 
 export const generateStaticParams = async () => {
   const entries = await getEntries()
@@ -30,11 +52,9 @@ const EntriesIdPage = async ({ params }: Props) => {
   const { id } = await params
   const decodedId = decodeURIComponent(id)
   const { entries, tags } = await getAllEntries()
+  
   return (
     <>
-      <Meta
-        meta={{ title: `${decodedId} | Entries`, description: "ellreka's entries." }}
-      />
       <div className="mx-auto h-full max-w-2xl">
         <Title>{`${decodedId} | Entries`}</Title>
         <Entries activeId={decodedId} entries={entries} tags={tags} />

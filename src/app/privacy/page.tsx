@@ -1,5 +1,10 @@
 import { Title } from '@/components/Title'
-import { Meta } from '@/components/Meta'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'プライバシーポリシー',
+  description: 'Privacy Policy'
+}
 
 const list = [
   {
@@ -61,14 +66,7 @@ const list = [
 
 const PrivacyPolicy = () => {
   return (
-    <>
-      <Meta
-        meta={{
-          title: 'プライバシーポリシー',
-          description: 'プライバシーポリシー'
-        }}
-      />
-      <div className="mx-auto max-w-2xl animate-fade-in">
+    <div className="mx-auto max-w-2xl animate-fade-in">
         <Title>プライバシーポリシー</Title>
         <div className="mt-20 space-y-10 text-white">
           {list.map((item, index) => (
@@ -81,7 +79,6 @@ const PrivacyPolicy = () => {
           ))}
         </div>
       </div>
-    </>
   )
 }
 

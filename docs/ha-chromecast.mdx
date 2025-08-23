@@ -1,0 +1,113 @@
+export const meta = {
+  date: '2025-08-24',
+  title: 'Home Assistant から Chromecast で Youtube を再生する',
+  tags: ['Home Assistant']
+}
+
+## はじめに
+
+私は毎朝 Chromecast で Youtube のニュースを流すような設定をしています。
+
+目覚まし代わりになるのでおすすめです。
+
+## 前提
+
+Chromecast の登録は前提とします。
+
+基本的な設定はここを見れば分かります。
+
+[](https://www.home-assistant.io/integrations/androidtv_remote)
+
+## script
+
+`media_content_type` を `url` にして `media_content_id` に URL を設定すると Youtube の動画を再生させることができます。
+
+ANN News のチャンネルが 24時間ライブ配信していて、 URL が変わらないのでそれを流すようにしています。
+
+またある時期から再生したときミュートになってしまうことがあったので `media_player.volume_mute` でミュートを解除するようにしています。
+
+```yaml
+alias: Cast YouTube to My Chromecast
+sequence:
+  - service: media_player.play_media
+    data:
+      media_content_type: url
+      media_content_id: https://www.youtube.com/watch?v=coYw-eVU0Ks
+    target:
+      entity_id: media_player.chromecast
+  - service: media_player.volume_mute
+    data:
+      is_volume_muted: false
+    target:
+      entity_id: media_player.chromecast
+mode: single
+```
+
+## 定期実行
+
+毎朝 7 時に上記 script を実行しています。
+
+`turn_on` で Chromecast をオンにする必要は本来ないのですが、script の実行を確実にするためにオンしたあと1分待ってから実行しています。
+
+```yaml
+alias: 毎朝ニュースを流す
+description: ''
+trigger:
+  - platform: time
+    at: '07:00:00'
+condition: []
+action:
+  - type: turn_on
+    device_id: ec6b0c994e65db4551a5f9a2ca391569
+    entity_id: 6aee0fa5cb6e84838bf0d573607bec44
+    domain: remote
+  - delay:
+      hours: 0
+      minutes: 1
+      seconds: 0
+      milliseconds: 0
+    enabled: true
+  - service: script.1687550549231
+    data: {}
+  - delay:
+      hours: 5
+      minutes: 0
+      seconds: 0
+      milliseconds: 0
+  - type: turn_off
+    device_id: ec6b0c994e65db4551a5f9a2ca391569
+    entity_id: 6aee0fa5cb6e84838bf0d573607bec44
+    domain: remote
+mode: single
+```
+
+## 手動起動/停止
+
+NFC タグにスマホをかざすことで起動/停止できるようにしています。
+
+if 文で制御し再生中なら停止、停止中なら再生させています。
+
+```yaml
+alias: タグでchromecastのオンオフ
+description: ''
+trigger:
+  - platform: tag
+    tag_id: 24532c3b-f091-4824-be70-b15b39b27866
+condition: []
+action:
+  - if:
+      - condition: device
+        device_id: ec6b0c994e65db4551a5f9a2ca391569
+        domain: media_player
+        entity_id: 6ecd5f706204ab7b383d5c198b2e02fb
+        type: is_on
+    then:
+      - type: turn_off
+        device_id: ec6b0c994e65db4551a5f9a2ca391569
+        entity_id: 6aee0fa5cb6e84838bf0d573607bec44
+        domain: remote
+    else:
+      - service: script.1687550549231
+        data: {}
+mode: single
+```

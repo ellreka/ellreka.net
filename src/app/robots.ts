@@ -5,8 +5,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: '*',
       allow: '/',
-      disallow: ['/api/', '/ogp/'],
+      disallow: ['/api/']
     },
-    sitemap: 'https://ellreka.net/sitemap.xml',
+    sitemap: 'https://ellreka.net/sitemap.xml'
   }
 }

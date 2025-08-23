@@ -48,6 +48,22 @@ export const List = ({ entries }: Props): React.ReactElement => {
   )
 }
 
+export const SimpleList = ({ entries }: Props): React.ReactElement => {
+  return (
+    <div className="flex flex-col">
+      {entries.map((entry) => (
+        <SimpleEntry
+          key={entry.url}
+          url={entry.url}
+          site={entry.site}
+          title={entry.meta.title}
+          date={entry.meta.date}
+        />
+      ))}
+    </div>
+  )
+}
+
 export const Entry = ({
   url,
   site,
@@ -66,14 +82,16 @@ export const Entry = ({
     <div className="inline-flex h-full flex-col rounded-md bg-gray-700 py-4 px-6 transition-all">
       <Link
         href={`/entries/${site}`}
-        className="flex items-center gap-2 text-sm text-slate-400 hover:underline">
+        className="flex items-center gap-2 text-sm text-slate-400 hover:underline"
+      >
         <img className="h-[15px] w-[15px]" src={siteInfo.favicon} alt="" />
         {siteInfo.host}
       </Link>
       <Link
         href={url}
         target={site != 'ellreka' ? '_blank' : '_self'}
-        className="my-5">
+        className="my-5"
+      >
         <h2 className="text-sm font-bold text-blue-400 hover:text-blue-500 md:text-lg">
           {title}
         </h2>
@@ -83,17 +101,51 @@ export const Entry = ({
           {tags.map((tag) => (
             <li
               key={tag}
-              className="inline-block rounded-full bg-slate-600 px-2 text-xs text-white md:text-sm">
+              className="inline-block rounded-full bg-slate-600 px-2 text-xs text-white md:text-sm"
+            >
               <Link href={`/entries/${encodeURIComponent(tag)}`}>{tag}</Link>
             </li>
           ))}
         </ul>
         <time
           dateTime={date}
-          className="text-xs text-gray-600 dark:text-gray-400 md:text-sm">
+          className="text-xs text-gray-600 dark:text-gray-400 md:text-sm"
+        >
           {date}
         </time>
       </div>
+    </div>
+  )
+}
+
+export const SimpleEntry = ({
+  url,
+  site,
+  title,
+  date
+}: {
+  url: string
+  site: string
+  title: string
+  date: string
+}) => {
+  return (
+    <div className="py-4">
+      <Link
+        href={url}
+        target={site != 'ellreka' ? '_blank' : '_self'}
+        className="group flex items-start justify-between gap-4 hover:no-underline"
+      >
+        <h2 className="text-sm text-blue-400 hover:text-blue-500 md:text-lg">
+          {title}
+        </h2>
+        <time
+          dateTime={date}
+          className="shrink-0 text-sm text-gray-500 dark:text-gray-400"
+        >
+          {date}
+        </time>
+      </Link>
     </div>
   )
 }

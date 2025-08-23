@@ -1,6 +1,6 @@
 import { getTabs } from '@/lib/getTabs'
 import { EntriesType } from '@/types'
-import { List } from '../List'
+import { List, SimpleList } from '../List'
 import { Tabs } from '../Tabs/Tabs'
 
 type Props = {
@@ -28,7 +28,7 @@ export const Entries = ({ activeId, entries, tags }: Props) => {
       <div className="my-4 flex flex-col gap-4 sm:my-8 sm:gap-8">
         <Tabs activeId={activeId} tabs={tabs} />
         <div className="animate-fade-in">
-          <List entries={filteringEntries} />
+          <SimpleList entries={filteringEntries} />
         </div>
       </div>
     </div>

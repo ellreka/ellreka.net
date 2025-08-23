@@ -51,31 +51,31 @@ export const Card = ({
   }, [animate])
 
   // 順次アニメーション機能
-  useEffect(() => {
-    if (typeof index === 'number') {
-      const timeout = setTimeout(() => {
-        // 拡大アニメーション
-        animate({
-          keyframes: { transform: 'scale(1.2)' },
-          animationOptions: { duration: 100, fill: 'forwards' }
-        })
+  // useEffect(() => {
+  //   if (typeof index === 'number') {
+  //     const timeout = setTimeout(() => {
+  //       // 拡大アニメーション
+  //       animate({
+  //         keyframes: { transform: 'scale(1.2)' },
+  //         animationOptions: { duration: 100, fill: 'forwards' }
+  //       })
 
-        // 元に戻すアニメーション
-        const resetTimeout = setTimeout(() => {
-          animate({
-            keyframes: { transform: 'scale(1)' },
-            animationOptions: { duration: 100, fill: 'forwards' }
-          })
-        }, 200)
+  //       // 元に戻すアニメーション
+  //       const resetTimeout = setTimeout(() => {
+  //         animate({
+  //           keyframes: { transform: 'scale(1)' },
+  //           animationOptions: { duration: 100, fill: 'forwards' }
+  //         })
+  //       }, 200)
 
-        return () => {
-          clearTimeout(resetTimeout)
-        }
-      }, index * 80)
+  //       return () => {
+  //         clearTimeout(resetTimeout)
+  //       }
+  //     }, index * 80)
 
-      return () => clearTimeout(timeout)
-    }
-  }, [index, animate])
+  //     return () => clearTimeout(timeout)
+  //   }
+  // }, [index, animate])
 
   return (
     <Link

@@ -46,7 +46,8 @@ const Home = async () => {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteStructuredData) }}
       />
-      <div className="mx-auto max-w-2xl animate-fade-in">
+      {/* <div className="mx-auto max-w-2xl animate-fade-in"> */}
+      <div className="mx-auto max-w-2xl">
         <Title>Home</Title>
         <div className="mt-20 flex items-center justify-center">
           <div className="mx-auto grid w-full max-w-[400px] grid-cols-2 gap-2">

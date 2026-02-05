@@ -1,0 +1,58 @@
+export const meta = {
+  date: '2026-02-06',
+  title: '[2026年] 最近組んだ PC',
+  tags: ['自作PC']
+}
+
+## はじめに
+
+最近組んだ PC の備忘録。
+
+## メイン PC
+
+ゲームとローカル LLM が少し動かせたら良いかなくらいの用途です。
+
+ずっと RTX 2070 Super を使っていましたが流石に限界を感じたので0から組むことにしました。
+
+購入時期は2025年12月でちょうどメモリの高騰が話題になっていた頃です。64GBのDDR5が約7万円でしたが、今調べると1.5~2倍くらいになっているので結果的に良いタイミングで買えたと思うようにします。
+
+ケースは見た目と組みやすさ重視で大きめの透明ケースを買ってみました。配線をマザーボードの裏に通せるのでかなり組みやすかったです。
+
+元々デスクの下に吊るしていたのですが、大きさ的に吊るせなくなってしまいました。ちゃんとサイズ測ったはずなのに...なぜ...
+
+### スペック
+
+- CPU: Ryzen 7 9700X
+- GPU: GeForce RTX 5070 Ti 16GB
+- マザーボード: MPG X870E CARBON WIFI
+- メモリ: DDR5-5600 64GB (32GB x2)
+- SSD: 990 EVO Plus 2TB
+- クーラー: DeepCool AK620
+- 電源: MAG A850GL PCIE5 WHITE
+- ケース: Lian-Li O11 VISION COMPACT WT
+- OS: Windows 11
+
+<Image src="/assets/2026-build-pc-01.jpg" />
+
+## 自宅サーバ
+
+自作欲が抑えきれなかったのでもう1台組みました。
+
+元々 Raspberry Pi 4B を自宅サーバとして運用していましたが、やりたいことも増えてきたため VM を複数動かせる程度のスペックが欲しくなりました。
+
+パーツ選びが面倒くさかったので ASRock の DeskMeet X300 をベースに組むことに。
+
+メモリとストレージは以前メイン PC で使っていたものを流用しています。
+
+とりあえず Proxmox VE 上で Home Assistant, AdGuard Home, NAS (OpenMediaVault) を動かしています。
+
+### スペック
+
+- CPU: Ryzen 5 5500GT
+- クーラー: NH-L9a-AM4
+- メモリ: DDR4-2666 32GB (16GB x2)
+- SSD: 1TB
+- HDD: 2TB
+- OS: Proxmox VE 9
+
+<Image src="/assets/2026-build-pc-02.jpg" />

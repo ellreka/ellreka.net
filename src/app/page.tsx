@@ -25,26 +25,28 @@ export const metadata: Metadata = {
       {
         url: 'https://ellreka.net/favicon.ico',
         width: 1200,
-        height: 630,
+        height: 630
       }
-    ],
+    ]
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Home | ellreka.net',
     description: 'Personal website of ellreka.',
-    images: ['https://ellreka.net/favicon.ico'],
-  },
+    images: ['https://ellreka.net/favicon.ico']
+  }
 }
 
 const Home = async () => {
-  const websiteStructuredData = createWebsiteStructuredData();
-  
+  const websiteStructuredData = createWebsiteStructuredData()
+
   return (
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteStructuredData) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(websiteStructuredData)
+        }}
       />
       {/* <div className="mx-auto max-w-2xl animate-fade-in"> */}
       <div className="mx-auto max-w-2xl">
@@ -59,15 +61,6 @@ const Home = async () => {
                 index={0}
                 // background={
                 //   <UserIcon className="absolute right-2 bottom-2 h-[40px] w-auto text-white/20" />
-                // }
-              />
-              <Card
-                className="aspect-auto"
-                href="/timeline"
-                label="Timeline"
-                index={1}
-                // background={
-                //   <ClockIcon className="absolute right-2 bottom-2 h-[40px] w-auto text-white/20" />
                 // }
               />
             </div>

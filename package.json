@@ -1,0 +1,29 @@
+{
+  "name": "ellreka.net",
+  "type": "module",
+  "scripts": {
+    "dev": "vite dev --port 4444",
+    "build": "vite build",
+    "start": "node .output/server/index.mjs",
+    "preview": "vite preview",
+    "lint": "oxlint",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check ."
+  },
+  "dependencies": {
+    "@solidjs/router": "^1.0.0",
+    "@solidjs/start": "^2.0.0",
+    "nitro": "^3.0.260610-beta",
+    "solid-js": "^1.9.14",
+    "vite": "^8.0.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.7",
+    "oxfmt": "^0.66.0",
+    "oxlint": "^1.81.0",
+    "tailwindcss": "^4.0.7"
+  },
+  "engines": {
+    "node": ">=24"
+  }
+}

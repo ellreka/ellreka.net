@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite dev --port 4444",
     "build": "vite build",
-    "deploy": "vite build && wrangler --cwd .output/server deploy",
+    "deploy": "vite build && rm -rf .wrangler && wrangler --cwd .output/server deploy",
     "start": "node .output/server/index.mjs",
     "preview": "vite preview",
     "lint": "oxlint",

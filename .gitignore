@@ -1,8 +1,0 @@
-.env
-node_modules
-.next
-.vercel
-yarn-error.log
-.reg
-public/ogp
-out

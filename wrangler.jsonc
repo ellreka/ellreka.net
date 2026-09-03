@@ -1,0 +1,8 @@
+{
+  "name": "ellreka-net",
+  "compatibility_date": "2026-09-03",
+  "compatibility_flags": ["nodejs_compat"],
+  "observability": {
+    "enabled": true
+  }
+}

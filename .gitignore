@@ -1,8 +1,28 @@
-.env
-node_modules
-.next
+dist
+.wrangler
+.output
 .vercel
-yarn-error.log
-.reg
-public/ogp
-out
+.netlify
+.vinxi
+app.config.timestamp_*.js
+
+# Environment
+.env
+.env*.local
+
+# dependencies
+/node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+*.launch
+.settings/
+
+# Temp
+gitignore
+
+# System Files
+.DS_Store
+Thumbs.db

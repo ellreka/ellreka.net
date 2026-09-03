@@ -1,14 +1,13 @@
 export const meta = {
-  date: '2020-10-03',
-  title:
-    'ReactElement と ReactNode と React.FC と JSX.Element の違いがあやふや',
-  tags: ['React', 'TypeScript']
-}
+  date: "2020-10-03",
+  title: "ReactElement と ReactNode と React.FC と JSX.Element の違いがあやふや",
+  tags: ["React", "TypeScript"],
+};
 
 ## React.FC
 
 ```tsx
-const Component: React.FC<Props> = ({ text }) => <h1>{text}</h1>
+const Component: React.FC<Props> = ({ text }) => <h1>{text}</h1>;
 ```
 
 `React.FunctionComponent` の省略バージョン
@@ -24,7 +23,7 @@ const Component: React.FC<Props> = ({ text }) => <h1>{text}</h1>
 ## ReactNode
 
 ```tsx
-const Component = ({ text }: Props): React.ReactNode => <h1>{text}</h1>
+const Component = ({ text }: Props): React.ReactNode => <h1>{text}</h1>;
 ```
 
 `ReactChild | ReactFragment | ReactPortal | boolean | null | undefined`
@@ -56,7 +55,7 @@ const Component = ({ text }: Props): React.ReactNode => <h1>{text}</h1>
 ## ReactElement
 
 ```tsx
-const Component = ({ text }): React.ReactElement => <h1>{text}</h1>
+const Component = ({ text }): React.ReactElement => <h1>{text}</h1>;
 ```
 
 ## まとめ

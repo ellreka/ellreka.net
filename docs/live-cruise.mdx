@@ -1,8 +1,8 @@
 export const meta = {
-  date: '2022-05-01',
-  title: 'Youtube と Twitch の生配信をランダムに巡回するサービスを作った',
-  tags: ['Deno', 'Web Service']
-}
+  date: "2022-05-01",
+  title: "Youtube と Twitch の生配信をランダムに巡回するサービスを作った",
+  tags: ["Deno", "Web Service"],
+};
 
 ## サービス概要
 
@@ -113,24 +113,24 @@ code-workspace の設定はこんな感じで、各フォルダの root 直下�
 
 ```js
 const params = {
-  key: '',
-  order: 'date',
-  part: 'snippet',
-  type: 'video',
-  maxResults: '50',
-  eventType: 'live',
-  videoEmbeddable: 'true',
-  regionCode: 'JP',
-  relevanceLanguage: 'ja',
-  fields: 'nextPageToken,items(id(videoId),snippet(title))'
-}
+  key: "",
+  order: "date",
+  part: "snippet",
+  type: "video",
+  maxResults: "50",
+  eventType: "live",
+  videoEmbeddable: "true",
+  regionCode: "JP",
+  relevanceLanguage: "ja",
+  fields: "nextPageToken,items(id(videoId),snippet(title))",
+};
 ```
 
 色々調べましたが、日本語のみの動画を取得する方法がわからなかったので仕方なく正規表現を使って日本語以外の動画を弾くようにしました。
 
 ガバガバな判定方法ですがまあこの程度のサービスであれば問題ないので妥協します。
 
-{/* ## 最後に
+{/\* ## 最後に
 
 こういう複数人が使わないと成り立たないサービス(SNS とか)って、せっかく作ってもユーザーがいなければ虚しいだけですよね。
 
@@ -140,4 +140,4 @@ const params = {
 
 私はこれからもひっそりと自分さえ使えればそれで良い自己中心的なサービスを作っていきます。
 
-(あわよくば誰かが見つけて使ってくれないかなという淡い期待を込めてこの記事を公開します。) */}
+(あわよくば誰かが見つけて使ってくれないかなという淡い期待を込めてこの記事を公開します。) \*/}

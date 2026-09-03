@@ -1,9 +1,8 @@
 export const meta = {
-  date: '2025-03-23',
-  title:
-    '手書きのトレーニング記録を OCR でデータ化し自動化する(Gemini, Mastra, n8n)',
-  tags: ['Gemini', 'Mastra', 'n8n', 'OCR', 'AI']
-}
+  date: "2025-03-23",
+  title: "手書きのトレーニング記録を OCR でデータ化し自動化する(Gemini, Mastra, n8n)",
+  tags: ["Gemini", "Mastra", "n8n", "OCR", "AI"],
+};
 
 ## 動機
 
@@ -185,8 +184,8 @@ Agents と Workflows を使い、画像を受け取って OCR を実行し JSON 
 プロンプトは Google Colaboratory で試作したものとほとんど同じですが、課題だった日付の年をどう取得するかについてはファイル名から取得するようにしました。
 
 ```typescript
-import { google } from '@ai-sdk/google'
-import { Agent } from '@mastra/core/agent'
+import { google } from "@ai-sdk/google";
+import { Agent } from "@mastra/core/agent";
 
 const prompt = `
 画像はトレーニングの記録を記載された画像です。
@@ -225,29 +224,29 @@ const prompt = `
 Meta = {'date': str, 'bodyWeight': float, 'bodyFat': float, 'muscleMass': float, 'visceralFat': float}
 Menu = {'name': str, 'nameSource': str, 'records': [{'set': int, 'weight': int, 'count': int, 'text': str, 'isSuspected': bool}]
 Return:  {...Meta, menu: list[Menu]}
-`
+`;
 
 export const ocrAgent = new Agent({
-  name: 'OCR Agent',
+  name: "OCR Agent",
   instructions: prompt,
-  model: google('gemini-2.0-flash-001')
-})
+  model: google("gemini-2.0-flash-001"),
+});
 ```
 
 API キーは環境変数に設定されたもの (`OPENAI_API_KEY`, `ANTHROPIC_API_KEY`, `GOOGLE_GENERATIVE_AI_API_KEY`) を勝手に取得してくれますが、もし Agent ごとに別の API キーを使いたい場合は以下のように指定することも出来ます。
 
 ```typescript
-import { createGoogleGenerativeAI } from '@ai-sdk/google'
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
 
 export const google = createGoogleGenerativeAI({
-  apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY_2
-})
+  apiKey: process.env.GOOGLE_GENERATIVE_AI_API_KEY_2,
+});
 
 export const fooAgent = new Agent({
-  name: 'Foo Agent',
+  name: "Foo Agent",
   instructions: prompt,
-  model: google('gemini-2.0-flash-001')
-})
+  model: google("gemini-2.0-flash-001"),
+});
 ```
 
 ### Workflows
@@ -267,8 +266,8 @@ Workflow は複数の Step から構成されます。
 <Link href="https://mastra.ai/docs/workflows/variables" />
 
 ```typescript
-import { Step, Workflow } from '@mastra/core/workflows'
-import { z } from 'zod'
+import { Step, Workflow } from "@mastra/core/workflows";
+import { z } from "zod";
 
 const outputResultSchema = z.object({
   date: z.string(),
@@ -286,89 +285,89 @@ const outputResultSchema = z.object({
           weight: z.number(),
           count: z.number(),
           text: z.string(),
-          isSuspected: z.boolean()
-        })
-      )
-    })
-  )
-})
+          isSuspected: z.boolean(),
+        }),
+      ),
+    }),
+  ),
+});
 
 const ocrStep = new Step({
-  id: 'ocr-step',
-  description: '画像を受け取り、OCR を実行して JSON テキストを返す',
+  id: "ocr-step",
+  description: "画像を受け取り、OCR を実行して JSON テキストを返す",
   inputSchema: z.object({
     fileUrl: z.string(),
-    filename: z.string()
+    filename: z.string(),
   }),
   outputSchema: outputResultSchema,
   execute: async ({ context, mastra }) => {
-    const filename = context.inputData.filename
-    const imageUrl = context.inputData.fileUrl
+    const filename = context.inputData.filename;
+    const imageUrl = context.inputData.fileUrl;
 
     // convert to base64
     const image = await fetch(imageUrl)
       .then((res) => res.arrayBuffer())
       .then((buffer) => {
-        const base64 = Buffer.from(buffer).toString('base64')
-        return `data:image/jpeg;base64,${base64}`
-      })
+        const base64 = Buffer.from(buffer).toString("base64");
+        return `data:image/jpeg;base64,${base64}`;
+      });
 
-    const res = await mastra?.getAgent('ocrAgent').generate(
+    const res = await mastra?.getAgent("ocrAgent").generate(
       [
         {
-          role: 'user',
+          role: "user",
           content: [
             {
-              type: 'image',
+              type: "image",
               image: image,
-              mimeType: 'image/jpeg'
-            }
-          ]
+              mimeType: "image/jpeg",
+            },
+          ],
         },
         {
-          role: 'user',
+          role: "user",
           content: [
             {
-              type: 'text',
-              text: `filename: ${filename}`
-            }
-          ]
-        }
+              type: "text",
+              text: `filename: ${filename}`,
+            },
+          ],
+        },
       ],
       {
-        output: outputResultSchema
-      }
-    )
+        output: outputResultSchema,
+      },
+    );
 
     if (!res?.object) {
-      throw new Error('OCR failed')
+      throw new Error("OCR failed");
     }
-    return res.object
-  }
-})
+    return res.object;
+  },
+});
 
 export const ocrWorkflow = new Workflow({
-  name: 'OCR Workflow',
+  name: "OCR Workflow",
   triggerSchema: z.object({
     fileUrl: z.string(),
-    filename: z.string()
-  })
-})
+    filename: z.string(),
+  }),
+});
 
 ocrWorkflow
   .step(ocrStep, {
     variables: {
       fileUrl: {
-        step: 'trigger',
-        path: 'fileUrl'
+        step: "trigger",
+        path: "fileUrl",
       },
       filename: {
-        step: 'trigger',
-        path: 'filename'
-      }
-    }
+        step: "trigger",
+        path: "filename",
+      },
+    },
   })
-  .commit()
+  .commit();
 ```
 
 ## n8n で自動化する
@@ -424,25 +423,25 @@ key 名は Spreadsheet のヘッダーと同じにしておく必要がありま
 この辺は普通にコード書いたほうが楽ですね...
 
 ```javascript
-const data = $('Format JSON').first().json.data
+const data = $("Format JSON").first().json.data;
 
-const result = []
+const result = [];
 for (const menu of data.menu) {
   for (const record of menu.records) {
     result.push({
-      date: $input.first().json['日付'],
+      date: $input.first().json["日付"],
       name: menu.name,
       nameSource: menu.nameSource,
       set: record.set,
       weight: record.weight,
       count: record.count,
       text: record.text,
-      isSuspected: record.isSuspected
-    })
+      isSuspected: record.isSuspected,
+    });
   }
 }
 
-return result
+return result;
 ```
 
 実際に書き込まれた Spreadsheet は以下のような感じです。

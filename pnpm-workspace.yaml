@@ -1,0 +1,6 @@
+---
+# Cloudflare系はリリース直後の版を使うため24h待機を無効化
+allowBuilds:
+  esbuild: true
+  workerd: true
+minimumReleaseAge: 0

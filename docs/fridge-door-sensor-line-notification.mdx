@@ -1,8 +1,8 @@
 export const meta = {
-  date: '2024-11-01',
-  title: '冷蔵庫の開閉を監視して孤独死対策をする',
-  tags: ['RaspberryPi', 'Python']
-}
+  date: "2024-11-01",
+  title: "冷蔵庫の開閉を監視して孤独死対策をする",
+  tags: ["RaspberryPi", "Python"],
+};
 
 ## はじめに
 
@@ -224,23 +224,23 @@ def send_line_message(to, message):
 ```javascript
 export default {
   async fetch(request, env, ctx) {
-    if (request.method === 'POST') {
+    if (request.method === "POST") {
       try {
-        const requestBody = await request.json()
-        console.log('Webhook received:', requestBody)
-        return new Response('Webhook received successfully', {
+        const requestBody = await request.json();
+        console.log("Webhook received:", requestBody);
+        return new Response("Webhook received successfully", {
           status: 200,
-          headers: { 'Content-Type': 'text/plain' }
-        })
+          headers: { "Content-Type": "text/plain" },
+        });
       } catch (err) {
-        console.error('Error processing request:', err)
-        return new Response('Invalid JSON data', { status: 400 })
+        console.error("Error processing request:", err);
+        return new Response("Invalid JSON data", { status: 400 });
       }
     } else {
-      return new Response('Only POST requests are allowed', { status: 405 })
+      return new Response("Only POST requests are allowed", { status: 405 });
     }
-  }
-}
+  },
+};
 ```
 
 デプロイしたら Webhook の URL として設定し、グループに Bot を追加します。

@@ -1,8 +1,8 @@
 export const meta = {
-  date: '2025-08-24',
-  title: 'Home Assistant から Chromecast で Youtube を再生する',
-  tags: ['Home Assistant']
-}
+  date: "2025-08-24",
+  title: "Home Assistant から Chromecast で Youtube を再生する",
+  tags: ["Home Assistant"],
+};
 
 ## はじめに
 
@@ -51,10 +51,10 @@ mode: single
 
 ```yaml
 alias: 毎朝ニュースを流す
-description: ''
+description: ""
 trigger:
   - platform: time
-    at: '07:00:00'
+    at: "07:00:00"
 condition: []
 action:
   - type: turn_on
@@ -89,7 +89,7 @@ if 文で制御し再生中なら停止、停止中なら再生させていま�
 
 ```yaml
 alias: タグでchromecastのオンオフ
-description: ''
+description: ""
 trigger:
   - platform: tag
     tag_id: 24532c3b-f091-4824-be70-b15b39b27866

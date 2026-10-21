@@ -2,7 +2,7 @@
 date: "2022-05-07"
 title: "QMK で かなキー を Hold している間だけローマ字入力になるようにしてみる"
 tags: ["QMK", "Tips"]
-ogpImage: "/assets/qmk-input-jp.png"
+ogpImage: "https://assets.ellreka.net/qmk-input-jp.png"
 ---
 
 ## 何がしたいのか
@@ -42,7 +42,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 色々考えた結果私はこのようになりました。
 
-![](/assets/qmk-input-jp.png)
+![](https://assets.ellreka.net/qmk-input-jp.png)
 
 まず スペースキー と かなキー は左右で分けています。
 

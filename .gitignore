@@ -8,3 +8,6 @@ dist
 !.env.example
 *.tsbuildinfo
 .DS_Store
+
+# 記事の画像・動画の元ファイル(R2 に置く。pnpm assets:upload)
+/assets/

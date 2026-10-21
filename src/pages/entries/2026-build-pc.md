@@ -32,7 +32,7 @@ tags: ["自作PC"]
 - ケース: Lian-Li O11 VISION COMPACT WT
 - OS: Windows 11
 
-![](/assets/2026-build-pc-01.jpg)
+![](https://assets.ellreka.net/2026-build-pc-01.jpg)
 
 ## 自宅サーバ
 
@@ -55,4 +55,4 @@ tags: ["自作PC"]
 - HDD: 2TB
 - OS: Proxmox VE 9
 
-![](/assets/2026-build-pc-02.jpg)
+![](https://assets.ellreka.net/2026-build-pc-02.jpg)

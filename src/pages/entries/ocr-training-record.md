@@ -14,7 +14,7 @@ tags: ["Gemini", "Mastra", "n8n", "OCR", "AI"]
 
 正直なんて書いてあるのか分からない部分もあるのですが、これは元々トレーナーさんが個人的に記録していたものを私が「スクショ送ってくれませんか？」と無理矢理お願いしたものなので文句は言えません。
 
-![](/assets/ocr-training-record-07.png)
+![](https://assets.ellreka.net/ocr-training-record-07.png)
 
 ## やりたいこと
 
@@ -380,7 +380,7 @@ n8n では以下のことを行います。
 
 Workflow の全体図
 
-![](/assets/ocr-training-record-01.png)
+![](https://assets.ellreka.net/ocr-training-record-01.png)
 
 ### Google Drive から画像を取得する
 
@@ -388,17 +388,17 @@ n8n では Google Drive と連携するためのノードが用意されてい�
 
 フォルダを監視し変更があれば実行するトリガーもあるのですが、複数ファイルが追加されたときに最新の一つしか取得出来なかったので今回は通常の Schedule Trigger を使いました。
 
-![](/assets/ocr-training-record-02.png)
+![](https://assets.ellreka.net/ocr-training-record-02.png)
 
 1 分ごとに実行し、実行日時以降に追加されたファイルを取得します。
 
-![](/assets/ocr-training-record-03.png)
+![](https://assets.ellreka.net/ocr-training-record-03.png)
 
 また最後に実行した日時を保存しておき、次回実行時はそれを使うようにしています。
 
 `$getWorkflowStaticData('global')` を使うことでその workflow 内にデータを保持することが出来ます。
 
-![](/assets/ocr-training-record-04.png)
+![](https://assets.ellreka.net/ocr-training-record-04.png)
 
 ### Mastra の Workflow を実行する
 
@@ -408,13 +408,13 @@ Mastra では workflow を実行するための API がいくつか用意され�
 
 `runId` が必須なので先に `/createRun` を実行します。
 
-![](/assets/ocr-training-record-05.png)
+![](https://assets.ellreka.net/ocr-training-record-05.png)
 
 ### Google Spreadsheet に書き込む
 
 Google Spreadsheet に書き込むためのノードも用意されているのでそれを使います。
 
-![](/assets/ocr-training-record-06.png)
+![](https://assets.ellreka.net/ocr-training-record-06.png)
 
 単純に 1 行だけ書き込むなら簡単なのですが、配列をループさせて複数行書き込むには事前にデータを整形しなければなりません。
 
@@ -448,11 +448,11 @@ return result;
 
 Meta
 
-![](/assets/ocr-training-record-08.png)
+![](https://assets.ellreka.net/ocr-training-record-08.png)
 
 Record
 
-![](/assets/ocr-training-record-09.png)
+![](https://assets.ellreka.net/ocr-training-record-09.png)
 
 ## さいごに
 

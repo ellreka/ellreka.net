@@ -6,7 +6,8 @@ Void(Vite+ / Solid / `@void/md`)で構築し、Cloudflare にデプロイする�
 
 - ソースは `src/` 配下(`void.config.ts` の `sourceDir`)。`src/pages/` が UI ルート。記事は `src/pages/entries/*.md`(URL は `/entries/:id`。ファイル名が id)(`@void/md` で GFM・Shiki・frontmatter を処理)
 - 気軽な投稿は `src/content/notes/*.md`(ファイル名 `YYYY-MM-DD-slug` が id。frontmatter は `date` と任意の `entry`(関連 entry の id))。`/notes/:id` は動的ルート `src/pages/notes/[id].tsx` + `getPrerenderPaths()` で書き出す
-- 記事内の画像・動画は `public/assets/` に置き `/assets/...` で参照する。単独の URL は `<https://...>`(v2 のリンクカード `[](URL)` から変換)、動画は `<video src="/assets/..." controls></video>` で書く
+- 記事内の画像・動画は R2 の公開バケット `ellreka-net-assets`(`https://assets.ellreka.net/`)に置き、記事からは絶対 URL で参照する。元ファイルは git 管理外の `assets/` に置き、`pnpm assets:upload [ファイル...]` でアップロードする(`scripts/upload-assets.ts`)
+- 単独の URL は `<https://...>`(v2 のリンクカード `[](URL)` から変換)、動画は `<video src="https://assets.ellreka.net/..." controls></video>` で書く
 - トップ(`src/pages/index.tsx`)は notes と entries を日付順のタイムラインで表示し、notes は本文をそのまま出す
 - ヘッダー・フッターは `src/components/site-frame.tsx` の `SiteFrame` を各ページで使い、幅(`wide`)と現在位置(`current`)を props で渡す。prerender 時は `useRouter().path` が常に `/` になるため、パスで分岐しない
 - `void.config.ts` は `output: "static"`。全ページを build 時に prerender する

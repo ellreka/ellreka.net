@@ -8,7 +8,7 @@ tags: ["ChromeExtension"]
 
 タブを複数選択して拡張機能を開くと選択中のタブの URL や TITLE をコピー出来ます。
 
-<video src="/assets/copy-selected-tabs-url.mp4" controls></video>
+<video src="https://assets.ellreka.net/copy-selected-tabs-url.mp4" controls></video>
 
 ## Background
 

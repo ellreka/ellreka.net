@@ -8,13 +8,13 @@ tags: ["Diary"]
 
 Headphones アプリでスピーク・トゥ・チャットの項目をオフにしているのに、何故かいつの間にかオンになっている。
 
-![](/assets/Sony-WH-1000XM4-Screenshot01.jpg)
+![](https://assets.ellreka.net/Sony-WH-1000XM4-Screenshot01.jpg)
 
 ## 原因
 
 ステータス>アダプティブサウンドコントロールがオンになっていると、自分の状態によって勝手に切り替わるらしい。
 
-![](/assets/Sony-WH-1000XM4-Screenshot02.jpg)
+![](https://assets.ellreka.net/Sony-WH-1000XM4-Screenshot02.jpg)
 
 ## 対処法
 

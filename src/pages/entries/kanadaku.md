@@ -10,7 +10,7 @@ tags: ["TypeScript", "Library"]
 
 こういうの ↓
 
-![](/assets/kanadaku01.png)
+![](https://assets.ellreka.net/kanadaku01.png)
 
 それ以外の用途は思い付きません。
 

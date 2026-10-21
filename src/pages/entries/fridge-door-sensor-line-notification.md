@@ -14,7 +14,7 @@ tags: ["RaspberryPi", "Python"]
 
 そんな悲惨な未来を回避するにはどうしたら良いか考えた結果、「24 時間以上冷蔵庫の開閉を検知しなければ家族に LINE を送信する」仕組みを作ってみました。
 
-![](/assets/fridge-door-sensor-line-notification-01.png)
+![](https://assets.ellreka.net/fridge-door-sensor-line-notification-01.png)
 
 ## 何をトリガーとするか
 
@@ -63,7 +63,7 @@ while True:
 
 ガムテームで適当に貼り付けました。見た目は悪いですが気にしません。
 
-![冷蔵庫のドアにセンサーを貼り付けている画像](/assets/fridge-door-sensor-line-notification-02.png)
+![冷蔵庫のドアにセンサーを貼り付けている画像](https://assets.ellreka.net/fridge-door-sensor-line-notification-02.png)
 
 ## 最後に開閉してから何分経ったかを監視する
 

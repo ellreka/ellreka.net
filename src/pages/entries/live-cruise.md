@@ -79,7 +79,7 @@ code-workspace の設定はこんな感じで、各フォルダの root 直下�
 
 この状態で Deno ファイルの Diff を見るとエラーが表示されてしまい、VSCode リロードしないと直らなくなります。
 
-<video src="/assets/live-cruise.mov" controls></video>
+<video src="https://assets.ellreka.net/live-cruise.mov" controls></video>
 
 解決方法としては、code-workspace の設定ファイルに settings を追加することです。
 

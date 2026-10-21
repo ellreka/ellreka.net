@@ -1,6 +1,0 @@
-@import 'tailwindcss';
-@custom-variant dark (&:where(.dark, .dark *));
-
-@theme {
-  --color-ellreka: #eede9d;
-}

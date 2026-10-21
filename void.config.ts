@@ -8,6 +8,14 @@ export default defineConfig({
     titleTemplate: "%s | ellreka.net",
     // ダーク固定。@void/md のテーマ(本文・Shiki)も data-theme="dark" でダーク配色になる
     htmlAttrs: { lang: "ja", "data-theme": "dark" },
+    link: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap",
+      },
+    ],
     meta: [
       { charset: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },

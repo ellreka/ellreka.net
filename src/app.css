@@ -2,17 +2,17 @@
 @import "@void/md/theme-content.css" layer(components);
 
 @theme {
-  --color-bg: #131311;
-  --color-fg: #e9e7e0;
-  --color-muted: #a6a39b;
-  --color-faint: #8e8a82;
-  --color-line: #282722;
-  --color-soft: #1c1c18;
-  --color-accent: #ec9ca9;
-  --color-ellreka: #eede9d;
+  --color-bg: #0b0c0e;
+  --color-surface: #131519;
+  --color-border: #1f2227;
+  --color-text: #e7e9ec;
+  --color-text-2: #9298a2;
+  --color-text-3: #5b616b;
+  --color-line: #2c3037;
+  --color-accent: #3fb950;
 
-  --font-sans: "IBM Plex Sans JP", "Helvetica Neue", Helvetica, sans-serif;
-  --font-mono: "IBM Plex Mono", monospace;
+  --font-sans: "M PLUS 1p", "Helvetica Neue", Helvetica, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
 }
 
 @layer base {
@@ -24,8 +24,8 @@
   body {
     margin: 0;
     background: var(--color-bg);
-    color: var(--color-fg);
-    font-family: var(--font-mono);
+    color: var(--color-text);
+    font-family: var(--font-sans);
     font-size: 16px;
     line-height: 1.75;
     text-wrap: pretty;
@@ -51,17 +51,33 @@
   }
 }
 
-/* @void/md の本文テーマは --vmd-* 変数で配色・書体を決めるため、utility ではなく変数の上書きでトークンに合わせる。
-   テーマ側の :root[data-theme="dark"] .void-md と同じ詳細度にし、後から読み込むことで上書きする */
+/* @void/md の本文テーマは --vmd-* 変数とテーマ側のセレクタで配色を決めるため、utility ではなくここで上書きする。
+   テーマ側の :root[data-theme="dark"] .void-md ... と同じ詳細度にし、後から読み込むことで上書きする */
 @layer components {
   :root[data-theme="dark"] .void-md {
-    --vmd-font-body: var(--font-mono);
+    --vmd-font-body: var(--font-sans);
     --vmd-font-mono: var(--font-mono);
-    --vmd-text: var(--color-fg);
-    --vmd-text-muted: var(--color-muted);
+    --vmd-text: var(--color-text);
+    --vmd-text-muted: var(--color-text-2);
     --vmd-link: var(--color-accent);
     --vmd-link-hover: var(--color-accent);
-    --vmd-border: var(--color-line);
-    --vmd-bg-soft: var(--color-soft);
+    --vmd-border: var(--color-border);
+    --vmd-bg-soft: var(--color-surface);
+  }
+
+  /* コードブロックはデザインの surface + border に揃える。Shiki の背景は テーマ側が !important で指定しているので同じく !important で消す */
+  :root[data-theme="dark"] .void-md div[class*="language-"] {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 6px;
+  }
+
+  /* border 1px 分を差し引いてデザインの padding 12px 16px に合わせる */
+  .void-md div[class*="language-"] pre {
+    padding: 11px 15px;
+  }
+
+  :root[data-theme="dark"] .void-md pre.shiki.shiki-themes {
+    background-color: transparent !important;
   }
 }

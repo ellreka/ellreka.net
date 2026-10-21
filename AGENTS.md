@@ -29,6 +29,7 @@ Void(Vite+ / Solid / `@void/md`)で構築し、Cloudflare にデプロイする�
 - Tailwind CSS 4。装飾は JSX の utility を優先し、`src/app.css` の `@theme` トークン(`bg`/`surface`/`border`/`text`/`text-2`/`text-3`/`line`/`accent`)を使う。トークンは pen.dev のデザイン(`ellreka-net.pen`)の変数に合わせている。フォントは M PLUS 1p(sans。600 が無いので semibold は 700 で表示)と JetBrains Mono(mono)
 - `app.css` は Tailwind import・`@theme`・全体の base・`@void/md` テーマの `--vmd-*` 上書きが基本。通常のコンポーネント装飾のために独自 CSS や `@apply` クラスを増やさない
 - utility で表せない場合のみ最小の CSS にし、理由をコメントで残す
+- 文字サイズ・余白・幅などはデザインの px に厳密に合わせず、Tailwind の標準スケール(`text-sm`・`gap-4`・`max-w-3xl` など)の近い値を使う。`text-[13px]` のような任意値や、境界線 1px 分の補正はしない
 - ダーク固定。`void.config.ts` の `head.htmlAttrs` で `data-theme="dark"` を付け、`@void/md` の本文・Shiki もダーク配色にしている
 
 ## 依存関係

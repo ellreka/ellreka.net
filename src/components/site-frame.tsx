@@ -6,7 +6,7 @@ const NAV_ITEMS = ["notes", "entries", "about"] as const;
 type Section = (typeof NAV_ITEMS)[number];
 
 type SiteFrameProps = {
-  // デザインでは note 詳細だけ本文幅が 880px(他は 720px)
+  // デザインでは note 詳細だけ本文幅が広い(max-w-4xl。他は max-w-3xl)
   wide?: boolean;
   current?: Section;
   children: JSX.Element;
@@ -15,16 +15,16 @@ type SiteFrameProps = {
 // prerender 時は useRouter() の path が常に "/" になるため、幅と現在位置はページから props で渡す
 export function SiteFrame(props: SiteFrameProps) {
   const container = () =>
-    props.wide ? "mx-auto w-full max-w-[912px] px-4" : "mx-auto w-full max-w-[752px] px-4";
+    props.wide ? "mx-auto w-full max-w-4xl px-4" : "mx-auto w-full max-w-3xl px-4";
 
   return (
     <div class="flex min-h-dvh flex-col">
       <header class="sticky top-0 z-10 border-b border-border/50 bg-bg/85 backdrop-blur-md">
-        <div class={`${container()} flex items-center justify-between pt-3 pb-[11px]`}>
+        <div class={`${container()} flex items-center justify-between py-3`}>
           <div class="flex items-center gap-5">
             <Link href="/" class="flex items-center gap-2.5 text-text hover:no-underline">
               <img src="/icon.png" alt="" width="28" height="28" class="size-7 rounded-md" />
-              <span class="font-mono text-sm leading-[18px] font-semibold text-text">ellreka</span>
+              <span class="font-mono text-sm font-semibold text-text">ellreka</span>
             </Link>
             <div class="h-3.5 w-px bg-border" />
             <nav class="flex items-center gap-5">
@@ -35,8 +35,8 @@ export function SiteFrame(props: SiteFrameProps) {
                     aria-current={props.current === item ? "page" : undefined}
                     class={
                       props.current === item
-                        ? "font-mono text-[13px] leading-[17px] text-text"
-                        : "font-mono text-[13px] leading-[17px] text-text-2"
+                        ? "font-mono text-sm text-text"
+                        : "font-mono text-sm text-text-2"
                     }
                   >
                     {item}
@@ -48,7 +48,7 @@ export function SiteFrame(props: SiteFrameProps) {
           <a href="/rss.xml" aria-label="RSS" class="text-text-3">
             <svg
               viewBox="0 0 24 24"
-              class="size-[15px] fill-none stroke-current"
+              class="size-4 fill-none stroke-current"
               stroke-width="2"
               stroke-linecap="round"
               stroke-linejoin="round"
@@ -64,7 +64,7 @@ export function SiteFrame(props: SiteFrameProps) {
       <main class={`${container()} flex-1`}>{props.children}</main>
       <footer class="border-t border-border">
         <div
-          class={`${container()} flex items-center justify-between pt-[27px] pb-7 font-mono text-xs text-text-3`}
+          class={`${container()} flex items-center justify-between py-7 font-mono text-xs text-text-3`}
         >
           <p>© {new Date().getFullYear()} ellreka</p>
           <p>

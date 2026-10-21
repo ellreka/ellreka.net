@@ -69,12 +69,11 @@
   :root[data-theme="dark"] .void-md div[class*="language-"] {
     background: var(--color-surface);
     border: 1px solid var(--color-border);
-    border-radius: 6px;
+    border-radius: var(--radius-md);
   }
 
-  /* border 1px 分を差し引いてデザインの padding 12px 16px に合わせる */
   .void-md div[class*="language-"] pre {
-    padding: 11px 15px;
+    padding: --spacing(3) --spacing(4);
   }
 
   :root[data-theme="dark"] .void-md pre.shiki.shiki-themes {

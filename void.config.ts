@@ -4,6 +4,15 @@ import { defineConfig } from "void/config";
 export default defineConfig({
   sourceDir: "src",
   output: "static",
+  head: {
+    titleTemplate: "%s | ellreka.net",
+    // ダーク固定。@void/md のテーマ(本文・Shiki)も data-theme="dark" でダーク配色になる
+    htmlAttrs: { lang: "ja", "data-theme": "dark" },
+    meta: [
+      { charset: "utf-8" },
+      { name: "viewport", content: "width=device-width, initial-scale=1" },
+    ],
+  },
   worker: {
     compatibility_date: "2026-02-24",
   },

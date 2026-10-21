@@ -7,7 +7,7 @@ const entries = pages.filter((page) => page.path.startsWith("/entries/"));
 export default function HomePage() {
   return (
     <main>
-      <ul>
+      <ul class="space-y-2">
         <For each={entries}>
           {(entry) => (
             <li>

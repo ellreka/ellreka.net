@@ -1,0 +1,67 @@
+@import "tailwindcss";
+@import "@void/md/theme-content.css" layer(components);
+
+@theme {
+  --color-bg: #131311;
+  --color-fg: #e9e7e0;
+  --color-muted: #a6a39b;
+  --color-faint: #8e8a82;
+  --color-line: #282722;
+  --color-soft: #1c1c18;
+  --color-accent: #ec9ca9;
+  --color-ellreka: #eede9d;
+
+  --font-sans: "IBM Plex Sans JP", "Helvetica Neue", Helvetica, sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    background: var(--color-bg);
+  }
+
+  body {
+    margin: 0;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    font-family: var(--font-mono);
+    font-size: 16px;
+    line-height: 1.75;
+    text-wrap: pretty;
+  }
+
+  a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  button {
+    cursor: pointer;
+  }
+}
+
+/* @void/md の本文テーマは --vmd-* 変数で配色・書体を決めるため、utility ではなく変数の上書きでトークンに合わせる。
+   テーマ側の :root[data-theme="dark"] .void-md と同じ詳細度にし、後から読み込むことで上書きする */
+@layer components {
+  :root[data-theme="dark"] .void-md {
+    --vmd-font-body: var(--font-mono);
+    --vmd-font-mono: var(--font-mono);
+    --vmd-text: var(--color-fg);
+    --vmd-text-muted: var(--color-muted);
+    --vmd-link: var(--color-accent);
+    --vmd-link-hover: var(--color-accent);
+    --vmd-border: var(--color-line);
+    --vmd-bg-soft: var(--color-soft);
+  }
+}

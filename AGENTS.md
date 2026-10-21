@@ -9,6 +9,13 @@ Void(Vite+ / Solid / `@void/md`)で構築し、Cloudflare にデプロイする�
 - レイアウトは `src/pages/layout.tsx`(共通)と `src/pages/entries/layout.tsx`(記事。ディレクトリ単位で入れ子になる)。`_layouts/` の名前付きレイアウトは直近のレイアウトを置き換えるので注意
 - Solid コンポーネントでは props を分割代入しない(リアクティビティが切れるため `props.children` のように参照する)
 
+## スタイリング
+
+- Tailwind CSS 4。装飾は JSX の utility を優先し、`src/app.css` の `@theme` トークン(`bg`/`fg`/`muted`/`faint`/`line`/`soft`/`accent`/`ellreka`)を使う
+- `app.css` は Tailwind import・`@theme`・全体の base・`@void/md` テーマの `--vmd-*` 上書きが基本。通常のコンポーネント装飾のために独自 CSS や `@apply` クラスを増やさない
+- utility で表せない場合のみ最小の CSS にし、理由をコメントで残す
+- ダーク固定。`void.config.ts` の `head.htmlAttrs` で `data-theme="dark"` を付け、`@void/md` の本文・Shiki もダーク配色にしている
+
 ## 依存関係
 
 - `package.json` / `pnpm-workspace.yaml` の依存関係は `^` や `~` などの範囲指定を使わず、完全固定する。追加・更新時は lockfile も更新する

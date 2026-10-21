@@ -1,13 +1,14 @@
 minimumReleaseAge: 1440
 saveExact: true
 
-allowBuilds:
-  esbuild: true
-  workerd: true
-  better-sqlite3: false
-  sharp: true
 overrides:
   vite@*: npm:@voidzero-dev/vite-plus-core@1.3.0
 peerDependencyRules:
   allowedVersions:
     vite: "*"
+
+allowBuilds:
+  esbuild: true
+  workerd: true
+  better-sqlite3: false
+  sharp: true

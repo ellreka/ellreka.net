@@ -24,4 +24,10 @@ export default defineConfig({
   worker: {
     compatibility_date: "2026-02-24",
   },
+  cloudflare: {
+    // 記事の画像を置いている既存の公開バケット(https://assets.ellreka.net/)。
+    // void/storage の自動作成ではなく、このバケットに直接書き込む
+    // (ASSETS は Void が静的ファイル配信に使う名前なので MEDIA にする)
+    r2_buckets: [{ binding: "MEDIA", bucket_name: "ellreka-net-assets" }],
+  },
 });

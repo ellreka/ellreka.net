@@ -10,9 +10,19 @@ Void(Vite+ / Solid / `@void/md`)で構築し、Cloudflare にデプロイする�
 - 単独の URL は `<https://...>`(v2 のリンクカード `[](URL)` から変換)、動画は `<video src="https://assets.ellreka.net/..." controls></video>` で書く
 - トップ(`src/pages/index.tsx`)は notes と entries を日付順のタイムラインで表示し、notes は本文をそのまま出す
 - ヘッダー・フッターは `src/components/site-frame.tsx` の `SiteFrame` を各ページで使い、幅(`wide`)と現在位置(`current`)を props で渡す。prerender 時は `useRouter().path` が常に `/` になるため、パスで分岐しない
-- `void.config.ts` は `output: "static"`。全ページを build 時に prerender する
+- `void.config.ts` は `output: "static"`。投稿画面以外の全ページを build 時に prerender する
 - レイアウトは `src/pages/layout.tsx`(共通。CSS の読み込みのみ)と `src/pages/entries/layout.tsx`(記事。ディレクトリ単位で入れ子になる)。`_layouts/` の名前付きレイアウトは直近のレイアウトを置き換えるので注意
 - Solid コンポーネントでは props を分割代入しない(リアクティビティが切れるため `props.children` のように参照する)
+
+## notes の投稿画面
+
+- `/admin/notes/new`(`src/pages/admin/notes/new.tsx`、`prerender = false`)から投稿し、`POST /admin/api/notes`(`src/routes/admin/api/notes.ts`)が画像を R2 に置いてから Markdown を GitHub に commit する。サイトへの反映は main への push 後のデプロイによる
+- id は投稿時刻(日本時間)の `YYYY-MM-DD-HHMMSS`、画像は中身のハッシュで `notes/<年>/<hash>.<拡張子>` に置く(`src/lib/note-post.ts`)。本文中では投稿までの画像を仮の参照 `![](upload:<n>)` で表す
+- R2 は `void.config.ts` の `cloudflare.r2_buckets` で既存バケットを `MEDIA` としてバインドする(`ASSETS` は Void の静的ファイル配信用なので使わない。型は `src/bindings.d.ts`)
+- `/admin` 配下は Cloudflare Access で保護し、Worker 側でも `Cf-Access-Jwt-Assertion` を検証する(`src/lib/access.ts`)。API は同一オリジンからの送信だけ受け付ける
+- サーバー側の値は `src/env.ts`(`GITHUB_TOKEN`・`GITHUB_BRANCH`・`ACCESS_TEAM_DOMAIN`・`ACCESS_AUD`)。値の無いビルド環境で全ページの prerender が失敗しないよう任意にしており、未設定なら /admin 側で拒否する。本番は `void secret put` で登録する
+- ローカルでは Access の検証を省く。root の `.env` に `GITHUB_TOKEN` と検証用の `GITHUB_BRANCH`(main 以外)を書く。dev で main を指定すると投稿を拒否する
+- Worker を使う構成になったため、Void の設定で全リクエストが Worker を経由する(`run_worker_first: ["/**"]`)
 
 ## スタイリング
 
@@ -27,7 +37,8 @@ Void(Vite+ / Solid / `@void/md`)で構築し、Cloudflare にデプロイする�
 
 ## 検証
 
-- `pnpm check`(format + lint)/ `pnpm typecheck` / `pnpm build`
+- `pnpm check`(format + lint)/ `pnpm typecheck` / `pnpm test`(`vitest.config.ts`。Void のプラグインを読まない) / `pnpm build`
+- `pnpm build` は prerender に失敗したページがあっても exit 0 で終わるので、出力の `[void] prerender ... failed` を確認する
 - 表示確認は `pnpm dev`(http://localhost:4444)
 
 ## デプロイ

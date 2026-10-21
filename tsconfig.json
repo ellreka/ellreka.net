@@ -9,7 +9,11 @@
     "skipLibCheck": true,
     "types": ["void/env", "vite/client"],
     "jsx": "preserve",
-    "jsxImportSource": "solid-js"
+    "jsxImportSource": "solid-js",
+    "paths": {
+      "void/routes": ["./.void/routes.d.ts"]
+    }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "files": ["./.void/routes.d.ts", "./.void/env.d.ts"]
 }

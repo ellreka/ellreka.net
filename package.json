@@ -7,6 +7,7 @@
     "build": "vp build",
     "preview": "vp preview",
     "check": "vp check",
+    "test": "vp test run",
     "typecheck": "void prepare && tsc --noEmit",
     "lint": "vp lint",
     "format": "vp fmt",
@@ -17,6 +18,8 @@
   "dependencies": {
     "@void/md": "1.1.12",
     "hono": "4.13.13",
+    "jose": "6.2.13",
+    "markdown-exit": "1.3.0",
     "solid-js": "1.9.17"
   },
   "devDependencies": {

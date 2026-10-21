@@ -11,5 +11,5 @@
     "jsx": "preserve",
     "jsxImportSource": "solid-js"
   },
-  "include": ["src", "pages", "routes", "middleware", "crons", "queues", "db"]
+  "include": ["src"]
 }

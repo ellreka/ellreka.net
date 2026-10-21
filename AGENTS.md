@@ -4,9 +4,9 @@ Void(Vite+ / Solid / `@void/md`)で構築し、Cloudflare にデプロイする�
 
 ## 構成
 
-- `pages/` が UI ルート。記事は `pages/articles/*.md`(`@void/md` で GFM・Shiki・frontmatter を処理)
+- ソースは `src/` 配下(`void.config.ts` の `sourceDir`)。`src/pages/` が UI ルート。記事は `src/pages/articles/*.md`(`@void/md` で GFM・Shiki・frontmatter を処理)
 - `void.config.ts` は `output: "static"`。全ページを build 時に prerender する
-- レイアウトは `pages/layout.tsx`(共通)と `pages/articles/layout.tsx`(記事。ディレクトリ単位で入れ子になる)。`_layouts/` の名前付きレイアウトは直近のレイアウトを置き換えるので注意
+- レイアウトは `src/pages/layout.tsx`(共通)と `src/pages/articles/layout.tsx`(記事。ディレクトリ単位で入れ子になる)。`_layouts/` の名前付きレイアウトは直近のレイアウトを置き換えるので注意
 - Solid コンポーネントでは props を分割代入しない(リアクティビティが切れるため `props.children` のように参照する)
 
 ## 依存関係

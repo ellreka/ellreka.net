@@ -1,0 +1,32 @@
+{
+  "name": "ellreka.net",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vp dev",
+    "build": "vp build",
+    "preview": "vp preview",
+    "check": "vp check",
+    "typecheck": "void prepare && tsc --noEmit",
+    "lint": "vp lint",
+    "format": "vp fmt",
+    "format:check": "vp fmt --check",
+    "deploy": "void deploy"
+  },
+  "dependencies": {
+    "@void/md": "1.1.12",
+    "hono": "4.13.13",
+    "solid-js": "1.9.17"
+  },
+  "devDependencies": {
+    "@void/solid": "1.1.12",
+    "typescript": "7.0.2",
+    "vite": "npm:@voidzero-dev/vite-plus-core@1.3.0",
+    "vite-plus": "1.3.0",
+    "void": "1.1.12"
+  },
+  "engines": {
+    "node": ">=24.21.0"
+  },
+  "packageManager": "pnpm@12.14.0"
+}

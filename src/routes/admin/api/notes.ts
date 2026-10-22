@@ -13,7 +13,7 @@ import {
   placeholderIds,
   replacePlaceholders,
 } from "../../../lib/note-post";
-import { findEntry } from "../../../lib/notes";
+import { findEntry } from "../../../lib/entries";
 
 const MAX_BODY_LENGTH = 20_000;
 

@@ -1,7 +1,6 @@
-import pages from "@void/md/pages";
 import type { Component } from "solid-js";
-import { parseEntryFrontmatter, parseNoteFrontmatter } from "./frontmatter";
-import type { TimelineEntry, TimelineNote } from "./timeline";
+import { parseNoteFrontmatter } from "./frontmatter";
+import type { TimelineNote } from "./timeline";
 
 type NoteModule = {
   default: Component;
@@ -32,9 +31,3 @@ export const notes: ReadonlyArray<TimelineNote> = modules
   .sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 
 export const noteIds: ReadonlyArray<string> = modules.map(({ id }) => id);
-
-export function findEntry(id: string): TimelineEntry | undefined {
-  const page = pages.find((candidate) => candidate.path === `/entries/${id}`);
-  if (!page) return undefined;
-  return { kind: "entry", path: page.path, ...parseEntryFrontmatter(page.frontmatter) };
-}

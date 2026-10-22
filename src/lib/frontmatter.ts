@@ -1,11 +1,11 @@
-import { useFrontmatter } from "@void/md";
-
-// @void/md の useFrontmatter() は Record<string, unknown> を返すだけなので、ここで検証して型を付ける
+// @void/md の frontmatter は Record<string, unknown> なので、ここで検証して型を付ける
 export type EntryFrontmatter = {
   title: string;
   date: string;
   description?: string;
   tags: string[];
+  // true の記事は本番では書き出さず、一覧にも出さない(dev では確認できる)
+  draft: boolean;
 };
 
 export type NoteFrontmatter = {
@@ -18,7 +18,7 @@ function fail(key: string, expected: string, frontmatter: Record<string, unknown
   throw new Error(`frontmatter.${key} must be ${expected}: ${JSON.stringify(frontmatter)}`);
 }
 
-// YAML の日付は gray-matter で Date になり、`@void/md/pages` では JSON 化された ISO 文字列になる。
+// YAML の日付は gray-matter で Date になり、Markdown モジュールの frontmatter では JSON 化された ISO 文字列になる。
 // 時刻を書いたもの(`2026-10-21 12:00` のように秒が無いと文字列のまま)以外は YYYY-MM-DD に揃える
 function parseDate(frontmatter: Record<string, unknown>): string {
   const { date } = frontmatter;
@@ -31,7 +31,7 @@ function parseDate(frontmatter: Record<string, unknown>): string {
 }
 
 export function parseEntryFrontmatter(frontmatter: Record<string, unknown>): EntryFrontmatter {
-  const { title, description, tags = [] } = frontmatter;
+  const { title, description, tags = [], draft = false } = frontmatter;
   if (typeof title !== "string") fail("title", "a string", frontmatter);
   if (description !== undefined && typeof description !== "string") {
     fail("description", "a string", frontmatter);
@@ -39,15 +39,12 @@ export function parseEntryFrontmatter(frontmatter: Record<string, unknown>): Ent
   if (!Array.isArray(tags) || !tags.every((tag) => typeof tag === "string")) {
     fail("tags", "a string array", frontmatter);
   }
-  return { title, date: parseDate(frontmatter), description, tags };
+  if (typeof draft !== "boolean") fail("draft", "a boolean", frontmatter);
+  return { title, date: parseDate(frontmatter), description, tags, draft };
 }
 
 export function parseNoteFrontmatter(frontmatter: Record<string, unknown>): NoteFrontmatter {
   const { entry } = frontmatter;
   if (entry !== undefined && typeof entry !== "string") fail("entry", "a string", frontmatter);
   return { date: parseDate(frontmatter), entry };
-}
-
-export function useEntryFrontmatter(): EntryFrontmatter {
-  return parseEntryFrontmatter(useFrontmatter());
 }

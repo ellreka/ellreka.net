@@ -1,31 +1,29 @@
-import pages from "@void/md/pages";
 import { Link } from "@void/solid";
 import { createMemo, createSignal, For, Match, Show, Switch } from "solid-js";
 import { SiteFrame } from "../components/site-frame";
 import { Dashes } from "../components/timeline";
-import { noteBodies, notes } from "../lib/notes";
-import { buildTimeline, formatDate } from "../lib/timeline";
+import { noteBodies } from "../lib/notes";
+import { formatDate } from "../lib/timeline";
 import type { TimelineEntry, TimelineNote } from "../lib/timeline";
+import type { Props } from "./index.server";
 
 const PAGE_SIZE = 10;
 const FILTERS = ["all", "notes", "entries"] as const;
 type Filter = (typeof FILTERS)[number];
 
-const items = buildTimeline(pages, notes);
-
-export default function HomePage() {
+export default function HomePage(props: Props) {
   const [filter, setFilter] = createSignal<Filter>("all");
   const [limit, setLimit] = createSignal(PAGE_SIZE);
   const filtered = createMemo(() =>
-    items.filter(
+    props.items.filter(
       (item) =>
         filter() === "all" ||
         (filter() === "notes" && item.kind === "note") ||
         (filter() === "entries" && item.kind === "entry"),
     ),
   );
-  const noteCount = () => items.filter((item) => item.kind === "note").length;
-  const entryCount = () => items.filter((item) => item.kind === "entry").length;
+  const noteCount = () => props.items.filter((item) => item.kind === "note").length;
+  const entryCount = () => props.items.filter((item) => item.kind === "entry").length;
 
   return (
     <SiteFrame>
@@ -99,7 +97,7 @@ function NoteRow(props: { note: TimelineNote; latest: boolean }) {
         />
         <div class="w-0.5 flex-1 bg-line" />
       </div>
-      <div class="flex min-w-0 flex-1 flex-col gap-2.5 pt-4 pb-8">
+      <div class="flex min-w-0 flex-1 flex-col gap-2.5 pt-4 pb-4">
         <Link href={props.note.path} class="font-mono text-xs text-text-3">
           <time datetime={props.note.date}>{formatDate(props.note.date)}</time>
         </Link>
@@ -125,12 +123,16 @@ function EntryRow(props: { entry: TimelineEntry }) {
           <div class="w-0.5 flex-1 bg-line" />
         </div>
       </div>
-      <div class="flex min-w-0 flex-1 flex-col gap-2.5 pt-4 pb-10">
+      <div class="flex min-w-0 flex-1 flex-col gap-2.5 pt-4">
         <div class="flex items-center gap-2.5 font-mono text-xs">
           <span class="font-semibold text-text">entry</span>
           <time class="text-text-3" datetime={props.entry.date}>
             {formatDate(props.entry.date)}
           </time>
+          {/* draft は dev でだけ一覧に出る */}
+          <Show when={props.entry.draft}>
+            <span class="text-orange-400">draft</span>
+          </Show>
         </div>
         <h2 class="font-sans text-xl leading-normal font-semibold">
           <Link href={props.entry.path} class="text-text">

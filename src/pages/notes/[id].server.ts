@@ -1,5 +1,6 @@
 import { defineHandler, defineHead } from "void";
 import type { InferProps } from "void";
+import { findEntry } from "../../lib/entries";
 import { noteIds, notePath, notes } from "../../lib/notes";
 import { formatDate } from "../../lib/timeline";
 
@@ -10,7 +11,11 @@ export async function getPrerenderPaths() {
 export type Props = InferProps<typeof loader>;
 
 export const loader = defineHandler((c) => {
-  return { path: notePath(c.req.param("id") ?? "") };
+  const path = notePath(c.req.param("id") ?? "");
+  const entryId = notes.find((note) => note.path === path)?.entry;
+  // 関連 entry(draft や存在しない id なら出さない)
+  const related = entryId ? findEntry(entryId) : undefined;
+  return { path, related: related ?? null };
 });
 
 // notes にはタイトルが無いので、日付をページタイトルにする

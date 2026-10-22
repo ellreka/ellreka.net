@@ -2,7 +2,7 @@ import { Link } from "@void/solid";
 import { createMemo, createSignal, Show } from "solid-js";
 import { SiteFrame } from "../../components/site-frame";
 import { Dashes } from "../../components/timeline";
-import { findEntry, noteBodies, notes } from "../../lib/notes";
+import { noteBodies, notes } from "../../lib/notes";
 import { formatDate, formatTime } from "../../lib/timeline";
 import type { TimelineEntry, TimelineNote } from "../../lib/timeline";
 import type { Props } from "./[id].server";
@@ -15,10 +15,6 @@ export default function NotePage(props: Props) {
   const note = () => notes[index()];
   const newer = () => (index() > 0 ? notes[index() - 1] : undefined);
   const older = () => (index() >= 0 ? notes[index() + 1] : undefined);
-  const entry = () => {
-    const id = note()?.entry;
-    return id ? findEntry(id) : undefined;
-  };
 
   const Body = () => {
     const Component = noteBodies[props.path];
@@ -66,7 +62,7 @@ export default function NotePage(props: Props) {
                 <Body />
               </div>
               <Actions />
-              <Show when={entry()}>{(related) => <RelatedEntry entry={related()} />}</Show>
+              <Show when={props.related}>{(related) => <RelatedEntry entry={related()} />}</Show>
             </div>
           </article>
           <Show when={older()}>

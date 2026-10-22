@@ -1,9 +1,8 @@
-import pages from "@void/md/pages";
 import { defineHandler, defineHead } from "void";
 import type { InferProps } from "void";
 import { env } from "void/env";
 import { isAccessAuthorized } from "../../../lib/access";
-import { buildTimeline } from "../../../lib/timeline";
+import { publishedEntries } from "../../../lib/entries";
 
 // 投稿画面はリクエストごとに描画する(静的に書き出さない)
 export const prerender = false;
@@ -17,10 +16,11 @@ export const loader = defineHandler(async (c) => {
   });
   if (!authorized) return c.text("forbidden", 403);
 
-  // 関連 entry の選択肢(新しい順)
-  const entries = buildTimeline(pages, []).flatMap((item) =>
-    item.kind === "entry" ? [{ id: item.path.slice("/entries/".length), title: item.title }] : [],
-  );
+  // 関連 entry の選択肢(公開中の記事を新しい順に)
+  const entries = publishedEntries.map((entry) => ({
+    id: entry.path.slice("/entries/".length),
+    title: entry.title,
+  }));
   return { entries };
 });
 

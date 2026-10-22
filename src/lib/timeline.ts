@@ -1,6 +1,3 @@
-import type { VoidMdPage } from "@void/md/pages";
-import { parseEntryFrontmatter } from "./frontmatter";
-
 export type TimelineNote = {
   kind: "note";
   path: string;
@@ -15,21 +12,15 @@ export type TimelineEntry = {
   title: string;
   description?: string;
   tags: string[];
+  draft: boolean;
 };
 
 export type TimelineItem = TimelineNote | TimelineEntry;
 
 export function buildTimeline(
-  pages: ReadonlyArray<VoidMdPage>,
+  entries: ReadonlyArray<TimelineEntry>,
   notes: ReadonlyArray<TimelineNote>,
 ): TimelineItem[] {
-  const entries = pages
-    .filter((page) => page.path.startsWith("/entries/"))
-    .map((page): TimelineEntry => ({
-      kind: "entry",
-      path: page.path,
-      ...parseEntryFrontmatter(page.frontmatter),
-    }));
   return [...notes, ...entries].sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 }
 

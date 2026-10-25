@@ -3,6 +3,7 @@ export type TimelineNote = {
   path: string;
   date: string;
   entry?: string;
+  draft: boolean;
 };
 
 export type TimelineEntry = {

@@ -88,6 +88,9 @@ function NoteRow(props: { note: PreviewNote; latest: boolean }) {
         <Link href={props.note.path} class="font-mono text-xs text-text-3">
           <time datetime={props.note.date}>{formatDate(props.note.date)}</time>
         </Link>
+        <Show when={props.note.draft}>
+          <span class="self-start font-mono text-xs text-orange-400">draft</span>
+        </Show>
         <NoteSummary path={props.note.path} preview={props.note.preview} />
       </div>
     </article>

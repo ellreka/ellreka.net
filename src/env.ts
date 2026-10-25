@@ -6,7 +6,7 @@ import { defineEnv, string } from "void/env";
 export default defineEnv({
   // ellreka/ellreka.net の Contents だけ書き込める fine-grained token
   GITHUB_TOKEN: string().optional(),
-  // notes を commit するブランチ。dev では .env で検証用ブランチに向ける
+  // 本番で notes を commit するブランチ。dev はローカルファイルを使うので参照しない
   GITHUB_BRANCH: string().default("main"),
   // Cloudflare Access のチーム URL(例: https://<team>.cloudflareaccess.com)
   ACCESS_TEAM_DOMAIN: string().optional(),

@@ -184,6 +184,9 @@ importers:
       solid-js:
         specifier: 1.9.17
         version: 1.9.17
+      yaml:
+        specifier: 2.9.1
+        version: 2.9.1
     devDependencies:
       '@tailwindcss/vite':
         specifier: 4.3.3

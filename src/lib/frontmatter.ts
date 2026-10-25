@@ -12,6 +12,7 @@ export type NoteFrontmatter = {
   date: string;
   // 関連する entry の id(`src/pages/entries/<id>.md`)
   entry?: string;
+  draft: boolean;
 };
 
 function fail(key: string, expected: string, frontmatter: Record<string, unknown>): never {
@@ -44,7 +45,8 @@ export function parseEntryFrontmatter(frontmatter: Record<string, unknown>): Ent
 }
 
 export function parseNoteFrontmatter(frontmatter: Record<string, unknown>): NoteFrontmatter {
-  const { entry } = frontmatter;
+  const { entry, draft = false } = frontmatter;
   if (entry !== undefined && typeof entry !== "string") fail("entry", "a string", frontmatter);
-  return { date: parseDate(frontmatter), entry };
+  if (typeof draft !== "boolean") fail("draft", "a boolean", frontmatter);
+  return { date: parseDate(frontmatter), entry, draft };
 }

@@ -1,10 +1,10 @@
 import { entryPath, visibleEntries } from "./entries";
 import { notePreview } from "./note-preview";
-import { notePath, notes } from "./notes";
+import { notePath, visibleNotes } from "./notes";
 import { buildTimeline } from "./timeline";
 import type { TimelineFilter, TimelineNote } from "./timeline";
 
-// サーバー専用。トップ・/notes・/entries のタイムラインを組み立てる。
+// サーバー専用。公開対象からトップ・/notes・/entries のタイムラインを組み立てる。
 // 一覧用の本文と画像はここで取り出し、Markdown コンポーネントはブラウザに送らない。
 const previews = Object.fromEntries(
   Object.entries(
@@ -40,7 +40,7 @@ export function previewNote(note: TimelineNote) {
 
 // filter に合う項目と、絞り込みに関係なく全体の件数を返す
 export function previewTimeline(filter: TimelineFilter) {
-  const items = buildTimeline(visibleEntries, notes)
+  const items = buildTimeline(visibleEntries, visibleNotes)
     .filter(
       (item) =>
         filter === "all" ||
@@ -50,7 +50,7 @@ export function previewTimeline(filter: TimelineFilter) {
     .map((item) =>
       item.kind === "note" ? previewNote(item) : { ...item, images: entryImages[item.path] ?? [] },
     );
-  return { items, counts: { notes: notes.length, entries: visibleEntries.length } };
+  return { items, counts: { notes: visibleNotes.length, entries: visibleEntries.length } };
 }
 
 export type PreviewTimeline = ReturnType<typeof previewTimeline>;

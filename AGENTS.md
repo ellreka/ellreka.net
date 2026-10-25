@@ -9,7 +9,8 @@ Void(Vite+ / Solid / `@void/md`)で構築し、Cloudflare にデプロイする�
 - 記事の frontmatter は `title`・`date`・任意の `description`・`tags`・`draft`。`draft: true` は本番では書き出さず一覧にも出さず、直接アクセスも 404(dev では表示して確認できる)
 - entry 詳細は本文の右に目次(`src/components/table-of-contents.tsx`)を置く。見出し(h2・h3)は @void/md が Markdown モジュールから出す `headings` をサーバー側(`entryToc`)で読んで渡す。目次は列(`max-w-3xl`)の外の右の余白に置き、本文は列の全幅を使う。余白に収まらない `xl` 未満では目次を出さない
 - `description` が無い記事は本文の先頭(見出し・コード・画像・HTML を除いた地の文)から作り、一覧の抜粋と `<meta name="description">` に使う(`src/lib/excerpt.ts`)
-- 気軽な投稿は `src/content/notes/*.md`(ファイル名 `YYYY-MM-DD-slug` が id。frontmatter は `date` と任意の `entry`(関連 entry の id))。`/notes/:id` は動的ルート `src/pages/notes/[id].tsx` + `getPrerenderPaths()` で書き出す
+- 気軽な投稿は `src/content/notes/*.md`(ファイル名 `YYYY-MM-DD-slug` が id。frontmatter は `date` と任意の `entry`(関連 entry の id)・`draft`)。`draft: true` は entry と同じく本番の一覧・前後の note・prerender から除外し、直接アクセスも 404。dev と管理一覧では表示する。`/notes/:id` は動的ルート `src/pages/notes/[id].tsx` + `getPrerenderPaths()` で書き出す
+- notes も entries と同じ構成にする。サーバー専用の `src/lib/notes.ts` で frontmatter・公開対象の一覧・検索を扱い、ページのコンポーネントからは import しない。本文は `src/pages/notes/[id].tsx` で表示する note ごとに lazy import する。`visibleNotes` は dev だけ draft を含め、`publishedNotes` だけを prerender する。draft 専用のビルドプラグインは使わない
 - 記事内の画像・動画は R2 の公開バケット `ellreka-net-assets`(`https://assets.ellreka.net/`)に置き、記事からは絶対 URL で参照する。元ファイルは git 管理外の `assets/` に置き、`pnpm assets:upload [ファイル...]` でアップロードする(`scripts/upload-assets.ts`)
 - 単独の URL は `<https://...>`(v2 のリンクカード `[](URL)` から変換)、動画は `<video src="https://assets.ellreka.net/..." controls></video>` で書く
 - トップ(`src/pages/index.tsx`)は notes と entries を日付順のタイムラインで表示する。`/notes`・`/entries` は同じタイムライン(`src/components/timeline-page.tsx` の `TimelinePage`)を種類で絞って書き出したページで、トップの all / notes / entries の切り替えはこの 3 ページへのリンク(static 出力なのでクエリでは絞らない)。一覧のデータはサーバー専用の `src/lib/timeline-preview.ts` で組み立てる。notes は見出し・リストなどをパースした HTML 本文を最大 4 行で省略し、画像は順序を保ってすべて末尾の横スクロールカルーセル(`src/components/image-carousel.tsx`)にまとめる。entries も本文中の画像を同じカルーセルで説明の下に出す。本文・画像の抽出はサーバー専用の `src/lib/note-preview.ts` で行い、root のコンポーネントには Markdown 本文を import しない
@@ -22,12 +23,18 @@ Void(Vite+ / Solid / `@void/md`)で構築し、Cloudflare にデプロイする�
 
 ## notes の投稿画面
 
-- `/admin/notes/new`(`src/pages/admin/notes/new.tsx`、`prerender = false`)から投稿し、`POST /admin/api/notes`(`src/routes/admin/api/notes.ts`)が画像を R2 に置いてから Markdown を GitHub に commit する。サイトへの反映は main への push 後のデプロイによる
+- 管理の入口は `/admin`(`src/pages/admin/index.tsx`、`prerender = false`)。Access 認証後に note の日時・本文の抜粋を新しい順に表示し、`new note` と各 note の `edit` から投稿・編集へ進む。投稿・編集画面からは `/admin` に戻れる
+- 管理一覧は `listNotes()` で保存先の最新ファイルを読み、dev はローカル、本番は GitHub の指定ブランチから取得する。ビルド済みの一覧は使わないので、投稿・更新後はデプロイを待たずに一覧に反映される。管理一覧はキャッシュしない
+- `/admin/notes/new` から投稿し、`/admin` の一覧の `edit` から `/admin/notes/:id` で編集する(どちらも `prerender = false`)。フォームは `src/components/note-editor.tsx` で共有する。`POST /admin/api/notes` が新規作成、`PUT` が編集。保存先の切り替えはサーバー専用の `src/lib/note-store.ts` に集める
+- 投稿・編集フォームの「下書き」で `draft: true` を切り替える。未指定は公開扱いで、既存 note の公開状態は編集時に読み戻す。管理一覧には draft のラベルを出す。下書きの保存後は本番の詳細リンクを出さない
+- 管理画面への経路は `/admin` 配下だけに置く。公開ページには `edit` などの管理用リンクを出さない
+- 本番は画像を R2 に置いてから Markdown を GitHub に commit する。サイトへの反映は main への push 後のデプロイによる。編集画面はビルド時の本文ではなく指定ブランチの最新ファイルを取得し、元の日時・その他の frontmatter を保つ。読み込み時の SHA が変わっていたら更新を拒否する
 - id は投稿時刻(日本時間)の `YYYY-MM-DD-HHMMSS`、画像は中身のハッシュで `notes/<年>/<hash>.<拡張子>` に置く(`src/lib/note-post.ts`)。本文中では投稿までの画像を仮の参照 `![](upload:<n>)` で表す
 - R2 は `void.config.ts` の `cloudflare.r2_buckets` で既存バケットを `MEDIA` としてバインドする(`ASSETS` は Void の静的ファイル配信用なので使わない。型は `src/bindings.d.ts`)
 - `/admin` 配下は Cloudflare Access で保護し、Worker 側でも `Cf-Access-Jwt-Assertion` を検証する(`src/lib/access.ts`)。API は同一オリジンからの送信だけ受け付ける
 - サーバー側の値は `src/env.ts`(`GITHUB_TOKEN`・`GITHUB_BRANCH`・`ACCESS_TEAM_DOMAIN`・`ACCESS_AUD`)。値の無いビルド環境で全ページの prerender が失敗しないよう任意にしており、未設定なら /admin 側で拒否する。本番は `void secret put` で登録する
-- ローカルでは Access の検証を省く。root の `.env` に `GITHUB_TOKEN` と検証用の `GITHUB_BRANCH`(main 以外)を書く。dev で main を指定すると投稿を拒否する
+- ローカルでは Access の検証を省き、GitHub や R2 へは送らず `src/content/notes/:id.md` を直接作成・更新する(開発用 Worker から `src/lib/note-dev.ts` 経由で Vite プラグイン `scripts/local-notes.ts` を呼ぶ。ホストのファイル操作は `src/lib/note-local.ts` に集め、本番 Worker には含めない)。`GITHUB_TOKEN`・`GITHUB_BRANCH` は不要。新規作成は同名ファイルを上書きせず、編集は読み込み時のハッシュが一致する場合だけ更新する
+- dev で追加した画像は例外的に `public/note-assets/notes/<年>/<hash>.<拡張子>` に保存し、本文では `/note-assets/...` を参照する。Vite の public 配信でプレビュー・詳細の両方に表示する。本番の投稿画像は従来どおり R2 の絶対 URL を使う
 - Worker を使う構成になったため、Void の設定で全リクエストが Worker を経由する(`run_worker_first: ["/**"]`)
 
 ## スタイリング

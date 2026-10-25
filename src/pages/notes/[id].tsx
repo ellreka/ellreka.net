@@ -1,10 +1,11 @@
 import { Link } from "@void/solid";
-import { createMemo, createSignal, Show } from "solid-js";
+import { createMemo, createSignal, lazy, Show, Suspense } from "solid-js";
+import type { Component } from "solid-js";
+import { Dynamic } from "solid-js/web";
 import { NoteContent } from "../../components/note-content";
 import { NoteSummary } from "../../components/note-summary";
 import { SiteFrame } from "../../components/site-frame";
 import { Dashes } from "../../components/timeline";
-import { noteBodies, notes } from "../../lib/notes";
 import { formatDate, formatTime } from "../../lib/timeline";
 import type { TimelineEntry } from "../../lib/timeline";
 import type { Props } from "./[id].server";
@@ -12,14 +13,14 @@ import type { Props } from "./[id].server";
 const COPIED_RESET_MS = 2000;
 const COPY_LABELS = { idle: "copy link", copied: "copied", failed: "copy failed" } as const;
 
-export default function NotePage(props: Props) {
-  const index = createMemo(() => notes.findIndex((candidate) => candidate.path === props.path));
-  const note = () => notes[index()];
+// entry と同じく、表示する note の本文だけを読み込む。
+const bodies = import.meta.glob<{ default: Component }>("../../content/notes/*.md");
 
-  const Body = () => {
-    const Component = noteBodies[props.path];
-    return Component ? <Component /> : null;
-  };
+export default function NotePage(props: Props) {
+  const Body = createMemo(() => {
+    const load = bodies[`../../content/notes/${props.id}.md`];
+    return load ? lazy(load) : () => null;
+  });
 
   return (
     <SiteFrame current="notes">
@@ -45,21 +46,22 @@ export default function NotePage(props: Props) {
               <div class="w-0.5 flex-1 bg-line" />
             </div>
             <div class="flex min-w-0 flex-1 flex-col gap-6 pt-4 pb-14">
-              <Show when={note()}>
-                {(current) => (
-                  <p class="flex gap-2.5 font-mono text-sm">
-                    <time class="text-text-2" datetime={current().date}>
-                      {formatDate(current().date)}
-                    </time>
-                    <Show when={formatTime(current().date)}>
-                      {(time) => <span class="text-text-3">{time()}</span>}
-                    </Show>
-                  </p>
-                )}
-              </Show>
+              <p class="flex gap-2.5 font-mono text-sm">
+                <time class="text-text-2" datetime={props.note.date}>
+                  {formatDate(props.note.date)}
+                </time>
+                <Show when={formatTime(props.note.date)}>
+                  {(time) => <span class="text-text-3">{time()}</span>}
+                </Show>
+                <Show when={props.note.draft}>
+                  <span class="text-orange-400">draft（本番では公開されません）</span>
+                </Show>
+              </p>
               {/* 本文のスタイルは app.css の .void-md で共通化し、ここでは文字サイズと行間だけ決める */}
               <NoteContent class="void-md font-sans text-lg leading-loose [--md-code-padding-x:--spacing(4.5)] [--md-code-padding-y:--spacing(3.5)]">
-                <Body />
+                <Suspense>
+                  <Dynamic component={Body()} />
+                </Suspense>
               </NoteContent>
               <Actions />
               <Show when={props.related}>{(related) => <RelatedEntry entry={related()} />}</Show>

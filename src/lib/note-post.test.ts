@@ -3,6 +3,8 @@ import { formatTime } from "./timeline";
 import {
   buildNoteMarkdown,
   imageKey,
+  isImageType,
+  notePath,
   noteStamp,
   placeholderIds,
   replacePlaceholders,
@@ -47,7 +49,13 @@ describe("imageKey", () => {
 
   test("画像以外は受け付けない", async () => {
     await expect(imageKey(bytes, "text/html", "2026")).rejects.toThrow("unsupported image type");
+    expect(isImageType("constructor")).toBe(false);
   });
+});
+
+test("notePath は notes の外を指す id を拒否する", () => {
+  expect(notePath("2026-10-21-184012")).toBe("src/content/notes/2026-10-21-184012.md");
+  expect(() => notePath("2026-01-01-../secret")).toThrow("不正な note id");
 });
 
 describe("placeholders", () => {

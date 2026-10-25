@@ -1,33 +1,31 @@
-import type { Component } from "solid-js";
 import { parseNoteFrontmatter } from "./frontmatter";
 import type { TimelineNote } from "./timeline";
 
-type NoteModule = {
-  default: Component;
-  frontmatter: Record<string, unknown>;
-};
-
-// notes は src/content/notes/*.md に置き、/notes/:id は動的ルートで描画する。
-// (Markdown ルーティングだと prerender 時に現在の note を特定できないため)
-const modules = Object.entries(
-  import.meta.glob<NoteModule>("../content/notes/*.md", { eager: true }),
-).map(([file, mod]) => ({ id: file.replace(/^.*\//, "").replace(/\.md$/, ""), mod }));
+// entries.ts と同じくサーバー専用。ページのコンポーネントからは import しない。
+// 本文は詳細ページで個別に読み込み、ここでは一覧・公開判定に必要な metadata だけを扱う。
+const frontmatters = import.meta.glob<Record<string, unknown>>("../content/notes/*.md", {
+  import: "frontmatter",
+  eager: true,
+});
 
 export function notePath(id: string): string {
   return `/notes/${id}`;
 }
 
-export const noteBodies: Readonly<Record<string, Component>> = Object.fromEntries(
-  modules.map(({ id, mod }) => [notePath(id), mod.default]),
-);
-
-// 新しい順
-export const notes: ReadonlyArray<TimelineNote> = modules
-  .map(({ id, mod }): TimelineNote => ({
+const allNotes: ReadonlyArray<TimelineNote> = Object.entries(frontmatters)
+  .map(([file, frontmatter]): TimelineNote => ({
     kind: "note",
-    path: notePath(id),
-    ...parseNoteFrontmatter(mod.frontmatter),
+    path: notePath(file.replace(/^.*\//, "").replace(/\.md$/, "")),
+    ...parseNoteFrontmatter(frontmatter),
   }))
   .sort((a, b) => Date.parse(b.date) - Date.parse(a.date));
 
-export const noteIds: ReadonlyArray<string> = modules.map(({ id }) => id);
+export const visibleNotes: ReadonlyArray<TimelineNote> = import.meta.env.DEV
+  ? allNotes
+  : allNotes.filter((note) => !note.draft);
+
+export const publishedNotes: ReadonlyArray<TimelineNote> = allNotes.filter((note) => !note.draft);
+
+export function findNote(id: string): TimelineNote | undefined {
+  return visibleNotes.find((note) => note.path === notePath(id));
+}

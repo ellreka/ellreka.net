@@ -49,6 +49,11 @@ export const publishedEntries: ReadonlyArray<TimelineEntry> = allEntries.filter(
   (entry) => !entry.draft,
 );
 
+// 投稿画面の関連 entry の選択肢(公開中の記事を新しい順に)
+export const entryOptions: ReadonlyArray<{ id: string; title: string }> = publishedEntries.map(
+  (entry) => ({ id: entry.path.slice("/entries/".length), title: entry.title }),
+);
+
 // frontmatter に書かれた description。本文から作ったものは本文の冒頭と重なるので、詳細のリードには使わない
 export function entryLead(id: string): string | undefined {
   const frontmatter = frontmatters[`../content/entries/${id}.md`];

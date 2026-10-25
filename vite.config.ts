@@ -3,9 +3,11 @@ import { voidPlugin } from "void";
 import { voidSolid } from "@void/solid/plugin";
 import { voidMarkdown } from "@void/md/plugin";
 import tailwindcss from "@tailwindcss/vite";
+import { localNotes } from "./scripts/local-notes";
 
 export default defineConfig({
   plugins: [
+    localNotes(),
     voidPlugin(),
     voidSolid(),
     voidMarkdown({

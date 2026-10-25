@@ -14,12 +14,14 @@ test("トップの note は見出し・リストを描画し、長い本文だ�
         items: [
           {
             kind: "note",
+            draft: false,
             path: "/notes/short",
             date: "2026-09-02",
             preview: { html: "<p><strong>短い本文</strong></p>", images: [] },
           },
           {
             kind: "note",
+            draft: false,
             path: "/notes/long",
             date: "2026-09-01",
             preview: {

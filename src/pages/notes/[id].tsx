@@ -1,5 +1,6 @@
 import { Link } from "@void/solid";
 import { createMemo, createSignal, Show } from "solid-js";
+import { NoteContent } from "../../components/note-content";
 import { SiteFrame } from "../../components/site-frame";
 import { Dashes } from "../../components/timeline";
 import { noteBodies, notes } from "../../lib/notes";
@@ -22,7 +23,7 @@ export default function NotePage(props: Props) {
   };
 
   return (
-    <SiteFrame wide current="notes">
+    <SiteFrame current="notes">
       <div class="flex flex-col pt-12 pb-18">
         <div class="flex border-b border-border pb-4">
           <Link href="/" class="font-mono text-sm text-text-2">
@@ -57,10 +58,10 @@ export default function NotePage(props: Props) {
                   </p>
                 )}
               </Show>
-              {/* @void/md の本文テーマ(.void-md)を使いつつ、デザインの文字サイズと余白に合わせる */}
-              <div class="void-md font-sans text-lg leading-loose [&_.lang]:hidden [&_pre]:px-4 [&_pre]:py-3 [&_pre_code]:text-sm [&>div>*]:my-0 [&>div]:flex [&>div]:flex-col [&>div]:gap-6">
+              {/* 本文のスタイルは app.css の .void-md で共通化し、ここでは文字サイズと行間だけ決める */}
+              <NoteContent class="void-md font-sans text-lg leading-loose [--md-code-padding-x:--spacing(4.5)] [--md-code-padding-y:--spacing(3.5)]">
                 <Body />
-              </div>
+              </NoteContent>
               <Actions />
               <Show when={props.related}>{(related) => <RelatedEntry entry={related()} />}</Show>
             </div>
@@ -95,9 +96,12 @@ function NeighborRow(props: { note: TimelineNote }) {
         <Link href={props.note.path} class="font-mono text-xs text-text-3">
           <time datetime={props.note.date}>{formatDate(props.note.date)}</time>
         </Link>
-        <div class="void-md font-sans text-base leading-relaxed [&_.lang]:hidden [&>div>*]:my-0 [&>div]:flex [&>div]:flex-col [&>div]:gap-2.5">
+        <NoteContent
+          compact
+          class="void-md font-sans text-base leading-relaxed [--md-code-padding-x:--spacing(4)] [--md-code-padding-y:--spacing(3)] [--md-gap:--spacing(2.5)]"
+        >
           <Body />
-        </div>
+        </NoteContent>
       </div>
     </article>
   );

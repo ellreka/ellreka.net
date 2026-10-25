@@ -1,19 +1,17 @@
 import { Link } from "@void/solid";
-import { createMemo, createSignal, For, Match, Show, Switch } from "solid-js";
+import { createMemo, createSignal, For, Match, onCleanup, onMount, Show, Switch } from "solid-js";
+import { ImageCarousel } from "../components/image-carousel";
 import { SiteFrame } from "../components/site-frame";
-import { Dashes } from "../components/timeline";
-import { noteBodies } from "../lib/notes";
 import { formatDate } from "../lib/timeline";
-import type { TimelineEntry, TimelineNote } from "../lib/timeline";
 import type { Props } from "./index.server";
 
-const PAGE_SIZE = 10;
 const FILTERS = ["all", "notes", "entries"] as const;
 type Filter = (typeof FILTERS)[number];
+type PreviewNote = Extract<Props["items"][number], { kind: "note" }>;
+type PreviewEntry = Extract<Props["items"][number], { kind: "entry" }>;
 
 export default function HomePage(props: Props) {
   const [filter, setFilter] = createSignal<Filter>("all");
-  const [limit, setLimit] = createSignal(PAGE_SIZE);
   const filtered = createMemo(() =>
     props.items.filter(
       (item) =>
@@ -43,10 +41,7 @@ export default function HomePage(props: Props) {
                       ? "rounded border border-border bg-surface px-2.5 py-1 font-mono text-xs text-text"
                       : "rounded border border-transparent px-2.5 py-1 font-mono text-xs text-text-3"
                   }
-                  onClick={() => {
-                    setFilter(value);
-                    setLimit(PAGE_SIZE);
-                  }}
+                  onClick={() => setFilter(value)}
                 >
                   {value}
                 </button>
@@ -55,7 +50,7 @@ export default function HomePage(props: Props) {
           </div>
         </div>
         <div class="flex flex-col pt-3">
-          <For each={filtered().slice(0, limit())}>
+          <For each={filtered()}>
             {(item, index) => (
               <Switch>
                 <Match when={item.kind === "note" && item}>
@@ -72,17 +67,24 @@ export default function HomePage(props: Props) {
               </Switch>
             )}
           </For>
-          <Show when={filtered().length > limit()}>
-            <LoadMore onClick={() => setLimit((current) => current + PAGE_SIZE)} />
-          </Show>
         </div>
       </section>
     </SiteFrame>
   );
 }
 
-function NoteRow(props: { note: TimelineNote; latest: boolean }) {
-  const Body = noteBodies[props.note.path] ?? (() => null);
+function NoteRow(props: { note: PreviewNote; latest: boolean }) {
+  let text!: HTMLDivElement;
+  const [truncated, setTruncated] = createSignal(false);
+  const update = () => setTruncated(text.scrollHeight > text.clientHeight);
+
+  onMount(() => {
+    const observer = new ResizeObserver(update);
+    observer.observe(text);
+    update();
+    void document.fonts.ready.then(update);
+    onCleanup(() => observer.disconnect());
+  });
   return (
     <article class="flex gap-4">
       {/* note は幹のレーンだけを使い、本文を entry と揃えず幹に寄せる */}
@@ -101,16 +103,25 @@ function NoteRow(props: { note: TimelineNote; latest: boolean }) {
         <Link href={props.note.path} class="font-mono text-xs text-text-3">
           <time datetime={props.note.date}>{formatDate(props.note.date)}</time>
         </Link>
-        {/* @void/md の本文テーマ(.void-md)を使いつつ、一覧用に文字サイズと余白を詰める */}
-        <div class="void-md font-sans text-base leading-relaxed [&>div>*]:my-0 [&>div]:flex [&>div]:flex-col [&>div]:gap-2.5 [&_.lang]:hidden">
-          <Body />
-        </div>
+        <div
+          ref={(element) => (text = element)}
+          class="void-md line-clamp-4 font-sans text-base leading-relaxed wrap-anywhere empty:hidden [--md-code-padding-x:--spacing(4)] [--md-code-padding-y:--spacing(3)] [--md-gap:--spacing(2.5)]"
+          innerHTML={props.note.preview.html}
+        />
+        <Show when={truncated()}>
+          <Link href={props.note.path} class="self-start font-mono text-xs text-text-2">
+            Read more
+          </Link>
+        </Show>
+        <Show when={props.note.preview.images.length > 0}>
+          <ImageCarousel label="note の画像" images={props.note.preview.images} />
+        </Show>
       </div>
     </article>
   );
 }
 
-function EntryRow(props: { entry: TimelineEntry }) {
+function EntryRow(props: { entry: PreviewEntry }) {
   return (
     <article class="flex gap-4">
       <div class="flex w-10 shrink-0">
@@ -142,6 +153,9 @@ function EntryRow(props: { entry: TimelineEntry }) {
         <Show when={props.entry.description}>
           <p class="font-sans text-sm leading-relaxed text-text-2">{props.entry.description}</p>
         </Show>
+        <Show when={props.entry.images.length > 0}>
+          <ImageCarousel label="entry の画像" images={props.entry.images} />
+        </Show>
         <Show when={props.entry.tags.length > 0}>
           <div class="flex items-center gap-3 pt-0.5 font-mono text-xs text-text-3">
             <For each={props.entry.tags}>{(tag) => <span>#{tag}</span>}</For>
@@ -159,20 +173,5 @@ function Fork() {
       <rect x="9" width="2" height="24" class="fill-line" />
       <path d="M30 0c0 12-20 12-20 24" class="fill-none stroke-line" stroke-width="2" />
     </svg>
-  );
-}
-
-function LoadMore(props: { onClick: () => void }) {
-  return (
-    <div class="flex gap-4">
-      <Dashes fade="out" />
-      <button
-        type="button"
-        class="py-0.5 font-mono text-sm text-text-2"
-        onClick={() => props.onClick()}
-      >
-        Load more
-      </button>
-    </div>
   );
 }

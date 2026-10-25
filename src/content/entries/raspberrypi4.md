@@ -10,7 +10,7 @@ tags: ["RaspberryPi", "Diary"]
 
 その中で Home Assistant、 AdGuard Home、 OpenMediaValut をインストールしたのでその手順をまとめます。
 
-![](https://gyazo.com/3a14a84e47a4d20b8e5aaefbbd62e5d6.jpg)
+![](https://assets.ellreka.net/gyazo/3a14a84e47a4d20b8e5aaefbbd62e5d6.jpg)
 
 ## 準備したもの
 
@@ -152,7 +152,7 @@ HACS を使うことで Store に無いサードパーティ製のプラグイ�
 
 あとは Chromecast で毎朝 Youtube のニュースを流したり、予定の 5 分前に Alexa で知らせるようにしてみました。
 
-![](https://gyazo.com/9b7711ab4c1f68a00229d5facaa91c86.png)
+![](https://assets.ellreka.net/gyazo/9b7711ab4c1f68a00229d5facaa91c86.png)
 
 ## AdGuard Home
 

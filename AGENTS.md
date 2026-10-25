@@ -11,8 +11,9 @@ Void(Vite+ / Solid / `@void/md`)で構築し、Cloudflare にデプロイする�
 - 気軽な投稿は `src/content/notes/*.md`(ファイル名 `YYYY-MM-DD-slug` が id。frontmatter は `date` と任意の `entry`(関連 entry の id))。`/notes/:id` は動的ルート `src/pages/notes/[id].tsx` + `getPrerenderPaths()` で書き出す
 - 記事内の画像・動画は R2 の公開バケット `ellreka-net-assets`(`https://assets.ellreka.net/`)に置き、記事からは絶対 URL で参照する。元ファイルは git 管理外の `assets/` に置き、`pnpm assets:upload [ファイル...]` でアップロードする(`scripts/upload-assets.ts`)
 - 単独の URL は `<https://...>`(v2 のリンクカード `[](URL)` から変換)、動画は `<video src="https://assets.ellreka.net/..." controls></video>` で書く
-- トップ(`src/pages/index.tsx`)は notes と entries を日付順のタイムラインで表示し、notes は本文をそのまま出す
-- ヘッダー・フッターは `src/components/site-frame.tsx` の `SiteFrame` を各ページで使い、幅(`wide`)と現在位置(`current`)を props で渡す。prerender 時は `useRouter().path` が常に `/` になるため、パスで分岐しない
+- トップ(`src/pages/index.tsx`)は notes と entries を日付順のタイムラインで表示する。notes は見出し・リストなどをパースした HTML 本文を最大 4 行で省略し、画像は順序を保ってすべて末尾の横スクロールカルーセル(`src/components/image-carousel.tsx`)にまとめる。entries も本文中の画像を同じカルーセルで説明の下に出す。本文・画像の抽出はサーバー専用の `src/lib/note-preview.ts` で行い、root のコンポーネントには Markdown 本文を import しない
+- notes の画像拡大は `src/components/note-content.tsx` の `NoteContent` と native `<dialog>` で共通化する。詳細・投稿プレビューは本文中の配置を保ち、連続した画像だけの段落は 2 列にまとめ、1 枚なら本文幅にする。詳細の前後の note は画像の高さを制限する。拡大表示では同じ note の画像を前後に送れる。アイコンは lucide の形を `src/components/icons.tsx` に inline SVG で持つ
+- ヘッダー・フッターは `src/components/site-frame.tsx` の `SiteFrame` を各ページで使い、全ページの幅は `max-w-3xl` に統一する。現在位置(`current`)を props で渡す。prerender 時は `useRouter().path` が常に `/` になるため、パスで分岐しない
 - `void.config.ts` は `output: "static"`。投稿画面以外の全ページを build 時に prerender する
 - レイアウトは `src/pages/layout.tsx`(共通。CSS の読み込みのみ)。ヘッダー・フッターは各ページの `SiteFrame` で描画する
 - Solid コンポーネントでは props を分割代入しない(リアクティビティが切れるため `props.children` のように参照する)
@@ -30,7 +31,7 @@ Void(Vite+ / Solid / `@void/md`)で構築し、Cloudflare にデプロイする�
 ## スタイリング
 
 - Tailwind CSS 4。装飾は JSX の utility を優先し、`src/app.css` の `@theme` トークン(`bg`/`surface`/`border`/`text`/`text-2`/`text-3`/`line`/`accent`)を使う。トークンは pen.dev のデザイン(`ellreka-net.pen`)の変数に合わせている。フォントは M PLUS 1p(sans。600 が無いので semibold は 700 で表示)と JetBrains Mono(mono)
-- `app.css` は Tailwind import・`@theme`・全体の base・`@void/md` テーマの `--vmd-*` 上書きが基本。通常のコンポーネント装飾のために独自 CSS や `@apply` クラスを増やさない
+- `app.css` は Tailwind import・`@theme`・全体の base・Markdown 本文(`.void-md`)の共通スタイルが基本。Markdown の見出し・リスト・コードなどはトップ・詳細・投稿プレビューで `.void-md` のスタイルを共有し、ページ側では文字サイズ・行間・色・`--md-gap`(ブロック間の余白)・`--md-code-padding-x/y`(コードブロックの内側の余白)だけを utility で決める。リストの記号はデザインどおり等幅の薄い「—」(番号付きは番号)。`@void/md` のテーマは base 層に入れて上書きしている。通常のコンポーネント装飾のために独自 CSS や `@apply` クラスを増やさない
 - utility で表せない場合のみ最小の CSS にし、理由をコメントで残す
 - 文字サイズ・余白・幅などはデザインの px に厳密に合わせず、Tailwind の標準スケール(`text-sm`・`gap-4`・`max-w-3xl` など)の近い値を使う。`text-[13px]` のような任意値や、境界線 1px 分の補正はしない
 - ダーク固定。`void.config.ts` の `head.htmlAttrs` で `data-theme="dark"` を付け、`@void/md` の本文・Shiki もダーク配色にしている
@@ -42,8 +43,9 @@ Void(Vite+ / Solid / `@void/md`)で構築し、Cloudflare にデプロイする�
 ## 検証
 
 - `pnpm check`(format + lint)/ `pnpm typecheck` / `pnpm test`(`vitest.config.ts`。Void のプラグインを読まない) / `pnpm build`
+- `pnpm test:browser` はブラウザを開き、画像のグリッド・拡大表示・高さ制限を検証する(`vitest.browser.config.ts`。追加のブラウザ用依存は不要)
 - `pnpm build` は prerender に失敗したページがあっても exit 0 で終わるので、出力の `[void] prerender ... failed` を確認する
-- 表示確認は `pnpm dev`(http://localhost:4444)
+- 表示確認は `pnpm dev`(<http://localhost:4444>)
 
 ## デプロイ
 

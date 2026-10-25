@@ -180,7 +180,7 @@ BetterTouchTool では複数ディスプレイでもカーソル移動をしや�
 これは AppStore で購入したので AppStore からインストールします。
 
 - Hotkeys を登録
-  - ![](https://gyazo.com/b15988afca543cd19a0f8fdd32c29f01.png)
+  - ![](https://assets.ellreka.net/gyazo/b15988afca543cd19a0f8fdd32c29f01.png)
 
 [https://cordlessdog.com/stay/](https://cordlessdog.com/stay/)
 

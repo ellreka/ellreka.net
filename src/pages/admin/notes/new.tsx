@@ -1,6 +1,7 @@
 import { Link } from "@void/solid";
 import MarkdownExit from "markdown-exit";
 import { createMemo, createSignal, For, onCleanup, Show } from "solid-js";
+import { NoteContent } from "../../../components/note-content";
 import { SiteFrame } from "../../../components/site-frame";
 import { IMAGE_EXTENSIONS, placeholderIds, UPLOAD_PLACEHOLDER } from "../../../lib/note-post";
 import type { Props } from "./new.server";
@@ -100,7 +101,7 @@ export default function NewNotePage(props: Props) {
   };
 
   return (
-    <SiteFrame wide current="notes">
+    <SiteFrame current="notes">
       <div class="flex flex-col gap-6 pt-12 pb-18">
         <div class="flex items-center justify-between border-b border-border pb-4 font-mono text-sm">
           <Link href="/" class="text-text-2">
@@ -128,10 +129,9 @@ export default function NewNotePage(props: Props) {
             class="min-h-80 w-full resize-y rounded-md border border-border bg-surface p-4 font-sans text-base leading-relaxed text-text outline-none placeholder:text-text-3 focus:border-line"
           />
           {/* 自分の入力だけを描画するプレビュー(markdown-exit で生の HTML は無効にしている) */}
-          <div
-            class="void-md min-h-80 rounded-md border border-border p-4 font-sans text-base leading-relaxed [&_img]:max-w-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0"
-            innerHTML={preview()}
-          />
+          <NoteContent class="void-md min-h-80 min-w-0 rounded-md border border-border p-4 font-sans text-base leading-relaxed">
+            <div innerHTML={preview()} />
+          </NoteContent>
         </div>
 
         <div class="flex flex-wrap items-center gap-4 font-mono text-xs text-text-2">

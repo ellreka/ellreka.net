@@ -1,5 +1,6 @@
 @import "tailwindcss";
-@import "@void/md/theme-content.css" layer(components);
+/* @void/md のテーマは base 層に入れ、下の components 層の本文スタイルを詳細度に関係なく優先させる */
+@import "@void/md/theme-content.css" layer(base);
 
 @theme {
   --color-bg: #0b0c0e;
@@ -10,6 +11,8 @@
   --color-text-3: #5b616b;
   --color-line: #2c3037;
   --color-accent: #3fb950;
+  /* entry の本文色。pen の変数ではなく、デザインで直接指定されている値 */
+  --color-prose: #c9cdd3;
 
   --font-sans: "M PLUS 1p", "Helvetica Neue", Helvetica, sans-serif;
   --font-mono: "JetBrains Mono", monospace;
@@ -29,6 +32,11 @@
     font-size: 16px;
     line-height: 1.75;
     text-wrap: pretty;
+  }
+
+  /* native dialog は背景を inert にするがスクロールは止めないため、開いている間だけ抑止する。 */
+  :root:has(dialog[open]) {
+    overflow: hidden;
   }
 
   a {
@@ -51,10 +59,22 @@
   }
 }
 
-/* @void/md の本文テーマは --vmd-* 変数とテーマ側のセレクタで配色を決めるため、utility ではなくここで上書きする。
-   テーマ側の :root[data-theme="dark"] .void-md ... と同じ詳細度にし、後から読み込むことで上書きする */
+/* Markdown の HTML には utility を付けられないため、トップ・詳細・投稿プレビューで共通の本文スタイルをここで決める。
+   文字サイズ・行間・色は使う側の utility で決め、ここでは em で相対的に指定する。
+   ブロック間の余白は --md-gap、コードブロックの内側の余白は --md-code-padding-x/y でページごとに変えられる。
+   セレクタは :where() で詳細度をそろえ、後に書いたものを優先する */
+/* --md-gap を長さとして登録し、em を .void-md の文字サイズで一度だけ計算させる(見出しやコードの文字サイズで余白が変わらないように) */
+@property --md-gap {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0;
+}
+
 @layer components {
-  :root[data-theme="dark"] .void-md {
+  .void-md {
+    --md-gap: 1.25em;
+    --md-code-padding-x: --spacing(5);
+    --md-code-padding-y: --spacing(4);
     --vmd-font-body: var(--font-sans);
     --vmd-font-mono: var(--font-mono);
     --vmd-text: var(--color-text);
@@ -65,18 +85,233 @@
     --vmd-bg-soft: var(--color-surface);
   }
 
-  /* コードブロックはデザインの surface + border に揃える。Shiki の背景は テーマ側が !important で指定しているので同じく !important で消す */
-  :root[data-theme="dark"] .void-md div[class*="language-"] {
+  /* ブロックの間だけ空け、先頭と末尾には余白を残さない */
+  .void-md
+    :where(
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      ul,
+      ol,
+      li,
+      blockquote,
+      pre,
+      table,
+      hr,
+      dl,
+      nav,
+      video,
+      div[class*="language-"],
+      .custom-block
+    ) {
+    margin: 0;
+  }
+
+  .void-md
+    *
+    + :where(
+      p,
+      ul,
+      ol,
+      blockquote,
+      pre:not(.shiki),
+      table,
+      hr,
+      dl,
+      nav,
+      video,
+      div[class*="language-"],
+      .custom-block,
+      [data-note-gallery]
+    ) {
+    margin-top: var(--md-gap);
+  }
+
+  /* 見出しは前のブロックとの間を広げて区切りにする。テーマの h2 の下線は使わない */
+  .void-md :where(h1, h2, h3, h4, h5, h6) {
+    padding: 0;
+    border: 0;
+    color: var(--color-text);
+    font-weight: 600;
+    line-height: 1.5;
+  }
+
+  .void-md * + :where(h1, h2, h3, h4, h5, h6) {
+    margin-top: calc(var(--md-gap) * 2);
+  }
+
+  .void-md :where(h1) {
+    font-size: 1.5em;
+  }
+
+  .void-md :where(h2) {
+    font-size: 1.375em;
+  }
+
+  .void-md :where(h3) {
+    font-size: 1.125em;
+  }
+
+  .void-md :where(h4, h5, h6) {
+    font-size: 1em;
+  }
+
+  /* リストはデザインどおり記号を等幅の薄い "—" にし、番号付きも同じ位置に番号を出す */
+  .void-md :where(ul, ol) {
+    padding: 0;
+    list-style: none;
+  }
+
+  .void-md :where(li) {
+    position: relative;
+    padding-left: --spacing(5);
+    line-height: var(--leading-relaxed);
+  }
+
+  /* 項目が段落や入れ子のリストで始まっても 1 行目に並ぶよう絶対配置にし、行の高さを本文とそろえる */
+  .void-md :where(li)::before {
+    position: absolute;
+    left: 0;
+    color: var(--color-text-3);
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+    line-height: calc(var(--leading-relaxed) / 0.875);
+  }
+
+  .void-md :where(ul > li)::before {
+    content: "—";
+  }
+
+  /* 番号は "—" より幅があるので、本文の開始位置を広げて記号と本文の間をデザインの間隔(12px)に近づける */
+  .void-md :where(ol > li) {
+    padding-left: --spacing(7);
+  }
+
+  .void-md :where(ol > li)::before {
+    content: counter(list-item) ".";
+  }
+
+  .void-md :where(li + li, li > ul, li > ol) {
+    margin-top: 0.625em;
+  }
+
+  /* [[toc]] の目次はデザインの目次と同じく、左の線と小さな薄い文字で並べる(リストの記号は付けない) */
+  .void-md :where(.table-of-contents li) {
+    padding-left: --spacing(3);
+    border-left: 2px solid var(--color-border);
+    font-size: var(--text-sm);
+    line-height: var(--leading-normal);
+  }
+
+  .void-md :where(.table-of-contents li)::before {
+    content: none;
+  }
+
+  .void-md :where(.table-of-contents li + li) {
+    margin-top: --spacing(3);
+  }
+
+  .void-md :where(.table-of-contents a) {
+    color: var(--color-text-3);
+  }
+
+  /* コンテナ・アラートの枠の中は、タイトルと本文の間を詰める */
+  .void-md :where(.custom-block > *) {
+    --md-gap: --spacing(2);
+  }
+
+  .void-md :where(blockquote) {
+    padding: 0 0 0 1em;
+    border-left: 2px solid var(--color-line);
+    color: var(--color-text-2);
+  }
+
+  .void-md :where(hr) {
+    border: 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  /* 脚注の欄はテーマ側で上線を引くので、前に入る区切り線は出さない */
+  .void-md :where(hr.footnotes-sep) {
+    display: none;
+  }
+
+  .void-md :where(img, video) {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+  }
+
+  .void-md :where(video) {
+    width: 100%;
+  }
+
+  /* コードブロックは surface + border の枠。詳細は Shiki の div[class*="language-"]、トップは素の pre になるので同じ見た目にする */
+  .void-md :where(div[class*="language-"], pre:not(.shiki)) {
     background: var(--color-surface);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
   }
 
-  .void-md div[class*="language-"] pre {
-    padding: --spacing(3) --spacing(4);
+  .void-md :where(pre) {
+    padding: var(--md-code-padding-y) var(--md-code-padding-x);
+    overflow-x: auto;
+    /* 長い行で出るスクロールバーを、ダークの枠になじむ色にする */
+    scrollbar-color: var(--color-line) transparent;
+    scrollbar-width: thin;
+    font-family: var(--font-mono);
+    font-size: var(--text-sm);
+    line-height: 1.7;
   }
 
-  :root[data-theme="dark"] .void-md pre.shiki.shiki-themes {
-    background-color: transparent !important;
+  .void-md :where(pre:not(.shiki)) {
+    color: var(--color-text-2);
+  }
+
+  .void-md :where(pre code) {
+    font-size: inherit;
+    line-height: inherit;
+  }
+
+  .void-md :where(div[class*="language-"] .lang) {
+    display: none;
+  }
+
+  /* 行のハイライトと差分の背景は、コードブロックの左右の余白まで塗る(テーマは余白 1.5em を前提にしているので合わせ直す) */
+  .void-md :where(pre .highlighted, pre .diff) {
+    display: inline-block;
+    width: calc(100% + var(--md-code-padding-x) * 2);
+    margin: 0 calc(var(--md-code-padding-x) * -1);
+    padding: 0 var(--md-code-padding-x);
+  }
+
+  /* @void/md はコードの末尾に空の行を出すので、その行と対応する行番号を隠す */
+  .void-md :where(pre code > .line:last-child:empty) {
+    display: none;
+  }
+
+  .void-md
+    :where(
+      div[class*="language-"]:has(code > .line:last-child:empty)
+        .line-numbers-wrapper
+        > :nth-last-child(-n + 2)
+    ) {
+    display: none;
+  }
+
+  .void-md :where(.line-numbers-wrapper) {
+    padding: var(--md-code-padding-y) 0;
+    border-right: 1px solid var(--color-border);
+    background: transparent;
+    color: var(--color-text-3);
+    font-size: var(--text-sm);
+  }
+
+  /* Shiki の背景はテーマ側が !important で塗るため、参照している変数を !important で透明にする(インラインの値より優先される) */
+  .void-md :where(pre.shiki) {
+    --shiki-dark-bg: transparent !important;
   }
 }

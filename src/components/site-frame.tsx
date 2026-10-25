@@ -6,21 +6,18 @@ const NAV_ITEMS = ["notes", "entries", "about"] as const;
 type Section = (typeof NAV_ITEMS)[number];
 
 type SiteFrameProps = {
-  // デザインでは note 詳細だけ本文幅が広い(max-w-4xl。他は max-w-3xl)
-  wide?: boolean;
   current?: Section;
   children: JSX.Element;
 };
 
-// prerender 時は useRouter() の path が常に "/" になるため、幅と現在位置はページから props で渡す
+// prerender 時は useRouter() の path が常に "/" になるため、現在位置はページから props で渡す
 export function SiteFrame(props: SiteFrameProps) {
-  const container = () =>
-    props.wide ? "mx-auto w-full max-w-4xl px-4" : "mx-auto w-full max-w-3xl px-4";
+  const container = "mx-auto w-full max-w-3xl px-4";
 
   return (
     <div class="flex min-h-dvh flex-col">
       <header class="sticky top-0 z-10 border-b border-border/50 bg-bg/85 backdrop-blur-md">
-        <div class={`${container()} flex items-center justify-between py-3`}>
+        <div class={`${container} flex items-center justify-between py-3`}>
           <div class="flex items-center gap-5">
             <Link href="/" class="flex items-center gap-2.5 text-text hover:no-underline">
               <img src="/icon.png" alt="" width="28" height="28" class="size-7 rounded-md" />
@@ -61,10 +58,10 @@ export function SiteFrame(props: SiteFrameProps) {
           </a>
         </div>
       </header>
-      <main class={`${container()} flex-1`}>{props.children}</main>
+      <main class={`${container} flex-1`}>{props.children}</main>
       <footer class="border-t border-border">
         <div
-          class={`${container()} flex items-center justify-between py-7 font-mono text-xs text-text-3`}
+          class={`${container} flex items-center justify-between py-7 font-mono text-xs text-text-3`}
         >
           <p>© {new Date().getFullYear()} ellreka</p>
           <p>

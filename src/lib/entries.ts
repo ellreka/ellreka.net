@@ -42,6 +42,12 @@ export const publishedEntries: ReadonlyArray<TimelineEntry> = allEntries.filter(
   (entry) => !entry.draft,
 );
 
+// frontmatter に書かれた description。本文から作ったものは本文の冒頭と重なるので、詳細のリードには使わない
+export function entryLead(id: string): string | undefined {
+  const frontmatter = frontmatters[`../content/entries/${id}.md`];
+  return frontmatter ? parseEntryFrontmatter(frontmatter).description : undefined;
+}
+
 export function findEntry(id: string): TimelineEntry | undefined {
   return visibleEntries.find((entry) => entry.path === entryPath(id));
 }

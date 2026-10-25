@@ -8,6 +8,7 @@
     "preview": "vp preview",
     "check": "vp check",
     "test": "vp test run",
+    "test:browser": "vp test run --config vitest.browser.config.ts",
     "typecheck": "void prepare && tsc --noEmit",
     "lint": "vp lint",
     "format": "vp fmt",

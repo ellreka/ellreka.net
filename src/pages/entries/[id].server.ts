@@ -1,6 +1,6 @@
 import { defineHandler, defineHead } from "void";
 import type { InferProps } from "void";
-import { findEntry, publishedEntries } from "../../lib/entries";
+import { entryLead, findEntry, publishedEntries } from "../../lib/entries";
 
 // draft は書き出さない
 export async function getPrerenderPaths() {
@@ -14,7 +14,7 @@ export const loader = defineHandler((c) => {
   // 本番では draft も見つからない扱いになる
   const entry = findEntry(id);
   if (!entry) return c.notFound();
-  return { id, entry };
+  return { id, entry, lead: entryLead(id) };
 });
 
 export const head = defineHead<Props>((_c, props) => ({

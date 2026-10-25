@@ -14,17 +14,17 @@ tags: ["Diary"]
 
 ### 普段の様子
 
-![](https://gyazo.com/c2abf2fa68206c903d3ec7acc109f318.jpg)
+![](https://assets.ellreka.net/gyazo/c2abf2fa68206c903d3ec7acc109f318.jpg)
 
 ### ずれたとき
 
-![](https://gyazo.com/480ac9cc3c437fbe4be8fa7dd0832bcc.jpg)
+![](https://assets.ellreka.net/gyazo/480ac9cc3c437fbe4be8fa7dd0832bcc.jpg)
 
 ## 解決方法
 
 テント用のクリップでシーツを挟んで、カラビナでベッドのフレームに引っ掛けました。
 
-![](https://gyazo.com/4c652297320b6d02e3ce49c2880fccdb.jpg)
+![](https://assets.ellreka.net/gyazo/4c652297320b6d02e3ce49c2880fccdb.jpg)
 
 この状態で一ヶ月ほど使ってみましたが全くずれることがなくなって快適です。
 

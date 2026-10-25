@@ -27,18 +27,15 @@ export function TimelinePage(props: TimelinePageProps) {
           <p class="font-mono text-sm text-text-3">
             {props.counts.notes} notes · {props.counts.entries} entries
           </p>
-          <nav aria-label="表示の切り替え" class="flex gap-1">
+          <nav aria-label="表示の切り替え" class="flex gap-3">
             <For each={TIMELINE_FILTERS}>
               {(value) => (
                 <Link
                   href={FILTER_PATHS[value]}
                   aria-current={props.filter === value ? "page" : undefined}
-                  class={
-                    props.filter === value
-                      ? "rounded border border-border bg-surface px-2.5 py-1 font-mono text-xs text-text hover:no-underline"
-                      : "rounded border border-transparent px-2.5 py-1 font-mono text-xs text-text-3 hover:no-underline"
-                  }
+                  class={`py-1 font-mono text-xs whitespace-pre hover:no-underline ${props.filter === value ? "text-text" : "text-text-3 hover:text-text-2"}`}
                 >
+                  <span aria-hidden="true">{props.filter === value ? "* " : "  "}</span>
                   {value}
                 </Link>
               )}

@@ -59,7 +59,7 @@ export function ImageCarousel(props: ImageCarouselProps) {
               scrollImages(event.key === "ArrowLeft" ? -1 : 1);
             }
           }}
-          class="flex snap-x snap-mandatory gap-2 overflow-x-auto overscroll-x-contain scroll-smooth [scrollbar-width:none] motion-reduce:scroll-auto [&>a]:block [&>a]:h-50 [&>a]:w-75 [&>a]:shrink-0 [&>a]:snap-start [&>a]:rounded-xl [&>a:only-child]:w-full [&>a>img]:h-full [&>a>img]:rounded-xl [&>a>img]:object-cover"
+          class="flex snap-x snap-mandatory gap-2 overflow-x-auto overscroll-x-contain scroll-smooth [scrollbar-width:none] motion-reduce:scroll-auto [&>a]:block [&>a]:h-50 [&>a]:w-75 [&>a]:shrink-0 [&>a]:snap-start [&>a]:rounded-xl [&>a>img]:h-full [&>a>img]:rounded-xl [&>a>img]:object-cover"
         >
           <For each={props.images}>
             {(image) => (

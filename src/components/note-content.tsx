@@ -5,9 +5,14 @@ import { ChevronLeftIcon, ChevronRightIcon, CloseIcon } from "./icons";
 
 type NoteContentProps = {
   class: string;
-  compact?: boolean;
+  // false なら画像の並び(段落・大きさ)を変えず、拡大表示だけを付ける。既定は notes 用のグリッド表示
+  gallery?: boolean;
   children: JSX.Element;
 };
+
+// notes の画像の並び。連続した画像だけの段落を 2 列にまとめ、1 枚なら本文幅にする
+const GALLERY =
+  "[&_img]:w-full [&_img]:rounded-md [&_img]:border [&_img]:border-border [&_img]:object-contain [&_[data-note-gallery]]:grid [&_[data-note-gallery]]:grid-cols-2 [&_[data-note-gallery]]:items-start [&_[data-note-gallery]]:gap-2 [&_[data-note-gallery]>:only-child]:col-span-2 [&_[data-note-gallery]>a]:block [&_[data-note-gallery]>a]:min-w-0";
 
 type ModalImage = { src: string; alt: string };
 
@@ -27,7 +32,7 @@ export function NoteContent(props: NoteContentProps) {
     let opener: HTMLAnchorElement | undefined;
     const enhance = () => {
       if (dialog.open && opener && !content.contains(opener)) dialog.close();
-      enhanceNoteImages(content);
+      enhanceNoteImages(content, { gallery: props.gallery !== false });
     };
     enhance();
     // Markdown の差し替え(ページ遷移・投稿プレビュー)にも対応する。
@@ -41,7 +46,7 @@ export function NoteContent(props: NoteContentProps) {
       if (!link?.querySelector("img") || typeof dialog.showModal !== "function") return;
       event.preventDefault();
       opener = link;
-      // 拡大表示では同じ note の画像を前後に送れるようにする
+      // 拡大表示では同じ本文の画像を前後に送れるようにする
       const links = [...content.querySelectorAll<HTMLAnchorElement>("a[data-note-image]")];
       const list = links.flatMap((item) => {
         const image = item.querySelector("img");
@@ -68,8 +73,7 @@ export function NoteContent(props: NoteContentProps) {
     <>
       <div
         ref={(element) => (content = element)}
-        class={`${props.class} [&_img]:w-full [&_img]:rounded-md [&_img]:border [&_img]:border-border [&_img]:object-contain [&_[data-note-gallery]]:grid [&_[data-note-gallery]]:grid-cols-2 [&_[data-note-gallery]]:items-start [&_[data-note-gallery]]:gap-2 [&_[data-note-gallery]>:only-child]:col-span-2 [&_[data-note-image]]:cursor-zoom-in [&_[data-note-gallery]>a]:block [&_[data-note-gallery]>a]:min-w-0`}
-        classList={{ "[&_img]:max-h-80": props.compact }}
+        class={`${props.class} ${props.gallery === false ? "" : GALLERY} [&_[data-note-image]]:cursor-zoom-in`}
       >
         {props.children}
       </div>

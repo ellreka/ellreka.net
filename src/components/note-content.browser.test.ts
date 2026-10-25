@@ -1,4 +1,4 @@
-import { createComponent, createSignal } from "solid-js";
+import { createComponent } from "solid-js";
 import { render } from "solid-js/web";
 import { expect, test } from "vite-plus/test";
 import "../app.css";
@@ -7,23 +7,15 @@ import { NoteContent } from "./note-content";
 const portrait = `data:image/svg+xml,${encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" width="600" height="1200"><rect width="600" height="1200" fill="teal"/></svg>')}`;
 const image = `<img src="${portrait}" alt="縦長の画像">`;
 
-test("画像のグリッド・拡大・本文の差し替えと一覧だけの高さ制限", async () => {
+test("画像のグリッド・拡大・本文の差し替え", async () => {
   const root = document.createElement("div");
   root.style.width = "700px";
   root.style.maxWidth = "100%";
   document.body.appendChild(root);
   const markdown = document.createElement("div");
   markdown.innerHTML = `<p>本文</p><p>${image}\n${image}</p><p>${image}</p><p>途中の本文</p><p>${image}</p><p><a href="https://example.com/">${image}</a></p>`;
-  const [compact, setCompact] = createSignal(true);
   const dispose = render(
-    () =>
-      createComponent(NoteContent, {
-        class: "void-md",
-        get compact() {
-          return compact();
-        },
-        children: markdown,
-      }),
+    () => createComponent(NoteContent, { class: "void-md", children: markdown }),
     root,
   );
 
@@ -40,13 +32,7 @@ test("画像のグリッド・拡大・本文の差し替えと一覧だけの�
     expect(markdown.querySelectorAll("a[data-note-image]").length).toBe(4);
     expect(markdown.textContent).toContain("途中の本文");
 
-    const thumbnail = galleries[1].querySelector("img")!;
-    await thumbnail.decode();
-    expect(thumbnail.getBoundingClientRect().height).toBeLessThanOrEqual(320);
-    expect(getComputedStyle(thumbnail).objectFit).toBe("contain");
-    setCompact(false);
-    expect(getComputedStyle(thumbnail).maxHeight).toBe("none");
-    expect(thumbnail.getBoundingClientRect().height).toBeGreaterThan(320);
+    expect(getComputedStyle(galleries[1].querySelector("img")!).objectFit).toBe("contain");
 
     const link = galleries[0].querySelector<HTMLAnchorElement>("a")!;
     const dialog = root.querySelector("dialog")!;
@@ -77,6 +63,36 @@ test("画像のグリッド・拡大・本文の差し替えと一覧だけの�
     await expect.poll(() => dialog.open).toBe(false);
     await expect.poll(() => markdown.querySelectorAll("[data-note-gallery]").length).toBe(1);
     expect(markdown.querySelectorAll("a[data-note-image]").length).toBe(2);
+  } finally {
+    dispose();
+    root.remove();
+  }
+});
+
+test("gallery を切ると画像の並びを変えずに拡大表示だけを付ける", async () => {
+  const root = document.createElement("div");
+  document.body.appendChild(root);
+  const markdown = document.createElement("div");
+  markdown.innerHTML = `<p>${image}</p><p>${image}</p><p>本文 ${image}</p>`;
+  const dispose = render(
+    () => createComponent(NoteContent, { class: "void-md", gallery: false, children: markdown }),
+    root,
+  );
+
+  try {
+    await expect.poll(() => markdown.querySelectorAll("a[data-note-image]").length).toBe(3);
+    expect(markdown.querySelectorAll("[data-note-gallery]").length).toBe(0);
+    expect(markdown.querySelectorAll(":scope > p").length).toBe(3);
+    // notes 用のグリッド表示の指定(本文幅・縦横比を保って収める)は付けない
+    expect(getComputedStyle(markdown.querySelector("img")!).objectFit).toBe("fill");
+
+    const dialog = root.querySelector("dialog")!;
+    markdown.querySelectorAll<HTMLAnchorElement>("a[data-note-image]")[2].click();
+    expect(dialog.open).toBe(true);
+    const next = dialog.querySelector<HTMLButtonElement>('button[aria-label="次の画像"]')!;
+    expect(next.disabled).toBe(true);
+    dialog.querySelector<HTMLButtonElement>('button[aria-label="閉じる"]')!.click();
+    expect(dialog.open).toBe(false);
   } finally {
     dispose();
     root.remove();

@@ -10,6 +10,7 @@ test("トップの note は見出し・リストを描画し、長い本文だ�
   const dispose = render(
     () =>
       createComponent(HomePage, {
+        counts: { notes: 2, entries: 0 },
         items: [
           {
             kind: "note",
@@ -32,6 +33,13 @@ test("トップの note は見出し・リストを描画し、長い本文だ�
   );
 
   try {
+    // 表示の切り替えは各ページへのリンクで、トップでは all が現在のページ
+    const filters = [
+      ...root.querySelectorAll<HTMLAnchorElement>('nav[aria-label="表示の切り替え"] a'),
+    ];
+    expect(filters.map((link) => link.getAttribute("href"))).toEqual(["/", "/notes", "/entries"]);
+    expect(filters[0].getAttribute("aria-current")).toBe("page");
+    expect(root.textContent).toContain("2 notes · 0 entries");
     const articles = root.querySelectorAll("article");
     expect(articles[0].querySelector("strong")?.textContent).toBe("短い本文");
     expect(articles[1].querySelector("h2")?.textContent).toBe("見出し");

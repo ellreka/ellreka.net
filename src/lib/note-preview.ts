@@ -5,7 +5,9 @@ const markdown = new MarkdownExit({ html: true, linkify: true });
 
 export type PreviewImage = { src: string; alt: string; href?: string };
 
-export function notePreview(source: string): { html: string; images: PreviewImage[] } {
+export type NotePreview = { html: string; images: PreviewImage[] };
+
+export function notePreview(source: string): NotePreview {
   const body = source.replace(/^---\r?\n[\s\S]*?\r?\n---(?:\r?\n|$)/, "");
   const tokens = markdown.parse(body, {});
   const images: PreviewImage[] = [];

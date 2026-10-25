@@ -7,12 +7,14 @@ Void(Vite+ / Solid / `@void/md`)で構築し、Cloudflare にデプロイする�
 - ソースは `src/` 配下(`void.config.ts` の `sourceDir`)。`src/pages/` が UI ルート
 - 記事は `src/content/entries/*.md`(ファイル名が id、URL は `/entries/:id`)。`@void/md` で GFM・Shiki・frontmatter を処理し、`src/pages/entries/[id].tsx` + `getPrerenderPaths()` で書き出す。一覧・検索・本文の読み込みはサーバー専用の `src/lib/entries.ts` に集め、ページのコンポーネントからは import しない(全記事の本文がブラウザ用 JS に入るため)
 - 記事の frontmatter は `title`・`date`・任意の `description`・`tags`・`draft`。`draft: true` は本番では書き出さず一覧にも出さず、直接アクセスも 404(dev では表示して確認できる)
+- entry 詳細は本文の右に目次(`src/components/table-of-contents.tsx`)を置く。見出し(h2・h3)は @void/md が Markdown モジュールから出す `headings` をサーバー側(`entryToc`)で読んで渡す。目次は列(`max-w-3xl`)の外の右の余白に置き、本文は列の全幅を使う。余白に収まらない `xl` 未満では目次を出さない
 - `description` が無い記事は本文の先頭(見出し・コード・画像・HTML を除いた地の文)から作り、一覧の抜粋と `<meta name="description">` に使う(`src/lib/excerpt.ts`)
 - 気軽な投稿は `src/content/notes/*.md`(ファイル名 `YYYY-MM-DD-slug` が id。frontmatter は `date` と任意の `entry`(関連 entry の id))。`/notes/:id` は動的ルート `src/pages/notes/[id].tsx` + `getPrerenderPaths()` で書き出す
 - 記事内の画像・動画は R2 の公開バケット `ellreka-net-assets`(`https://assets.ellreka.net/`)に置き、記事からは絶対 URL で参照する。元ファイルは git 管理外の `assets/` に置き、`pnpm assets:upload [ファイル...]` でアップロードする(`scripts/upload-assets.ts`)
 - 単独の URL は `<https://...>`(v2 のリンクカード `[](URL)` から変換)、動画は `<video src="https://assets.ellreka.net/..." controls></video>` で書く
-- トップ(`src/pages/index.tsx`)は notes と entries を日付順のタイムラインで表示する。notes は見出し・リストなどをパースした HTML 本文を最大 4 行で省略し、画像は順序を保ってすべて末尾の横スクロールカルーセル(`src/components/image-carousel.tsx`)にまとめる。entries も本文中の画像を同じカルーセルで説明の下に出す。本文・画像の抽出はサーバー専用の `src/lib/note-preview.ts` で行い、root のコンポーネントには Markdown 本文を import しない
-- notes の画像拡大は `src/components/note-content.tsx` の `NoteContent` と native `<dialog>` で共通化する。詳細・投稿プレビューは本文中の配置を保ち、連続した画像だけの段落は 2 列にまとめ、1 枚なら本文幅にする。詳細の前後の note は画像の高さを制限する。拡大表示では同じ note の画像を前後に送れる。アイコンは lucide の形を `src/components/icons.tsx` に inline SVG で持つ
+- トップ(`src/pages/index.tsx`)は notes と entries を日付順のタイムラインで表示する。`/notes`・`/entries` は同じタイムライン(`src/components/timeline-page.tsx` の `TimelinePage`)を種類で絞って書き出したページで、トップの all / notes / entries の切り替えはこの 3 ページへのリンク(static 出力なのでクエリでは絞らない)。一覧のデータはサーバー専用の `src/lib/timeline-preview.ts` で組み立てる。notes は見出し・リストなどをパースした HTML 本文を最大 4 行で省略し、画像は順序を保ってすべて末尾の横スクロールカルーセル(`src/components/image-carousel.tsx`)にまとめる。entries も本文中の画像を同じカルーセルで説明の下に出す。本文・画像の抽出はサーバー専用の `src/lib/note-preview.ts` で行い、root のコンポーネントには Markdown 本文を import しない
+- 一覧向けの note の表示(4 行で省略・Read more・画像のカルーセル)は `src/components/note-summary.tsx` の `NoteSummary` で、トップ・`/notes` と note 詳細の前後の note で共有する。前後の note のプレビューも loader(`previewNote`)で渡し、全文の Markdown コンポーネントは使わない
+- notes の画像拡大は `src/components/note-content.tsx` の `NoteContent` と native `<dialog>` で共通化する。詳細・投稿プレビューは本文中の配置を保ち、連続した画像だけの段落は 2 列にまとめ、1 枚なら本文幅にする。拡大表示では同じ本文の画像を前後に送れる。entry 詳細も `NoteContent` の `gallery={false}` で本文の並びを変えずに拡大表示だけを使う。アイコンは lucide の形を `src/components/icons.tsx` に inline SVG で持つ
 - ヘッダー・フッターは `src/components/site-frame.tsx` の `SiteFrame` を各ページで使い、全ページの幅は `max-w-3xl` に統一する。現在位置(`current`)を props で渡す。prerender 時は `useRouter().path` が常に `/` になるため、パスで分岐しない
 - `void.config.ts` は `output: "static"`。投稿画面以外の全ページを build 時に prerender する
 - レイアウトは `src/pages/layout.tsx`(共通。CSS の読み込みのみ)。ヘッダー・フッターは各ページの `SiteFrame` で描画する

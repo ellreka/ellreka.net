@@ -140,6 +140,11 @@
     line-height: 1.5;
   }
 
+  /* 目次などで見出しへ移動したとき、固定ヘッダーに隠れないようにする */
+  .void-md :where(h1, h2, h3, h4, h5, h6) {
+    scroll-margin-top: --spacing(20);
+  }
+
   .void-md * + :where(h1, h2, h3, h4, h5, h6) {
     margin-top: calc(var(--md-gap) * 2);
   }

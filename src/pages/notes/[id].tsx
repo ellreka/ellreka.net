@@ -1,11 +1,12 @@
 import { Link } from "@void/solid";
 import { createMemo, createSignal, Show } from "solid-js";
 import { NoteContent } from "../../components/note-content";
+import { NoteSummary } from "../../components/note-summary";
 import { SiteFrame } from "../../components/site-frame";
 import { Dashes } from "../../components/timeline";
 import { noteBodies, notes } from "../../lib/notes";
 import { formatDate, formatTime } from "../../lib/timeline";
-import type { TimelineEntry, TimelineNote } from "../../lib/timeline";
+import type { TimelineEntry } from "../../lib/timeline";
 import type { Props } from "./[id].server";
 
 const COPIED_RESET_MS = 2000;
@@ -14,8 +15,6 @@ const COPY_LABELS = { idle: "copy link", copied: "copied", failed: "copy failed"
 export default function NotePage(props: Props) {
   const index = createMemo(() => notes.findIndex((candidate) => candidate.path === props.path));
   const note = () => notes[index()];
-  const newer = () => (index() > 0 ? notes[index() - 1] : undefined);
-  const older = () => (index() >= 0 ? notes[index() + 1] : undefined);
 
   const Body = () => {
     const Component = noteBodies[props.path];
@@ -26,12 +25,12 @@ export default function NotePage(props: Props) {
     <SiteFrame current="notes">
       <div class="flex flex-col pt-12 pb-18">
         <div class="flex border-b border-border pb-4">
-          <Link href="/" class="font-mono text-sm text-text-2">
+          <Link href="/notes" class="font-mono text-sm text-text-2">
             All notes
           </Link>
         </div>
         <div class="flex flex-col pt-3">
-          <Show when={newer()}>
+          <Show when={props.newer}>
             {(neighbor) => (
               <>
                 <Dashes fade="in" />
@@ -66,7 +65,7 @@ export default function NotePage(props: Props) {
               <Show when={props.related}>{(related) => <RelatedEntry entry={related()} />}</Show>
             </div>
           </article>
-          <Show when={older()}>
+          <Show when={props.older}>
             {(neighbor) => (
               <>
                 <NeighborRow note={neighbor()} />
@@ -80,9 +79,8 @@ export default function NotePage(props: Props) {
   );
 }
 
-// 前後の note。薄く表示し、日付から遷移できる
-function NeighborRow(props: { note: TimelineNote }) {
-  const Body = noteBodies[props.note.path] ?? (() => null);
+// 前後の note。トップと同じく本文を省略して画像はカルーセルにまとめ、薄く表示する。日付から遷移できる
+function NeighborRow(props: { note: NonNullable<Props["newer"]> }) {
   return (
     <article class="flex gap-4">
       <div class="flex w-10 shrink-0">
@@ -96,12 +94,7 @@ function NeighborRow(props: { note: TimelineNote }) {
         <Link href={props.note.path} class="font-mono text-xs text-text-3">
           <time datetime={props.note.date}>{formatDate(props.note.date)}</time>
         </Link>
-        <NoteContent
-          compact
-          class="void-md font-sans text-base leading-relaxed [--md-code-padding-x:--spacing(4)] [--md-code-padding-y:--spacing(3)] [--md-gap:--spacing(2.5)]"
-        >
-          <Body />
-        </NoteContent>
+        <NoteSummary path={props.note.path} preview={props.note.preview} />
       </div>
     </article>
   );

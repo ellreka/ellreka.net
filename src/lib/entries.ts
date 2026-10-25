@@ -2,11 +2,18 @@ import { excerpt } from "./excerpt";
 import { parseEntryFrontmatter } from "./frontmatter";
 import type { TimelineEntry } from "./timeline";
 
+export type EntryHeading = { depth: number; slug: string; text: string };
+
 // サーバー側(*.server.ts と routes)専用。全記事の本文を読むので、ページのコンポーネントからは import しない。
 // 記事は src/content/entries/*.md に置き、/entries/:id は動的ルートで描画する
 // (Markdown ルーティングだと draft を書き出しから外せないため)
 const frontmatters = import.meta.glob<Record<string, unknown>>("../content/entries/*.md", {
   import: "frontmatter",
+  eager: true,
+});
+// @void/md が Markdown モジュールから出す見出しの一覧。slug は本文の見出しの id と同じ値
+const headings = import.meta.glob<EntryHeading[]>("../content/entries/*.md", {
+  import: "headings",
   eager: true,
 });
 const sources = import.meta.glob<string>("../content/entries/*.md", {
@@ -46,6 +53,13 @@ export const publishedEntries: ReadonlyArray<TimelineEntry> = allEntries.filter(
 export function entryLead(id: string): string | undefined {
   const frontmatter = frontmatters[`../content/entries/${id}.md`];
   return frontmatter ? parseEntryFrontmatter(frontmatter).description : undefined;
+}
+
+// 目次に出す見出し(h2・h3)
+export function entryToc(id: string): EntryHeading[] {
+  return (headings[`../content/entries/${id}.md`] ?? []).filter(
+    (heading) => heading.depth === 2 || heading.depth === 3,
+  );
 }
 
 export function findEntry(id: string): TimelineEntry | undefined {

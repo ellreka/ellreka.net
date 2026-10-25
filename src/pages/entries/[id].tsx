@@ -2,7 +2,9 @@ import { Link } from "@void/solid";
 import { createMemo, For, lazy, Show, Suspense } from "solid-js";
 import type { Component } from "solid-js";
 import { Dynamic } from "solid-js/web";
+import { NoteContent } from "../../components/note-content";
 import { SiteFrame } from "../../components/site-frame";
+import { TableOfContents } from "../../components/table-of-contents";
 import { formatDate } from "../../lib/timeline";
 import type { Props } from "./[id].server";
 
@@ -19,7 +21,7 @@ export default function EntryPage(props: Props) {
     <SiteFrame current="entries">
       <div class="flex flex-col pt-12 pb-24">
         <div class="flex border-b border-border pb-4">
-          <Link href="/" class="font-mono text-sm text-text-2">
+          <Link href="/entries" class="font-mono text-sm text-text-2">
             All entries
           </Link>
         </div>
@@ -46,11 +48,28 @@ export default function EntryPage(props: Props) {
               </p>
             </Show>
           </header>
-          {/* 本文のスタイルは app.css の .void-md で共通化し、ここでは文字サイズ・行間・色だけ決める */}
-          <div class="void-md border-t border-border pt-9 font-sans text-base leading-loose text-prose">
-            <Suspense>
-              <Dynamic component={Body()} />
-            </Suspense>
+          <div class="relative border-t border-border pt-9">
+            {/* 本文のスタイルは app.css の .void-md で共通化し、ここでは文字サイズ・行間・色だけ決める。
+                画像は本文の並びのまま、クリックで拡大表示する */}
+            <NoteContent
+              gallery={false}
+              class="void-md font-sans text-base leading-loose text-prose"
+            >
+              <Suspense>
+                <Dynamic component={Body()} />
+              </Suspense>
+            </NoteContent>
+            {/* 目次はヘッダーと左端をそろえた列(max-w-3xl)の外、右の余白に置き、本文は列の全幅を使う。
+                余白に収まらない xl 未満では出さない。見出しが多いと画面に収まらないので、
+                固定ヘッダーと上下の余白(10rem)を除いた高さで目次の中をスクロールさせる */}
+            <Show when={props.toc.length > 0}>
+              <div class="absolute top-9 bottom-0 left-full ml-14 hidden w-45 xl:block">
+                <TableOfContents
+                  headings={props.toc}
+                  class="sticky top-20 flex max-h-[calc(100dvh-10rem)] overflow-y-auto [scrollbar-color:var(--color-line)_transparent] [scrollbar-width:thin]"
+                />
+              </div>
+            </Show>
           </div>
         </article>
       </div>

@@ -17,6 +17,10 @@ export type TimelineEntry = {
 
 export type TimelineItem = TimelineNote | TimelineEntry;
 
+// トップ(all)・/notes・/entries のどれを表示するか
+export const TIMELINE_FILTERS = ["all", "notes", "entries"] as const;
+export type TimelineFilter = (typeof TIMELINE_FILTERS)[number];
+
 export function buildTimeline(
   entries: ReadonlyArray<TimelineEntry>,
   notes: ReadonlyArray<TimelineNote>,

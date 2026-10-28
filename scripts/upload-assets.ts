@@ -3,11 +3,10 @@
 //
 //   pnpm assets:upload                    assets/ 以下をすべてアップロード
 //   pnpm assets:upload foo.png bar/baz.jpg   指定したファイルだけアップロード(assets/ からの相対パス)
-import { execFileSync } from "node:child_process";
 import { readdirSync, statSync } from "node:fs";
 import { extname, join, relative, resolve } from "node:path";
+import { putObject } from "./r2.ts";
 
-const BUCKET = "ellreka-net-assets";
 const ASSETS_DIR = resolve(import.meta.dirname, "../assets");
 const CACHE_CONTROL = "public, max-age=2592000";
 
@@ -36,25 +35,7 @@ function upload(path: string): void {
   const key = relative(ASSETS_DIR, path).split("\\").join("/");
   const contentType = CONTENT_TYPES[extname(path).toLowerCase()];
   if (!contentType) throw new Error(`unsupported file type: ${key}`);
-  execFileSync(
-    "pnpm",
-    [
-      "exec",
-      "wrangler",
-      "r2",
-      "object",
-      "put",
-      `${BUCKET}/${key}`,
-      "--file",
-      path,
-      "--content-type",
-      contentType,
-      "--cache-control",
-      CACHE_CONTROL,
-      "--remote",
-    ],
-    { stdio: "inherit" },
-  );
+  putObject(key, path, contentType, CACHE_CONTROL);
 }
 
 const targets = process.argv.slice(2);

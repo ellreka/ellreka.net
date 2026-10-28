@@ -1,9 +1,11 @@
 import { defineHandler, defineHead } from "void";
 import type { InferProps } from "void";
 import { findEntry } from "../../lib/entries";
+import { EXCERPT_LENGTH } from "../../lib/excerpt";
 import { findNote, publishedNotes, visibleNotes } from "../../lib/notes";
+import { ogImageUrl, ogMeta } from "../../lib/og";
 import { formatDate } from "../../lib/timeline";
-import { previewNote } from "../../lib/timeline-preview";
+import { noteExcerpt, previewNote } from "../../lib/timeline-preview";
 
 export async function getPrerenderPaths() {
   return publishedNotes.map((note) => ({ id: note.path.slice("/notes/".length) }));
@@ -25,6 +27,7 @@ export const loader = defineHandler((c) => {
   return {
     id,
     note,
+    description: noteExcerpt(note, EXCERPT_LENGTH),
     related: related ?? null,
     newer: newer ? previewNote(newer) : null,
     older: older ? previewNote(older) : null,
@@ -34,4 +37,12 @@ export const loader = defineHandler((c) => {
 // notes にはタイトルが無いので、日付をページタイトルにする
 export const head = defineHead<Props>((_c, props) => ({
   title: `note ${formatDate(props.note.date)}`,
+  meta: ogMeta({
+    title: `note ${formatDate(props.note.date)}`,
+    description: props.description,
+    path: props.note.path,
+    type: "article",
+    // OGP 画像のカード(/og/notes/:id)と同じ文章からファイル名を決める
+    image: ogImageUrl(`notes/${props.id}`, noteExcerpt(props.note)),
+  }),
 }));

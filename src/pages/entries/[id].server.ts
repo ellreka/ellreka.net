@@ -1,6 +1,7 @@
 import { defineHandler, defineHead } from "void";
 import type { InferProps } from "void";
 import { entryLead, entryToc, findEntry, publishedEntries } from "../../lib/entries";
+import { ogImageUrl, ogMeta } from "../../lib/og";
 
 // draft は書き出さない
 export async function getPrerenderPaths() {
@@ -19,5 +20,11 @@ export const loader = defineHandler((c) => {
 
 export const head = defineHead<Props>((_c, props) => ({
   title: props.entry.title,
-  meta: props.entry.description ? [{ name: "description", content: props.entry.description }] : [],
+  meta: ogMeta({
+    title: props.entry.title,
+    description: props.entry.description,
+    path: props.entry.path,
+    type: "article",
+    image: ogImageUrl(`entries/${props.id}`, props.entry.title),
+  }),
 }));

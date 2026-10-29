@@ -1,0 +1,30 @@
+---
+date: "2021-09-28"
+title: "関数の引数で optional なオブジェクトを分割代入しつつ初期値を設定する"
+tags: ["TypeScript", "Tips"]
+---
+
+## コード
+
+```ts
+interface Options {
+  foo?: string;
+  bar?: string;
+}
+
+const func = ({ foo = "foo", bar = "bar" }: Options = {}) => {
+  return foo + bar;
+};
+
+func();
+// => foobar
+
+func({});
+// => foobar
+
+func({ foo: "bar" });
+// => barbar
+
+func({ foo: "foo", bar: "foo" });
+// => foofoo
+```

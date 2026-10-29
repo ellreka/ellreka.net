@@ -1,29 +1,19 @@
 {
+  "extends": "./.void/tsconfig.json",
   "compilerOptions": {
-    "target": "ES2017",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "strict": true,
-    "noEmit": true,
-    "esModuleInterop": true,
-    "module": "esnext",
+    "target": "ES2022",
+    "module": "ESNext",
     "moduleResolution": "bundler",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "types": ["void/env", "vite/client"],
     "jsx": "preserve",
-    "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
-    "baseUrl": ".",
+    "jsxImportSource": "solid-js",
     "paths": {
-      "@/*": ["./src/*"]
-    },
-    "strictNullChecks": true
+      "void/routes": ["./.void/routes.d.ts"]
+    }
   },
-  "include": ["src/**/*", "decls.d.ts", ".next/types/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": ["src"],
+  "files": ["./.void/routes.d.ts", "./.void/env.d.ts"]
 }

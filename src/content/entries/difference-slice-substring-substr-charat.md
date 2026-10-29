@@ -1,0 +1,66 @@
+---
+date: "2021-09-26"
+title: "substring、substr、charAt、slice の違い"
+tags: ["JavaScript"]
+---
+
+## substring
+
+開始位置と終了位置を指定してその間の文字列を返す
+
+また第一引数の値が第二引数より大きければ２つの引数を交換してくれる
+
+※終了位置に指定した文字列は外される
+
+```ts
+"hello".substring(1, 3);
+// => "el"
+
+"hello".substring(3, 1);
+// => "el"
+```
+
+<https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/String/substring>
+
+## substr
+
+`substring`は開始位置と終了位置を指定するのに対し、`substr`は開始位置と文字列の長さを指定する
+
+※ただ非推奨らしい
+
+```ts
+"hello".substring(1, 3);
+// => "ell"
+```
+
+<https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/String/substr>
+
+## charAt
+
+指定した位置にある**単一**の文字列を返す
+
+```ts
+"hello".charAt(1);
+// => "e"
+
+"🐤".charAt(0);
+// => "\uD83D"
+```
+
+<https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/String/charAt>
+
+## slice
+
+`substring` とほぼ同じだが負の値の扱いが違う
+
+`substring` の場合負の値は 0 として扱われるが、`slice` の場合は末尾からの文字数で探すようになる
+
+```ts
+"hello".slice(1, 3);
+// => "el"
+
+"hello".slice(-3);
+// => "llo"
+```
+
+<https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/String/slice>

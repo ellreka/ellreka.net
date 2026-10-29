@@ -15,7 +15,7 @@
     "format:check": "vp fmt --check",
     "assets:upload": "node scripts/upload-assets.ts",
     "og:generate": "node scripts/og-generate.ts",
-    "deploy": "void deploy"
+    "deploy": "void deploy --platform cloudflare"
   },
   "dependencies": {
     "@void/md": "1.1.12",

@@ -62,7 +62,7 @@ Void(Vite+ / Solid / `@void/md`)で構築し、Cloudflare にデプロイする�
 
 ## デプロイ
 
-- `pnpm run deploy`(= `void deploy --platform cloudflare`。`pnpm deploy` は pnpm 組み込みコマンドなので `run` が必要)。Cloudflare アカウントは `void.lock.json` に記録済み。デプロイ先の選択(`.void/project.json`)は git 管理外で Workers Builds には無いため、`--platform` で明示する(無いと非対話の環境で既存 Worker のリンクを求めて失敗する)。Workers Builds が渡す `CLOUDFLARE_API_TOKEN`・`CLOUDFLARE_ACCOUNT_ID` で認証する
+- `pnpm run deploy`(= `void deploy --platform cloudflare`。`pnpm deploy` は pnpm 組み込みコマンドなので `run` が必要)。Cloudflare アカウントは `void.lock.json` に記録済み。デプロイ先の選択(`.void/project.json`)は git 管理外で Workers Builds には無いため、`--platform` で明示する(無いと非対話の環境で既存 Worker のリンクを求めて失敗する)。アカウントは `void.lock.json` から生成される `.void-wrangler.jsonc` の `account_id` を使い、認証は Workers Builds のビルド用 API トークンで行う
 - テスト CI は `.github/workflows/ci.yml`。全ブランチへの push・PR で check・typecheck・test・build を実行し、デプロイ用の secrets は渡さない
 - デプロイは Cloudflare Workers Builds の GitHub 連携に任せ、GitHub Actions にはデプロイ処理を置かない。リポジトリの接続・デプロイコマンド・ブランチのプレビューは Cloudflare 側で設定する。このリポジトリの変更だけでは連携は有効にならない
 - OGP CI は `.github/workflows/og-images.yml`。main への push・main の手動実行で build 後に画像を生成して R2 へアップロードする。prerender の失敗もログで検出し、画像生成の同時実行は避ける。Cloudflare のデプロイとは独立して動くため、公開と OGP 画像のアップロードの完了順は保証しない

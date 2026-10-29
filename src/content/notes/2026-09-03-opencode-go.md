@@ -1,5 +1,6 @@
 ---
 date: 2026-09-03 16:32
+draft: true
 ---
 
 **OpenCode Go の API は OpenAI compatible**

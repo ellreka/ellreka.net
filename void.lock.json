@@ -7,7 +7,15 @@
         "binding": "MEDIA",
         "bucket_name": "ellreka-net-assets"
       }
-    ]
+    ],
+    "routes": [
+      {
+        "pattern": "ellreka.net",
+        "custom_domain": true
+      }
+    ],
+    "workers_dev": true,
+    "preview_urls": true
   },
   "resolved": {
     "name": "ellreka-net",
@@ -18,7 +26,15 @@
       }
     ],
     "account_id": "36846e9d01b21203b1ed927d4a3dbb06",
-    "compatibility_date": "2026-02-24"
+    "compatibility_date": "2026-02-24",
+    "routes": [
+      {
+        "pattern": "ellreka.net",
+        "custom_domain": true
+      }
+    ],
+    "workers_dev": true,
+    "preview_urls": true
   },
-  "text": "{\n  \"name\": \"ellreka-net\",\n  \"r2_buckets\": [\n    {\n      \"binding\": \"MEDIA\",\n      \"bucket_name\": \"ellreka-net-assets\"\n    }\n  ],\n  \"account_id\": \"36846e9d01b21203b1ed927d4a3dbb06\",\n  \"compatibility_date\": \"2026-02-24\"\n}\n"
+  "text": "{\n  \"name\": \"ellreka-net\",\n  \"r2_buckets\": [\n    {\n      \"binding\": \"MEDIA\",\n      \"bucket_name\": \"ellreka-net-assets\"\n    }\n  ],\n  \"account_id\": \"36846e9d01b21203b1ed927d4a3dbb06\",\n  \"compatibility_date\": \"2026-02-24\",\n  \"routes\": [\n    {\n      \"pattern\": \"ellreka.net\",\n      \"custom_domain\": true\n    }\n  ],\n  \"workers_dev\": true,\n  \"preview_urls\": true\n}\n"
 }

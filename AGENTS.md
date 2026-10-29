@@ -68,6 +68,7 @@ Void(Vite+ / Solid / `@void/md`)で構築し、Cloudflare にデプロイする�
 - OGP CI は `.github/workflows/og-images.yml`。main への push・main の手動実行で build 後に画像を生成して R2 へアップロードする。prerender の失敗もログで検出し、画像生成の同時実行は避ける。Cloudflare のデプロイとは独立して動くため、公開と OGP 画像のアップロードの完了順は保証しない
 - OGP CI 用に GitHub Actions の secrets に `CLOUDFLARE_API_TOKEN`(Workers R2 Storage: Edit)・`CLOUDFLARE_ACCOUNT_ID` を設定する。サイトのデプロイ権限は不要。ローカルの `void deploy` は Worker を再ビルドするので `--skip-build` は使わない
 - カスタムドメインは `void domain add <hostname>`
+- 公開先(`routes` の custom domain `ellreka.net`・`workers_dev`・`preview_urls`)は `void.config.ts` の `cloudflare` に明示する。未指定だと Void は直前の version の値を引き継ごうとするが、`void secret put` でできた version には引き継ぐ値が無く、CI ではデプロイが止まる。ダッシュボードで変えたら `void.config.ts` も合わせる
 
 <!--injected-by-void-v1.1.12-->
 

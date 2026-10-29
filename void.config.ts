@@ -39,5 +39,10 @@ export default defineConfig({
     // void/storage の自動作成ではなく、このバケットに直接書き込む
     // (ASSETS は Void が静的ファイル配信に使う名前なので MEDIA にする)
     r2_buckets: [{ binding: "MEDIA", bucket_name: "ellreka-net-assets" }],
+    // 公開先は明示する。未指定だと Void は前回デプロイした version の値を引き継ごうとするが、
+    // `void secret put` でできた version や CI の新しい checkout からは引き継げず、デプロイが止まる
+    routes: [{ pattern: "ellreka.net", custom_domain: true }],
+    workers_dev: true,
+    preview_urls: true,
   },
 });

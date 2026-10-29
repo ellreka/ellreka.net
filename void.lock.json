@@ -1,6 +1,7 @@
 {
   "version": 1,
   "source": {
+    "name": "ellreka-net",
     "r2_buckets": [
       {
         "binding": "MEDIA",
@@ -9,14 +10,15 @@
     ]
   },
   "resolved": {
-    "account_id": "36846e9d01b21203b1ed927d4a3dbb06",
-    "compatibility_date": "2026-02-24",
+    "name": "ellreka-net",
     "r2_buckets": [
       {
         "binding": "MEDIA",
         "bucket_name": "ellreka-net-assets"
       }
-    ]
+    ],
+    "account_id": "36846e9d01b21203b1ed927d4a3dbb06",
+    "compatibility_date": "2026-02-24"
   },
-  "text": "{\n  \"account_id\": \"36846e9d01b21203b1ed927d4a3dbb06\",\n  \"compatibility_date\": \"2026-02-24\",\n  \"r2_buckets\": [\n    {\n      \"binding\": \"MEDIA\",\n      \"bucket_name\": \"ellreka-net-assets\"\n    }\n  ]\n}\n"
+  "text": "{\n  \"name\": \"ellreka-net\",\n  \"r2_buckets\": [\n    {\n      \"binding\": \"MEDIA\",\n      \"bucket_name\": \"ellreka-net-assets\"\n    }\n  ],\n  \"account_id\": \"36846e9d01b21203b1ed927d4a3dbb06\",\n  \"compatibility_date\": \"2026-02-24\"\n}\n"
 }

@@ -15,6 +15,8 @@ export default defineConfig({
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap",
       },
+      // フィードリーダーがページから /rss.xml を見つけられるようにする
+      { rel: "alternate", type: "application/rss+xml", title: "ellreka.net", href: "/rss.xml" },
     ],
     meta: [
       { charset: "utf-8" },
@@ -23,8 +25,11 @@ export default defineConfig({
   },
   worker: {
     compatibility_date: "2026-02-24",
+    // RSS の生成に使う feed(が依存する xml-js → sax)が Node の stream を読み込むため
+    compatibility_flags: ["nodejs_compat"],
   },
   cloudflare: {
+    name: "ellreka-net",
     // 記事の画像を置いている既存の公開バケット(https://assets.ellreka.net/)。
     // void/storage の自動作成ではなく、このバケットに直接書き込む
     // (ASSETS は Void が静的ファイル配信に使う名前なので MEDIA にする)

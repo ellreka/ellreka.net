@@ -17,7 +17,8 @@ Void(Vite+ / Solid / `@void/md`)で構築し、Cloudflare にデプロイする�
 - 一覧向けの note の表示(4 行で省略・Read more・画像のカルーセル)は `src/components/note-summary.tsx` の `NoteSummary` で、トップ・`/notes` と note 詳細の前後の note で共有する。前後の note のプレビューも loader(`previewNote`)で渡し、全文の Markdown コンポーネントは使わない
 - notes の画像拡大は `src/components/note-content.tsx` の `NoteContent` と native `<dialog>` で共通化する。詳細・投稿プレビューは本文中の配置を保ち、連続した画像だけの段落は 2 列にまとめ、1 枚なら本文幅にする。拡大表示では同じ本文の画像を前後に送れる。entry 詳細も `NoteContent` の `gallery={false}` で本文の並びを変えずに拡大表示だけを使う。アイコンは lucide の形を `src/components/icons.tsx` に inline SVG で持つ
 - 公開ページ(トップ・`/notes`・`/entries`・`/about`・entry・note の詳細)の head には `src/lib/og.ts` の `ogMeta` で description と OGP(`og:*`・`twitter:card`)を出す。`og:url` は本番のオリジン(`SITE_ORIGIN`)の絶対 URL。`/admin` と `/og` 配下には出さない
-- `og:image` は R2 の `https://assets.ellreka.net/og/<entries|notes>/<id>-<hash>.png`(サイト共通は `og/default-<hash>.png`)。`<hash>` はカードの文章と `OG_IMAGE_VERSION` から作る(`ogImageUrl`)。画像は `pnpm build && pnpm og:generate`(`scripts/og-generate.ts`)で作る。ビルドした公開ページの `og:image` を集め、R2 に無いものだけ `/og` 配下のページを Playwright(`playwright-core` + インストール済みの Google Chrome)で撮影してアップロードする(`--force` で全部、`--dry-run` は `dist/og-images/` に書き出すだけ)。カードのデザインや共通カードの文章(`DEFAULT_OG_CARD`)を変えたら `OG_IMAGE_VERSION` を上げる。当面はデプロイ前にローカルで実行する(後で CI に移す)
+- `og:image` は R2 の `https://assets.ellreka.net/og/<entries|notes>/<id>-<hash>.png`(サイト共通は `og/default-<hash>.png`)。`<hash>` はカードの文章と `OG_IMAGE_VERSION` から作る(`ogImageUrl`)。画像は `pnpm build && pnpm og:generate`(`scripts/og-generate.ts`)で作る。ビルドした公開ページの `og:image` を集め、R2 に無いものだけ `/og` 配下のページを Playwright(`playwright-core` + インストール済みの Google Chrome)で撮影してアップロードする(`--force` で全部、`--dry-run` は `dist/og-images/` に書き出すだけ)。カードのデザインや共通カードの文章(`DEFAULT_OG_CARD`)を変えたら `OG_IMAGE_VERSION` を上げる。OGP 専用 CI の `.github/workflows/og-images.yml` が main への push・main を選んだ手動実行で同じコマンドを実行する(手動実行で `force` も選べる)。この CI は画像の生成・アップロードだけで、サイトのデプロイはしない。ローカルからデプロイするときは、デプロイ前に手元でも実行する
+- RSS は `/rss.xml`(`src/routes/rss.xml.ts`。Worker のルート)。公開している entries のみを新しい順に最大 50 件出す(draft は dev でも出さない)。notes は含めない。XML の生成は `feed` に任せ、`src/lib/rss.ts` で frontmatter の日時を日本時間の `Date` にして渡す(`lastBuildDate` は生成時刻ではなく最新の項目の日時)。`feed` が依存する `xml-js` → `sax` が Node の `stream` を読み込むため、`void.config.ts` の `worker.compatibility_flags` に `nodejs_compat` を入れている(無いと dev・本番の Worker で 500 になる。prerender は Node で動くので build では気付けない)。全ページの head に `rel="alternate"` のリンクを置く(`void.config.ts`)
 - OGP 画像として撮影する 1200×630 のカードのページを `/og`(サイト共通)・`/og/entries/:id`・`/og/notes/:id` に置く(`src/pages/og/`。枠は `src/components/og-card.tsx` の `OgCard`。`SiteFrame` は使わない)。文章は枠線で囲んで中央に置き、サイト名は枠線の下辺に重ねる。entry はタイトル、note は本文(`noteExcerpt`。200 文字を超える分だけ省略)を省略せずに出し(日付・タグは出さない)、長さに応じて文字サイズを下げる(`src/lib/og-fit.ts`)。draft は書き出さず、`robots: noindex` を付ける
 - ヘッダー・フッターは `src/components/site-frame.tsx` の `SiteFrame` を各ページで使い、全ページの幅は `max-w-3xl` に統一する。現在位置(`current`)を props で渡す。prerender 時は `useRouter().path` が常に `/` になるため、パスで分岐しない
 - `void.config.ts` は `output: "static"`。投稿画面以外の全ページを build 時に prerender する
@@ -62,6 +63,10 @@ Void(Vite+ / Solid / `@void/md`)で構築し、Cloudflare にデプロイする�
 ## デプロイ
 
 - `pnpm run deploy`(= `void deploy`。`pnpm deploy` は pnpm 組み込みコマンドなので `run` が必要)。Cloudflare アカウントは `void.lock.json` に記録済み
+- テスト CI は `.github/workflows/ci.yml`。全ブランチへの push・PR で check・typecheck・test・build を実行し、デプロイ用の secrets は渡さない
+- デプロイは Cloudflare Workers Builds の GitHub 連携に任せ、GitHub Actions にはデプロイ処理を置かない。リポジトリの接続・デプロイコマンド・ブランチのプレビューは Cloudflare 側で設定する。このリポジトリの変更だけでは連携は有効にならない
+- OGP CI は `.github/workflows/og-images.yml`。main への push・main の手動実行で build 後に画像を生成して R2 へアップロードする。prerender の失敗もログで検出し、画像生成の同時実行は避ける。Cloudflare のデプロイとは独立して動くため、公開と OGP 画像のアップロードの完了順は保証しない
+- OGP CI 用に GitHub Actions の secrets に `CLOUDFLARE_API_TOKEN`(Workers R2 Storage: Edit)・`CLOUDFLARE_ACCOUNT_ID` を設定する。サイトのデプロイ権限は不要。ローカルの `void deploy` は Worker を再ビルドするので `--skip-build` は使わない
 - カスタムドメインは `void domain add <hostname>`
 
 <!--injected-by-void-v1.1.12-->

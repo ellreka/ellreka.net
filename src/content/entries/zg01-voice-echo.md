@@ -14,13 +14,13 @@ Yamaha ZG Controller で GAME EFFECT を開きます。
 
 そして USER PRESETS のどれかを選択して EDIT ボタンを押します。
 
-![](https://gyazo.com/0c8c93437da62cad66d06a293fd3d388.png)
+<!-- ![](https://gyazo.com/0c8c93437da62cad66d06a293fd3d388.png) -->
 
 すると一番上に 3D CHAT SPACE という項目があると思うのですが、原因はこいつでした。
 
 これを OFF にすればエコーが消えます。
 
-![](https://gyazo.com/d799cf6f234edda5a4902268f4a4b1ab.png)
+<!-- ![](https://gyazo.com/d799cf6f234edda5a4902268f4a4b1ab.png) -->
 
 公式サイトによると、正確にはエコーではなくゲーム音とボイスチャットの音声を聞き分け出来るようにする機能のようです。
 

@@ -4,6 +4,11 @@ import { defineConfig } from "void/config";
 export default defineConfig({
   sourceDir: "src",
   output: "static",
+  routing: {
+    redirects: {
+      "/entry/*": { to: "/entries/:splat", status: 301 },
+    },
+  },
   head: {
     titleTemplate: "%s | ellreka.net",
     // ダーク固定。@void/md のテーマ(本文・Shiki)も data-theme="dark" でダーク配色になる

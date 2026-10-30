@@ -24,12 +24,23 @@
     background: var(--color-bg);
   }
 
+  /* SP(sm 未満)ではルート(html)の文字サイズを 1px 縮め、rem の文字サイズ・余白を一括で縮める。sm 以上は既定の 16px */
+  html {
+    font-size: 15px;
+  }
+
+  @media (min-width: 640px) {
+    html {
+      font-size: 16px;
+    }
+  }
+
   body {
     margin: 0;
     background: var(--color-bg);
     color: var(--color-text);
     font-family: var(--font-sans);
-    font-size: 16px;
+    font-size: 1rem;
     line-height: 1.75;
     text-wrap: pretty;
   }

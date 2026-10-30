@@ -23,8 +23,9 @@ export function SiteFrame(props: SiteFrameProps) {
               <img src="/icon.png" alt="" width="28" height="28" class="size-7 rounded-md" />
               <span class="font-mono text-sm font-semibold text-text">ellreka</span>
             </Link>
-            <div class="h-3.5 w-px bg-border" />
-            <nav class="flex items-center gap-5">
+            {/* SP では消す(nav に依らない入口はトップの絞り込みとフッターにある) */}
+            <div class="hidden h-3.5 w-px bg-border sm:block" />
+            <nav class="hidden items-center gap-5 sm:flex">
               <For each={NAV_ITEMS}>
                 {(item) => (
                   <Link

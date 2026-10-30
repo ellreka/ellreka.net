@@ -24,7 +24,8 @@ export function TimelinePage(props: TimelinePageProps) {
     <SiteFrame current={props.filter === "all" ? undefined : props.filter}>
       <section class="flex flex-col pt-12 pb-24">
         <div class="flex items-center justify-between border-b border-border pb-4">
-          <p class="font-mono text-sm text-text-3">
+          {/* SP では消す */}
+          <p class="hidden font-mono text-sm text-text-3 sm:block">
             {props.counts.notes} notes · {props.counts.entries} entries
           </p>
           <nav aria-label="表示の切り替え" class="flex gap-3">

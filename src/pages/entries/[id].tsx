@@ -36,11 +36,11 @@ export default function EntryPage(props: Props) {
                 <span class="text-orange-400">draft(本番では公開されません)</span>
               </Show>
             </p>
-            <h1 class="font-sans text-4xl leading-snug font-semibold text-text">
+            <h1 class="font-sans text-3xl leading-snug font-semibold text-text">
               {props.entry.title}
             </h1>
             <Show when={props.lead}>
-              <p class="font-sans text-base leading-relaxed text-text-2">{props.lead}</p>
+              <p class="font-sans text-sm leading-relaxed text-text-2 sm:text-base">{props.lead}</p>
             </Show>
             <Show when={props.entry.tags.length > 0}>
               <p class="flex items-center gap-3 pt-1 font-mono text-xs text-text-2">
@@ -53,7 +53,7 @@ export default function EntryPage(props: Props) {
                 画像は本文の並びのまま、クリックで拡大表示する */}
             <NoteContent
               gallery={false}
-              class="void-md font-sans text-base leading-loose text-prose"
+              class="void-md font-sans text-sm leading-loose text-prose sm:text-base"
             >
               <Suspense>
                 <Dynamic component={Body()} />

@@ -58,7 +58,7 @@ export default function NotePage(props: Props) {
                 </Show>
               </p>
               {/* 本文のスタイルは app.css の .void-md で共通化し、ここでは文字サイズと行間だけ決める */}
-              <NoteContent class="void-md font-sans text-lg leading-loose [--md-code-padding-x:--spacing(4.5)] [--md-code-padding-y:--spacing(3.5)]">
+              <NoteContent class="void-md font-sans text-base leading-loose sm:text-lg [--md-code-padding-x:--spacing(4.5)] [--md-code-padding-y:--spacing(3.5)]">
                 <Suspense>
                   <Dynamic component={Body()} />
                 </Suspense>

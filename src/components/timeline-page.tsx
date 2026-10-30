@@ -7,7 +7,7 @@ import { ImageCarousel } from "./image-carousel";
 import { NoteSummary } from "./note-summary";
 import { SiteFrame } from "./site-frame";
 
-type TimelinePageProps = PreviewTimeline & { filter: TimelineFilter };
+type TimelinePageProps = Pick<PreviewTimeline, "items"> & { filter: TimelineFilter };
 type PreviewNote = Extract<PreviewTimeline["items"][number], { kind: "note" }>;
 type PreviewEntry = Extract<PreviewTimeline["items"][number], { kind: "entry" }>;
 
@@ -23,11 +23,7 @@ export function TimelinePage(props: TimelinePageProps) {
   return (
     <SiteFrame current={props.filter === "all" ? undefined : props.filter}>
       <section class="flex flex-col pt-12 pb-24">
-        <div class="flex items-center justify-between border-b border-border pb-4">
-          {/* SP では消す */}
-          <p class="hidden font-mono text-sm text-text-3 sm:block">
-            {props.counts.notes} notes · {props.counts.entries} entries
-          </p>
+        <div class="flex justify-end border-b border-border pb-4">
           <nav aria-label="表示の切り替え" class="flex gap-3">
             <For each={TIMELINE_FILTERS}>
               {(value) => (

@@ -48,7 +48,7 @@ export function noteExcerpt(note: TimelineNote, length = OG_NOTE_LENGTH): string
   return excerpt(noteSources[note.path] ?? "", length);
 }
 
-// filter に合う項目と、絞り込みに関係なく全体の件数を返す
+// filter に合う項目を返す
 export function previewTimeline(filter: TimelineFilter) {
   const items = buildTimeline(visibleEntries, visibleNotes)
     .filter(
@@ -60,7 +60,7 @@ export function previewTimeline(filter: TimelineFilter) {
     .map((item) =>
       item.kind === "note" ? previewNote(item) : { ...item, images: entryImages[item.path] ?? [] },
     );
-  return { items, counts: { notes: visibleNotes.length, entries: visibleEntries.length } };
+  return { items };
 }
 
 export type PreviewTimeline = ReturnType<typeof previewTimeline>;

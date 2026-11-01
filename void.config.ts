@@ -6,6 +6,7 @@ export default defineConfig({
   output: "static",
   routing: {
     redirects: {
+      "/feed": { to: "/rss.xml", status: 301 },
       "/entry/*": { to: "/entries/:splat", status: 301 },
     },
   },

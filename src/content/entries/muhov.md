@@ -100,15 +100,15 @@ PDF のページ内の範囲を画像として切り抜いて残せます。マ�
 
 ## 技術構成
 
-|  |  |
-| --- | --- |
-| フロントエンド | React / Vite / TanStack Router / Tailwind CSS / Base UI |
-| 分割表示 | Dockview |
-| PDF | EmbedPDF |
-| 状態・端末への保存 | Zustand / Dexie(IndexedDB) |
-| 認証 | Better Auth |
-| インフラ | Cloudflare Workers / D1 / R2 |
-| タイマー | Durable Objects |
+|                    |                                                         |
+| ------------------ | ------------------------------------------------------- |
+| フロントエンド     | React / Vite / TanStack Router / Tailwind CSS / Base UI |
+| 分割表示           | Dockview                                                |
+| PDF                | EmbedPDF                                                |
+| 状態・端末への保存 | Zustand / Dexie(IndexedDB)                              |
+| 認証               | Better Auth                                             |
+| インフラ           | Cloudflare Workers / D1 / R2                            |
+| タイマー           | Durable Objects                                         |
 
 ## おわりに
 

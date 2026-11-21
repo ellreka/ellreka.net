@@ -1,3 +1,5 @@
+import { imageUrl } from "./image-url";
+
 // @void/md の静的 HTML を拡張する。画像リンクは元の遷移先を優先する。
 // gallery が false なら画像だけの段落をまとめず、拡大表示用のリンクだけを付ける(entry は本文の並びを変えない)。
 // ponytail: グリッド化は hydration 後。初期表示の並びも揃える必要が出たらビルド時の Markdown 変換に移す。
@@ -7,7 +9,8 @@ export function enhanceNoteImages(content: HTMLElement, options: { gallery: bool
   for (const image of content.querySelectorAll("img")) {
     if (image.closest("a, button")) continue;
     const link = document.createElement("a");
-    link.href = image.currentSrc || image.src;
+    // 本文の画像は縮小した URL なので、リンク先は拡大表示用の大きさにする
+    link.href = imageUrl(image.currentSrc || image.src, "zoom");
     link.dataset.noteImage = "";
     link.setAttribute("aria-haspopup", "dialog");
     link.setAttribute("aria-label", image.alt ? `${image.alt}を拡大表示` : "画像を拡大表示");

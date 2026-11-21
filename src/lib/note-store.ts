@@ -5,7 +5,8 @@ import { env } from "void/env";
 import { commitFile, listGithubFiles, readGithubFile } from "./github";
 import { excerpt } from "./excerpt";
 import { parseNoteFrontmatter } from "./frontmatter";
-import { ASSETS_ORIGIN, NOTES_DIR, notePath, toBase64 } from "./note-post";
+import { ASSETS_ORIGIN } from "./image-url";
+import { NOTES_DIR, notePath, toBase64 } from "./note-post";
 import { callLocalNotes } from "./note-dev";
 
 function splitNote(source: string): { data: Record<string, unknown>; body: string } {

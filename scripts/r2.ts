@@ -3,7 +3,7 @@
 import { execFileSync } from "node:child_process";
 
 export const BUCKET = "ellreka-net-assets";
-export const ASSETS_ORIGIN = "https://assets.ellreka.net";
+export { ASSETS_ORIGIN } from "../src/lib/image-url.ts";
 
 export function putObject(key: string, file: string, contentType: string, cacheControl: string) {
   execFileSync(

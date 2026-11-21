@@ -1,5 +1,6 @@
 import { createSignal, For, onCleanup, onMount, Show } from "solid-js";
 import type { JSX } from "solid-js";
+import { imageUrl } from "../lib/image-url";
 import type { PreviewImage } from "../lib/note-preview";
 import { ChevronLeftIcon, ChevronRightIcon } from "./icons";
 import { NoteContent } from "./note-content";
@@ -64,14 +65,19 @@ export function ImageCarousel(props: ImageCarouselProps) {
           <For each={props.images}>
             {(image) => (
               <a
-                href={image.href ?? image.src}
+                href={image.href ?? imageUrl(image.src, "zoom")}
                 data-note-image={image.href ? undefined : ""}
                 aria-haspopup={image.href ? undefined : "dialog"}
                 aria-label={
                   image.href ? image.alt || "画像を開く" : `${image.alt || "画像"}を拡大表示`
                 }
               >
-                <img src={image.src} alt={image.alt} loading="lazy" decoding="async" />
+                <img
+                  src={imageUrl(image.src, "thumbnail")}
+                  alt={image.alt}
+                  loading="lazy"
+                  decoding="async"
+                />
               </a>
             )}
           </For>

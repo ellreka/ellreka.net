@@ -23,7 +23,8 @@ Void(Vite+ / Solid / `@void/md`)で構築し、Cloudflare にデプロイする�
 - OGP 画像として撮影する 1200×630 のカードのページを `/og`(サイト共通)・`/og/entries/:id`・`/og/notes/:id` に置く(`src/pages/og/`。枠は `src/components/og-card.tsx` の `OgCard`。`SiteFrame` は使わない)。文章は枠線で囲んで中央に置き、サイト名は枠線の下辺に重ねる。entry はタイトル、note は本文(`noteExcerpt`。200 文字を超える分だけ省略)を省略せずに出し(日付・タグは出さない)、長さに応じて文字サイズを下げる(`src/lib/og-fit.ts`)。draft は書き出さず、`robots: noindex` を付ける
 - ヘッダー・フッターは `src/components/site-frame.tsx` の `SiteFrame` を各ページで使い、全ページの幅は `max-w-3xl` に統一する。現在位置(`current`)を props で渡す。prerender 時は `useRouter().path` が常に `/` になるため、パスで分岐しない
 - `void.config.ts` は `output: "static"`。投稿画面以外の全ページを build 時に prerender する
-- レイアウトは `src/pages/layout.tsx`(共通。CSS の読み込みのみ)。ヘッダー・フッターは各ページの `SiteFrame` で描画する
+- レイアウトは `src/pages/layout.tsx`(共通。CSS の読み込みと、dev だけ HMR 時のスクロール位置の保持)。ヘッダー・フッターは各ページの `SiteFrame` で描画する
+- dev で Markdown を編集すると、本文を lazy import する詳細ページが HMR で再描画され、本文の読み込み中はページが縮んでスクロールが先頭に戻る。`layout.tsx` から dev だけ `src/lib/hmr-scroll.ts` を呼び、更新前の位置に戻している
 - Solid コンポーネントでは props を分割代入しない(リアクティビティが切れるため `props.children` のように参照する)
 
 ## notes の投稿画面

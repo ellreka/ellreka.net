@@ -1,7 +1,6 @@
 // 投稿画面から notes を作るときの id・frontmatter・画像キーの決め方
 import { HTTPException } from "hono/http-exception";
 
-export const ASSETS_ORIGIN = "https://assets.ellreka.net";
 export const NOTES_DIR = "src/content/notes";
 export const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
 

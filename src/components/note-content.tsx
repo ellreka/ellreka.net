@@ -1,5 +1,6 @@
 import { createSignal, onCleanup, onMount, Show } from "solid-js";
 import type { JSX } from "solid-js";
+import { imageUrl } from "../lib/image-url";
 import { enhanceNoteImages } from "../lib/note-images";
 import { ChevronLeftIcon, ChevronRightIcon, CloseIcon } from "./icons";
 
@@ -50,7 +51,10 @@ export function NoteContent(props: NoteContentProps) {
       const links = [...content.querySelectorAll<HTMLAnchorElement>("a[data-note-image]")];
       const list = links.flatMap((item) => {
         const image = item.querySelector("img");
-        return image ? [{ link: item, src: image.currentSrc || image.src, alt: image.alt }] : [];
+        // 本文・カルーセルの画像は縮小した URL なので、拡大表示用の大きさで開き直す
+        return image
+          ? [{ link: item, src: imageUrl(image.currentSrc || image.src, "zoom"), alt: image.alt }]
+          : [];
       });
       setImages(list.map((item) => ({ src: item.src, alt: item.alt })));
       setIndex(

@@ -12,6 +12,7 @@ Void(Vite+ / Solid / `@void/md`)で構築し、Cloudflare にデプロイする�
 - 気軽な投稿は `src/content/notes/*.md`(ファイル名 `YYYY-MM-DD-slug` が id。frontmatter は `date` と任意の `entry`(関連 entry の id)・`draft`)。`draft: true` は entry と同じく本番の一覧・前後の note・prerender から除外し、直接アクセスも 404。dev と管理一覧では表示する。`/notes/:id` は動的ルート `src/pages/notes/[id].tsx` + `getPrerenderPaths()` で書き出す
 - notes も entries と同じ構成にする。サーバー専用の `src/lib/notes.ts` で frontmatter・公開対象の一覧・検索を扱い、ページのコンポーネントからは import しない。本文は `src/pages/notes/[id].tsx` で表示する note ごとに lazy import する。`visibleNotes` は dev だけ draft を含め、`publishedNotes` だけを prerender する。draft 専用のビルドプラグインは使わない
 - 記事内の画像・動画は R2 の公開バケット `ellreka-net-assets`(`https://assets.ellreka.net/`)に置き、記事からは絶対 URL で参照する。元ファイルは git 管理外の `assets/` に置き、`pnpm assets:upload [ファイル...]` でアップロードする(`scripts/upload-assets.ts`。wrangler の呼び出しは `scripts/r2.ts` で共有)
+- R2 の画像は元の大きさのまま置き、表示時に Cloudflare Image Transformations(ゾーン `ellreka.net` で有効化が必要。無効だと `/cdn-cgi/image/` が 404 になり画像が全部消える)で縮小・AVIF/WebP 化する。URL は `src/lib/image-url.ts` の `imageUrl` で表示先ごと(本文 `content`・カルーセル `thumbnail`・拡大表示 `zoom`)に作る。表示先ごとに 1 種類の URL で、元画像の大きさが分からないと小さい画像の表示幅が変わるため `srcset` は使わない(本文・拡大表示は `fit=scale-down`、カルーセルは枠を埋める `fit=cover`)。変換できない画像は `onerror=redirect` で元の画像に戻す。本文の最初の画像は LCP のため遅延読み込みにしない。entry・note 本文の `<img>` は Vite プラグイン `scripts/markdown-images.ts` が `@void/md` の出力した HTML を書き換える(`@void/md` に Markdown の処理を足す口が無いため。Solid のプラグインより前に置く)。R2 以外(dev の `/note-assets/`・投稿プレビューの blob)・SVG は元の URL のまま
 - 単独の URL は `<https://...>`(v2 のリンクカード `[](URL)` から変換)、動画は `<video src="https://assets.ellreka.net/..." controls></video>` で書く
 - トップ(`src/pages/index.tsx`)は notes と entries を日付順のタイムラインで表示する。`/notes`・`/entries` は同じタイムライン(`src/components/timeline-page.tsx` の `TimelinePage`)を種類で絞って書き出したページで、トップの all / notes / entries の切り替えはこの 3 ページへのリンク(static 出力なのでクエリでは絞らない)。一覧のデータはサーバー専用の `src/lib/timeline-preview.ts` で組み立てる。notes は見出し・リストなどをパースした HTML 本文を最大 4 行で省略し、画像は順序を保ってすべて末尾の横スクロールカルーセル(`src/components/image-carousel.tsx`)にまとめる。entries も本文中の画像を同じカルーセルで説明の下に出す。本文・画像の抽出はサーバー専用の `src/lib/note-preview.ts` で行い、root のコンポーネントには Markdown 本文を import しない
 - 一覧向けの note の表示(4 行で省略・Read more・画像のカルーセル)は `src/components/note-summary.tsx` の `NoteSummary` で、トップ・`/notes` と note 詳細の前後の note で共有する。前後の note のプレビューも loader(`previewNote`)で渡し、全文の Markdown コンポーネントは使わない
@@ -23,7 +24,8 @@ Void(Vite+ / Solid / `@void/md`)で構築し、Cloudflare にデプロイする�
 - OGP 画像として撮影する 1200×630 のカードのページを `/og`(サイト共通)・`/og/entries/:id`・`/og/notes/:id` に置く(`src/pages/og/`。枠は `src/components/og-card.tsx` の `OgCard`。`SiteFrame` は使わない)。文章は枠線で囲んで中央に置き、サイト名は枠線の下辺に重ねる。entry はタイトル、note は本文(`noteExcerpt`。200 文字を超える分だけ省略)を省略せずに出し(日付・タグは出さない)、長さに応じて文字サイズを下げる(`src/lib/og-fit.ts`)。draft は書き出さず、`robots: noindex` を付ける
 - ヘッダー・フッターは `src/components/site-frame.tsx` の `SiteFrame` を各ページで使い、全ページの幅は `max-w-3xl` に統一する。現在位置(`current`)を props で渡す。prerender 時は `useRouter().path` が常に `/` になるため、パスで分岐しない
 - `void.config.ts` は `output: "static"`。投稿画面以外の全ページを build 時に prerender する
-- レイアウトは `src/pages/layout.tsx`(共通。CSS の読み込みのみ)。ヘッダー・フッターは各ページの `SiteFrame` で描画する
+- レイアウトは `src/pages/layout.tsx`(共通。CSS の読み込みと、dev だけ HMR 時のスクロール位置の保持)。ヘッダー・フッターは各ページの `SiteFrame` で描画する
+- dev で Markdown を編集すると、本文を lazy import する詳細ページが HMR で再描画され、本文の読み込み中はページが縮んでスクロールが先頭に戻る。`layout.tsx` から dev だけ `src/lib/hmr-scroll.ts` を呼び、更新前の位置に戻している
 - Solid コンポーネントでは props を分割代入しない(リアクティビティが切れるため `props.children` のように参照する)
 
 ## notes の投稿画面

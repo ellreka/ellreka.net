@@ -1,5 +1,5 @@
 import type { HeadDescriptor } from "void";
-import { ASSETS_ORIGIN } from "./note-post";
+import { ASSETS_ORIGIN } from "./image-url";
 
 // 公開ページの head に出す OGP。og:url などは絶対 URL が必要なので、本番のオリジンを持つ
 export const SITE_ORIGIN = "https://ellreka.net";
